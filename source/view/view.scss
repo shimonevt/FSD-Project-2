@@ -1,0 +1,36 @@
+body {
+    margin: 0px;
+}
+.container {
+    width: 430px;
+    margin: 10px 0px;
+}
+.slider {
+    width: 100%;
+}
+.slider__body{
+    width: 100%;
+    height: 8px;
+    position: relative;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(31,32,65,0.5);
+    border-radius: 8px;
+}
+.progress__bar {
+    height: 100%;
+    background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
+    
+    
+}
+.bar__range {
+    position: absolute;
+    top: -4px;
+    width: 14px;
+    height: 14px;
+    background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
+    border: 2px solid #FFFFFF;
+    border-radius: 14px;
+}
+.bar__range.from {
+    left: 5px;
+}

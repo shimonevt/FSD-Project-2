@@ -1,19 +1,19 @@
 const path = require('path');
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const { CheckerPlugin } = require('awesome-typescript-loader');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require('webpack');
 module.exports = {
     context: path.resolve(__dirname, "source"),    
     resolve: {
         alias: {
-          
-        },
-        extensions: ['.ts', '.tsx', '.js', '.jsx']
-        
+           source : path.resolve(__dirname,"source"),
+           slider: path.resolve(__dirname,"source/slider")
+        },    
+        extensions: ['.ts', '.js', '.json']  
       },
-      devtool: 'source-map',
-      entry: './index/index.js',
+      entry: './index/index.ts',
       output: {
         filename: "index.js",
         path: path.resolve(__dirname, "build"),
@@ -45,17 +45,41 @@ module.exports = {
                   }
                 ]
               },
-            {
-                test: /\.tsx?$/,
-                loader: 'awesome-typescript-loader'
-            }
+              {
+                test: /\.m?js$/,
+                exclude: /node_modules/,
+                use: {
+                  loader: "babel-loader",
+                  options: {
+                    presets: ['@babel/preset-env']
+                  }
+                }
+              },
+              {
+                test: /\.ts$/,
+                exclude: /node_modules/,
+                use: {
+                  loader: "babel-loader",
+                  options: {
+                    presets: [
+                        '@babel/preset-env',
+                        '@babel/preset-typescript'
+                      ]
+                  }
+                } 
+              }
         ]
+    },
+    devServer: {
+      contentBase: path.join(__dirname, "build"),
+      compress: true,
+      open: true,
+      port: 9000
     },
     plugins: [
         new CheckerPlugin(),
         new HTMLWebpackPlugin({
             filename: "index.html",
-            chunks: ["index"],
             template: "./index/index.pug"
         }),
         new webpack.ProvidePlugin({
@@ -66,5 +90,6 @@ module.exports = {
         new MiniCSSExtractPlugin({
             filename: "[name].css"
         }), 
+        new CleanWebpackPlugin()
     ]
 }

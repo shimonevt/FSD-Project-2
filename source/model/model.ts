@@ -24,5 +24,12 @@ export const sliderOptionsDefault : sliderOptions = {
     showValues: false
 }
 export class Model {
-
+    private options: sliderOptions
+    constructor(options:sliderOptions = sliderOptionsDefault) {
+        this.options = options
+        
+    }
+    setVal(range:boolean,...values:[number]):void {
+        
+    }
 }

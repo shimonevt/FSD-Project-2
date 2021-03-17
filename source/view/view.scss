@@ -3,11 +3,11 @@ body {
 }
 .container {
     width: 430px;
-    margin: 10px 0px;
+    margin: 40px;
 }
 .container-2 {
     width: 500px;
-    margin: 10px 0px;
+    margin: 30px;
 }
 .slider {
     width: 100%;
@@ -21,10 +21,9 @@ body {
     border-radius: 8px;
 }
 .progress__bar {
+    position: absolute;
     height: 100%;
-    background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
-    
-    
+    background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);    
 }
 .bar__range {
     position: absolute;
@@ -35,6 +34,25 @@ body {
     border: 2px solid #FFFFFF;
     border-radius: 14px;
 }
+.bar__max-value,.bar__min-value {
+    position: absolute;
+    top: -20px;
+    font-size: 14px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;    
+}
+.bar__max-value{
+    left: 96%;
+}
 .bar__range.from {
     left: 5px;
+}
+.range__values{
+    position: absolute;
+    border-radius: 14px;
+    top: -25px;
+    padding: 0px 5px;
+    font-size: 14px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
+    color: #FFFFFF;
+    background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
 }

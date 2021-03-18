@@ -2,14 +2,14 @@ body {
     margin: 0px;
 }
 .container {
-    width: 430px;
+    max-width: 430px;
     margin: 40px;
 }
 .container-2 {
-    width: 500px;
+    max-width: 500px;
     margin: 30px;
 }
-.slider {
+.range-slider {
     width: 100%;
 }
 .slider__body{

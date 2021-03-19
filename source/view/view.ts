@@ -1,5 +1,5 @@
 import {sliderOptions, sliderOptionsDefault} from '../model/model'
-import {addEventListeners}from '../presenter/presenter'
+import {sliderInit}from '../presenter/presenter'
 import $ from 'jquery'
     
     
@@ -46,7 +46,7 @@ import $ from 'jquery'
             }
             this.slider.append(this.sliderBody)
             this.container.append(this.slider)
-            addEventListeners(this.slider,this.options)    
+            sliderInit(this.slider,this.options)   
         }
     }    
     export function setVal(elem:Element,text: any,units: string| undefined) {

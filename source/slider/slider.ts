@@ -1,4 +1,4 @@
-import {sliderOptions, sliderOptionsDefault} from '../model/model'
+import { sliderOptions, sliderOptionsDefault} from '../options/options'
 import { Model } from '../model/model'
 import {View}from '../view/view'
 import '../presenter/presenter'

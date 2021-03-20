@@ -16,9 +16,20 @@ $(document).ready(function(){
     });
     let cont2 = new Slider({
         rangeClass: '.container-2',
+        minValue: 0,
+        maxValue: 600,
         range : false,
-        minValue: 50,
-        maxValue : 600,
-        toVal: 100
+        toVal : 400,
+        sliderStep: 1,
+        showValues: false
     });
+    let containerVertical = new Slider({
+        rangeClass: '.container-3',
+        isVertical: true,
+        minValue: 0,
+        maxValue: 600,
+        toVal: 50,
+        
+        range : false,
+    })
 })

@@ -1,5 +1,15 @@
-import { sliderOptions, sliderOptionsDefault } from "../options/options"
+import { calcInitPosition, calcValue, setVal } from "../functions/functions"
+import { calcBorder, HandlingClickOnSliderBody } from "../model/model"
+import { ISliderOptions} from "../options/options"
+import { View } from "../view/view"
 
+class Presenter {
+    view : View
+    model : Model 
+    constructor(view:View,model:Model) {
+        let initOptions = this.view.sendDataFromViewToPresenter()
+    }
+}
 export function  sliderInit(slider: Element,options:sliderOptions) {
     let sliderBody = slider.children[0]
     let sliderBar = sliderBody.children[2]
@@ -7,178 +17,125 @@ export function  sliderInit(slider: Element,options:sliderOptions) {
     let direction,width
     options.isVertical == true ? (direction ='bottom:',width=`height:`) : (direction = 'left: ',width = 'width: ')
     rangeTo.setAttribute('style',`${direction}`+calcInitPosition(options.toVal,options.maxValue))
-    if (options.range == true) {
+    if (options.range) {
         var rangeFrom = sliderBody.children[4]
         rangeFrom.setAttribute('style',`${direction}` + calcInitPosition(options.fromVal,options.maxValue))
-        sliderBar.setAttribute('style',`${width}`+calcInitPosition(options.toVal-options.fromVal,options.maxValue)+`;${direction}`+calcInitPosition(options.fromVal,options.maxValue))
+        let deltaValue = options.toVal - options.fromVal
+        sliderBar.setAttribute('style',`${width}`+calcInitPosition(deltaValue,options.maxValue)+`;${direction}`+calcInitPosition(options.fromVal,options.maxValue))
         if (options.showValues == true) {
             let rangeMaxValue = sliderBody.children[5]
             rangeMaxValue.setAttribute('style',`${direction}`+ calcInitPosition(options.toVal,options.maxValue))
-            rangeMaxValue.textContent = `${options.toVal} ${options.units}`
+            rangeMaxValue.textContent = setVal(options.toVal,options.units)
             let rangeMinValue = sliderBody.children[6]
             rangeMinValue.setAttribute('style',`${direction}` + calcInitPosition(options.fromVal,options.maxValue))
-            rangeMinValue.textContent =`${options.fromVal} ${options.units}`  
+            rangeMinValue.textContent = setVal(options.fromVal,options.units)  
         }
     } else {
         sliderBar.setAttribute('style',`${width}`+ calcInitPosition(options.toVal,options.maxValue))
         if (options.showValues == true) {
             let rangeMaxValue = sliderBody.children[4]
             rangeMaxValue.setAttribute('style',`${direction}`+calcInitPosition(options.toVal,options.maxValue))
-            rangeMaxValue.textContent =`${options.toVal} ${options.units}`
+            rangeMaxValue.textContent = setVal(options.toVal,options.units)
         }
     }
 }
 export function addEventListeners(slider:Element,options:sliderOptions) {
-    //1 случай - если слайдер вертикальный/горизонтальный
-    //2 случай - range = true/false
-    // нижепредставленный код нужно оформить в функцию для вызова при изменениях и инициализации
     sliderClick(slider,options)
-    addDragNDrop(slider,options) // стоит унифицировать для всех ползунков
+    initDragNDrop(slider,options) // стоит унифицировать для всех ползунков
 }
-export function addDragNDrop(slider:Element,options:sliderOptions) {
+export function initDragNDrop(slider:Element,options:sliderOptions) {
     let sliderBody = slider.children[0]
-    var sliderBar = sliderBody.children[2]
-    let rangeTo = sliderBody.children[3]    
-     rangeTo.addEventListener('mousedown' , (event) => {
-             let sliderWidth = getComputedStyle(slider)
-             let handler = getComputedStyle(rangeTo)
-             let direction:string,width:string
-             options.isVertical == true ? (direction ='bottom: ',width='height:') : (direction = 'left: ',width = 'width: ')
-             event.preventDefault()
-             if (options.range) {
-                let rangeFrom = sliderBody.children[4]
-                var rangeFromPosition = parseInt(rangeFrom.style.left)
-                 if (options.showValues) {
-                    var rangeMaxValue = sliderBody.children[5]
+    let rangeTo = sliderBody.children[3]
+    addDragNDrop(slider,rangeTo,options.isVertical!,options.showValues!,options.range!,options.units!)
+    if(options.range) {
+        let rangeFrom = sliderBody.children[4]
+        addDragNDrop(slider,rangeFrom,options.isVertical!,options.showValues!,options.range!,options.units!)
+    }
+}    
+export function addDragNDrop(slider: Element,rangeHandle: Element,isVertical: boolean,showValues: boolean,range: boolean,units: string) {
+        rangeHandle.addEventListener('mousedown',(ev)=>{
+            let sliderBar = slider.children[0].children[2]
+            let sliderParams = getComputedStyle(slider)
+            let handlerParams = getComputedStyle(rangeHandle)
+            let direction:string,size:string
+            isVertical == true ? (direction ='bottom: ',size='height:') : (direction = 'left: ',size = 'width: ')
+            ev.preventDefault()
+            if (range) {
+                if ($(rangeHandle).hasClass('to')) {
+                   var AnotherRangeHandle = slider.children[0].children[4]
+                }else {
+                    var AnotherRangeHandle = slider.children[0].children[3]
+                }                
+                if (isVertical) {
+                    var progressBarBorder = parseFloat(AnotherRangeHandle.style.bottom)
+                } else {
+                    var progressBarBorder = parseFloat(AnotherRangeHandle.style.left)
                 }
-             }
-             let shiftX = parseInt(handler.width)/2
-             let shiftY = parseInt(handler.height)/2
-             // shiftY  нужен(сделать по аналогии)
-             document.addEventListener('mousemove', onMouseMove)
-             document.addEventListener('mouseup', onMouseUp)
-             function onMouseMove(event:MouseEvent) {
-                 if(options.isVertical) {
-                    var newPosition = Math.abs(100*(event.clientY + shiftY - slider.getBoundingClientRect().bottom) / parseInt(sliderWidth.height))
-                    console.log(slider.getBoundingClientRect().bottom)
-                 } else {
-                    var newPosition = 100*(event.clientX - shiftX - slider.getBoundingClientRect().left) / parseInt(sliderWidth.width)
-                 }
-                 
-                 // курсор вышел из слайдера => оставить бегунок в его границах.
-                 if (newPosition < 0) {
-                    newPosition = 0
-                 }
-                 let rightEdge = 98
-                 if (newPosition > rightEdge) {
-                    newPosition = rightEdge
-                 }
-                 if (options.range) {
-                    rangeTo.setAttribute('style', `${direction} ${newPosition}%`)
-                    rangeMaxValue.setAttribute('style',`${direction} ${newPosition}%`)
-                    calcValue(rangeMaxValue,newPosition,sliderWidth.width,options.units);
-                    sliderBar.setAttribute('style', `${width} ${newPosition - rangeFromPosition}%;${direction} ${rangeFromPosition}%`)
-                 } else {
-                    rangeTo.setAttribute('style', `${direction} ${newPosition}%`)
-                    sliderBar.setAttribute('style', `${width} ${newPosition}%`)
-                 }
-             }
-
-             function onMouseUp() {
-                 document.removeEventListener('mouseup', onMouseUp)
-                 document.removeEventListener('mousemove', onMouseMove)
-             }
-         });
-        rangeTo.addEventListener('dragstart', function() {
+                console.log(progressBarBorder)
+            }
+            if (showValues) {
+                    var rangeValue = slider.children[0].children[5]
+            }
+            let shiftX = parseInt(handlerParams.width)/2
+            let shiftY = parseInt(handlerParams.height)/2
+            document.addEventListener('mousemove',onMouseMove)
+            document.addEventListener('mouseup',onMouseUp)
+            function onMouseMove(event:MouseEvent) {
+                if(isVertical) {
+                    var newPosition = 100*(slider.getBoundingClientRect().bottom- event.clientY - shiftY) / parseFloat(sliderParams.height)
+                } else {
+                    var newPosition = 100*(event.clientX - shiftX - slider.getBoundingClientRect().left) / parseFloat(sliderParams.width)
+                }
+                   let minEdge = calcBorder(sliderParams,handlerParams,isVertical,true)
+                   let maxEdge = calcBorder(sliderParams,handlerParams,isVertical,false)
+                   if (newPosition <= minEdge) {
+                        newPosition = minEdge
+                    }else if (newPosition >= maxEdge) {
+                        newPosition = maxEdge
+                    }              
+                if(range) {   
+                    rangeHandle.setAttribute('style',`${direction} ${newPosition}%`)
+                    if (Math.abs(newPosition) >= Math.abs(progressBarBorder)) {
+                        sliderBar.setAttribute('style',`${size} ${Math.abs(newPosition-progressBarBorder)}%; ${direction} ${progressBarBorder}%`)
+                    }else{
+                        sliderBar.setAttribute('style',`${size} ${Math.abs(newPosition-progressBarBorder)}%; ${direction} ${newPosition}%`)
+                    }
+                    if(showValues) {
+                        rangeValue.setAttribute('style',`${direction} ${newPosition}%`)
+                        if (isVertical) {
+                            calcValue(rangeValue,newPosition,sliderParams.height,units)
+                        }else {
+                            calcValue(rangeValue,newPosition,sliderParams.width,units)
+                        }
+                    }
+                }else {
+                    rangeHandle.setAttribute('style',`${direction} ${newPosition}%`)
+                    sliderBar.setAttribute('style',`${size} ${Math.abs(newPosition)}%`)
+                }
+            }         
+            function onMouseUp(event:MouseEvent) {
+                document.removeEventListener('mouseup', onMouseUp)
+                document.removeEventListener('mousemove', onMouseMove)
+            }
+        });
+        rangeHandle.addEventListener('dragstart', function() {
             return false;
         });
-}
-export function calcValue(elem:Element,coord: number,width:string,units:string|undefined) {
-        if(units == undefined) {
-            throw Error(`Ошибка: не определен options.units`)
-        }
-        elem.textContent =`${Math.ceil(coord*0.01*parseInt(width))} ${units}`
-}
-export function calcPositionAfterClick(elem:Element,coord: number,width: string) {
-    return 
-}
-export function calcInitPosition(position:number|undefined,width:number|undefined) {
-        return  `${100*(position/width)}%` 
-}
+    }
+
+
+
 export function sliderClick(slider: Element,options: sliderOptions) {
-    let sliderWidth = getComputedStyle(slider)
     let sliderBody = slider.children[0]
-    let sliderBar = sliderBody.children[2]
-    let rangeTo = sliderBody.children[3]
-    let direction :string,width :string
-    options.isVertical == true ? (direction ='bottom:',width=`height:`) : (direction = 'left: ',width = 'width: ')
+
     sliderBody.addEventListener('click',function(event) {
-        let handler = getComputedStyle(rangeTo)
-        if (options.isVertical) {
-            var clickPosition = event.clientY - slider.getBoundingClientRect().bottom + parseInt(handler.height)/2 // number
-            var newPosition = Math.abs(100 * clickPosition/parseInt(sliderWidth.height))//percent
-            var rangeToPosition = parseInt(rangeTo.style.bottom)
-        } else{
-            var clickPosition = event.clientX - slider.getBoundingClientRect().left - parseInt(handler.width)/2 // number
-            var newPosition = 100 * clickPosition/parseInt(sliderWidth.width)//percent
-            var rangeToPosition = parseInt(rangeTo.style.left)
+        if (event.target == sliderBody.children[0]) {//max
+            
+        }else if(event.target == sliderBody.children[1]) {//min
+        } else if (event.target == sliderBody||event.target == sliderBody.children[2]) {
+            HandlingClickOnSliderBody(event,slider,options)           
+        
         }
-        if (options.range) {
-            var rangeFrom = sliderBody.children[4]
-            if (options.isVertical) {
-                var rangeFromPosition = parseInt(rangeFrom.style.bottom)
-            }else {
-                var rangeFromPosition = parseInt(rangeFrom.style.left)
-            }
-            if ( Math.abs(newPosition - rangeToPosition) >= Math.abs(newPosition - rangeFromPosition)) {
-                if( newPosition >=97){
-                    newPosition = 97 // пересчитать это расстояние не в процентах, а в px (с учетом ширины ползунка)
-                }else if(newPosition <0){
-                    newPosition = 0
-                }       
-                rangeFrom.setAttribute('style',`${direction} ${newPosition}%`)
-                sliderBar.setAttribute('style',`${width} ${rangeToPosition - newPosition}%;${direction} ${newPosition}%`)
-                if (options.showValues){
-                    let rangeMinValue = sliderBody.children[6]
-                    rangeMinValue.setAttribute('style',`${direction} ${newPosition}%`)
-                    if (options.isVertical) {
-                        calcValue(rangeMinValue,newPosition,sliderWidth.height,options.units)
-                    } else {
-                        calcValue(rangeMinValue,newPosition,sliderWidth.width,options.units)
-                    }
-                }   
-            } else {  
-                if(newPosition >=97){ // правильно посчитать
-                        newPosition= 97
-                }else if (newPosition<0){
-                    newPosition = 0
-                }
-                rangeTo.setAttribute('style',`${direction} ${newPosition}%`)
-                sliderBar.setAttribute('style',`${width} ${newPosition- rangeFromPosition}%;${direction} ${rangeFromPosition}%`)
-                if (options.showValues){
-                    let rangeMaxValue = sliderBody.children[5]
-                    rangeMaxValue.setAttribute('style',`${direction} ${newPosition}%`)
-                    if (options.isVertical) {
-                        calcValue(rangeMaxValue,newPosition,sliderWidth.height,options.units)
-                    } else {
-                        calcValue(rangeMaxValue,newPosition,sliderWidth.width,options.units)
-                    }
-                }
-            }
-        }else {
-            if (options.isVertical) {
-                var rangeFromVal = Math.abs(100 * (clickPosition) / (parseInt(sliderWidth.height)))
-                console.log(rangeFromVal)
-            }else {
-                var rangeFromVal = 100 * (clickPosition) / (parseInt(sliderWidth.width))
-            }
-            if (rangeFromVal >= 97) {
-                rangeFromVal = 97;
-            }else if (rangeFromVal<0){
-                rangeFromVal = 0
-            }
-            rangeTo.setAttribute('style', `${direction}  ${rangeFromVal}%`);
-            sliderBar.setAttribute('style',`${width} ${rangeFromVal}%`)
-            }
     })
 }
+

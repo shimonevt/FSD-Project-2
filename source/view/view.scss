@@ -29,7 +29,9 @@ body {
     border-radius: 8px;
     box-sizing: border-box;
 }
-
+.slider__body .hidden {
+    display: none;
+}
 .progress__bar {
     position: absolute;
     height: 100%;
@@ -45,6 +47,7 @@ body {
 }
 
 .bar__max-value,.bar__min-value {
+    cursor: pointer;
     position: absolute;
     font-size: 14px;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;    
@@ -57,8 +60,10 @@ body {
     position: absolute;
     border-radius: 14px;
     top: -25px;
-    padding: 0px 5px;
+    padding: 5px;
     font-size: 14px;
+    min-width: 35px;
+    height: 20px;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
     color: #FFFFFF;
     background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);

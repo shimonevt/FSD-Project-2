@@ -1,0 +1,36 @@
+mixin panel()
+    .panel-container 
+        p.range-name
+        .container__row
+            .row__unit.max-value
+                input.max-value(type="text")
+                p.max-value maxValue
+            .row__unit.min-value
+                input.min-value(type="text")
+                p.min-value minValue 
+        .container__row 
+                .row__unit.to-val
+                    input.to-val(type="text")
+                    p.to-val toVal 
+                .row__unit.from-val
+                    input.from-val(type="text")
+                    p.from-val fromVal
+        .container__row 
+                .row__unit.slider-step
+                    input.slider-step(type="text")
+                    p.slider-step slider step 
+                .row__unit.units
+                    input.units(type="text")
+                    p.units units
+        .container__row 
+                .row__unit.vertical 
+                    input.vertical(type="checkbox", name="vertical")
+                    p.vertical isVertical
+                .row__unit.range 
+                    input(type="checkbox", name="range")
+                    p.range range 
+                .row__unit.show-values 
+                    input(type="checkbox",name="show-values")
+                    p.show-values show values
+
+

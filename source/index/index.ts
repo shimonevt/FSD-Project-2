@@ -12,24 +12,18 @@ $(document).ready(function(){
         toVal : 400,
         sliderStep: 1,
         units: '$',
-        showValues: true
+        showValues: false
     });
     let cont2 = new Slider({
         rangeClass: '.container-2',
         minValue: 0,
         maxValue: 600,
         range : false,
+        isVertical: false,
+        fromVal: 50,
         toVal : 400,
         sliderStep: 1,
+        units : 'F',
         showValues: false
     });
-    let containerVertical = new Slider({
-        rangeClass: '.container-3',
-        isVertical: true,
-        minValue: 0,
-        maxValue: 600,
-        toVal: 50,
-        
-        range : false,
-    })
 })

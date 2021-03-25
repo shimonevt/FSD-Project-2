@@ -1,29 +1,95 @@
-import { calcValue } from "../functions/functions"
-import { ISliderOptions, sliderOptionsDefault } from "../options/options"
+import { calcBorder, calcValue} from "../functions/functions"
+import { ISliderCoordinates, ISliderOptions, sliderOptionsDefault } from "../options/options"
 
+//какие состояния будут
+    const states = {
+        inital: 'init',
+        click : 'click',
+        drag: 'drag',
+        changeValues : 'changes'
+    }
+    interface IStateInit {
+        type: 'initial'
+        data: ISliderOptions
+    }
+    interface IStateClick {
+        type: 'clicked'
+        data: ISliderOptions
+    }
+    interface IStore {
+        storage: ISliderOptions
+        getState: () =>ISliderOptions
+    }
+    export interface IRenderValues {
+        coordinates : string[]
+        barPosition: number
+        barSize: number
+        isRange: boolean
+        rangeTo: number
+        rangeFrom: number
+        showValues: boolean
+        values: string[]
+        valuesPosition: number[]
+    }
+type State = IStateInit | IStateClick
 export class Model {
-    private options: ISliderOptions
-    constructor(options:ISliderOptions = sliderOptionsDefault) {
-        this.options = options
-        
+    state: ISliderOptions
+    renderValues: IRenderValues
+    getDataFromPresenterforModel(options:ISliderOptions){
+        this.storeData(options)
+        this.renderValues =this.controlStates(this.loadInitData(options))
+        //здесь уже по методам посчитать и передать css- свойства 
+        //также здесь надо хранить значения
     }
-}
-export function calcBorder(sliderParams:CSSStyleDeclaration,handlerParams:CSSStyleDeclaration,isVertical:boolean,isMin:boolean) {
-    if(isVertical) {
-        if(isMin){
-            return 0
-        }else {
-            return 100*(parseFloat(sliderParams.height)-parseFloat(sliderParams.border)-parseFloat(handlerParams.height))/parseFloat(sliderParams.height)
+    storeData(options: ISliderOptions) {
+        this.state = options
+    }
+    calcValues(options:ISliderOptions){
+
+    }
+    controlStates(state:State){
+        switch (state.type) {
+            case 'initial':
+                return this.sendStylesForRender(state.data) // здесь нужно вернуть обьект, определенным образом обработанный
+            case 'clicked':
+
+                break
         }
-    }else {
-        if(isMin){
-            return 0
-        }else {
-            return 100*(parseFloat(sliderParams.width)-parseFloat(sliderParams.border)-parseFloat(handlerParams.width))/parseFloat(sliderParams.width)
-        }
+    }
+    loadInitData(options:ISliderOptions):State{
+        return {type: 'initial', data: options}
+    }
+    sendStylesForRender(currentData:ISliderOptions):IRenderValues {
+        return  {
+            coordinates: currentData.isVertical ? (['vertical','bottom: ','height: ']) : (['horizontal','left: ','width: ']),
+            barPosition: currentData.range ?  100*(currentData.fromVal + (currentData.handlerWidth/2))/(currentData.maxValue-currentData.minValue): 0,
+            barSize: (calcBorder(currentData.fromVal,currentData.toVal,currentData.maxValue - currentData.minValue,currentData.range,currentData.handlerWidth)),
+            isRange: currentData.range,
+            rangeTo:    100*(currentData.toVal)/(currentData.maxValue-currentData.minValue),
+            rangeFrom: 100*(currentData.fromVal)/(currentData.maxValue-currentData.minValue),
+            showValues: currentData.showValues,
+            values: [this.setVal(currentData.fromVal,currentData.units),this.setVal(currentData.toVal,currentData.units)],
+            valuesPosition: [this.setValPosition(currentData.fromVal,currentData.maxValue-currentData.minValue,currentData.handlerWidth,currentData.sliderWidth),
+                            this.setValPosition(currentData.toVal,currentData.maxValue-currentData.minValue,currentData.handlerWidth,currentData.sliderWidth)]
+
+        } 
+    }
+    sendChanges(){
+        return this.renderValues
+    }
+    setVal(text: number,units: string): string  {
+        if (units != undefined && text != undefined) {
+            return (`${text}${units}`)
+        }else if(text!= undefined){
+            return text.toString()
+        }              
+    }
+    setValPosition(val:number,minMax:number,handlerWidth:number,sliderWidth: number): number{
+           return Math.ceil(100*((val/minMax)-(handlerWidth/sliderWidth)))         
     }
 }
 
+/*
 export function calcClickPosition(ev:Event,slider:Element,isVertical:boolean,range:boolean) {
     let handlerParams = getComputedStyle(slider.children[0].children[3])
     if(isVertical){    
@@ -105,3 +171,4 @@ export function HandlingClickOnSliderBody(event:Event,slider:Element,options:sli
             sliderBar.setAttribute('style',`${size} ${clickPosition}%`)
         }
 }
+*/

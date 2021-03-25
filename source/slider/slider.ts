@@ -1,8 +1,6 @@
 import $ from 'jquery'
-import { ISliderOptions, sliderOptionsDefault} from '../options/options'
-import { Model } from '../model/model'
-import {View}from '../view/view'
-import '../presenter/presenter'
+import { ISliderCoordinates, ISliderOptions } from '../options/options'
+import {Presenter} from '../presenter/presenter'
 /*interface JQuery {
     rangeSlider: JQuery;
 }
@@ -15,12 +13,8 @@ import '../presenter/presenter'
 })(jQuery);
 */
 export class Slider {
-    private view: View
-    private model: Model
-    private options : ISliderOptions 
-    constructor(options:ISliderOptions = sliderOptionsDefault){
-        this.options = options
-        this.model = new Model(options)
-        this.view = new View(options)
+    private presenter : Presenter 
+    constructor(options : ISliderOptions){
+        this.presenter = new Presenter(options)
     } 
 }

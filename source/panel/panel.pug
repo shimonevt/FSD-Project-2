@@ -3,34 +3,34 @@ mixin panel()
         p.range-name
         .container__row
             .row__unit.max-value
-                input.max-value(type="text")
-                p.max-value maxValue
+                input#max-value(type="text")
+                label(for="max-value").max-value maxValue
             .row__unit.min-value
                 input.min-value(type="text")
-                p.min-value minValue 
+                label(for="min-value").min-value minValue 
         .container__row 
                 .row__unit.to-val
                     input.to-val(type="text")
-                    p.to-val toVal 
+                    label(for="to-val").to-val toVal 
                 .row__unit.from-val
                     input.from-val(type="text")
-                    p.from-val fromVal
+                    label(for="from-val").from-val fromVal
         .container__row 
                 .row__unit.slider-step
                     input.slider-step(type="text")
-                    p.slider-step slider step 
+                    label(for="slider-step").slider-step slider step 
                 .row__unit.units
                     input.units(type="text")
-                    p.units units
+                    label(for="units").units units
         .container__row 
                 .row__unit.vertical 
-                    input.vertical(type="checkbox", name="vertical")
-                    p.vertical isVertical
+                    input#vertical(type="checkbox", name="vertical")
+                    label(for="vertical").vertical isVertical
                 .row__unit.range 
-                    input(type="checkbox", name="range")
-                    p.range range 
+                    input#range(type="checkbox", name="range")
+                    label(for="range").range range 
                 .row__unit.show-values 
-                    input(type="checkbox",name="show-values")
-                    p.show-values show values
+                    input#show-values(type="checkbox",name="show-values")
+                    label(for="show-values").show-values show values
 
 

@@ -1,3 +1,4 @@
+include ../panel/panel
 doctype html
 html(lang="en")
     head
@@ -6,6 +7,10 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Index
     body 
-        .container
-        .container-2
-        .container-3
+        .group
+            .container
+            +panel
+        .group 
+            .container-2
+        .group 
+            .container-3

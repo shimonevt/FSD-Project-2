@@ -1,16 +1,22 @@
-import { calcInitPosition, calcValue, setVal } from "../functions/functions"
-import { calcBorder, HandlingClickOnSliderBody } from "../model/model"
-import { ISliderOptions} from "../options/options"
+import { Model } from "../model/model"
+import { ISliderOptions } from "../options/options"
 import { View } from "../view/view"
 
-class Presenter {
+export class Presenter {
     view : View
     model : Model 
-    constructor(view:View,model:Model) {
+    constructor(options:ISliderOptions) {
+        this.view = new View(options)
+        this.model = new Model()
+        this.init()
+    }
+    init(){
         let initOptions = this.view.sendDataFromViewToPresenter()
+        this.model.getDataFromPresenterforModel(initOptions)
+        this.view.getChanges(this.model.sendChanges())
     }
 }
-export function  sliderInit(slider: Element,options:sliderOptions) {
+/*export function  sliderInit(slider: Element,options:sliderOptions) {
     let sliderBody = slider.children[0]
     let sliderBar = sliderBody.children[2]
     let rangeTo = sliderBody.children[3]
@@ -137,5 +143,5 @@ export function sliderClick(slider: Element,options: sliderOptions) {
         
         }
     })
-}
+}*/
 

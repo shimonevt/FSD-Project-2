@@ -1,7 +1,5 @@
-import { getElement } from "../functions/functions";
-
 export interface ISliderOptions {
-    rangeClass: string,
+    containerClass: string,
     minValue : number,
     maxValue: number,
     range: boolean,
@@ -10,7 +8,9 @@ export interface ISliderOptions {
     toVal: number,
     sliderStep: number,
     units : string,
-    showValues : boolean 
+    showValues : boolean,
+    handlerWidth?: number,
+    sliderWidth?: number
 }
 export interface ISliderCoordinates {
     left: number,
@@ -18,7 +18,7 @@ export interface ISliderCoordinates {
 }
 
 export const sliderOptionsDefault : ISliderOptions = {
-    rangeClass: '.container',
+    containerClass: '.container',
     minValue: 0,
     maxValue: 500,
     range : true,

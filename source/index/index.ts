@@ -1,4 +1,4 @@
-import '../view/view.scss'
+import './index.scss'
 import $ from 'jquery'
 import {Slider} from '../slider/slider'
 $(document).ready(function(){

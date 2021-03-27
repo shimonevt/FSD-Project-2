@@ -1,3 +1,4 @@
+import { type } from "jquery"
 import { Model } from "../model/model"
 import { ISliderOptions } from "../options/options"
 import { View } from "../view/view"
@@ -14,6 +15,7 @@ export class Presenter {
         let initOptions = this.view.sendDataFromViewToPresenter()
         this.model.getDataFromPresenterforModel(initOptions)
         this.view.getChanges(this.model.sendChanges())
+        this.view.addEventListeners((event)=>{return this.model.clickTreatment(event)},(event,whichHandler)=>{return this.model.dragNDropTreatment(event,whichHandler)})
     }
 }
 /*export function  sliderInit(slider: Element,options:sliderOptions) {

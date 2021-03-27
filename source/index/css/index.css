@@ -138,3 +138,18 @@ body {
 .range-slider.vertical .range__values {
   left: 15px;
 }
+
+.container {
+  max-width: 430px;
+  margin: 40px;
+}
+
+.container-2 {
+  max-width: 500px;
+  margin: 30px;
+}
+
+.container-3 {
+  height: 300px;
+  margin: 30px;
+}

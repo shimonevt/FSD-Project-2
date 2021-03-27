@@ -10,7 +10,8 @@ export interface ISliderOptions {
     units : string,
     showValues : boolean,
     handlerWidth?: number,
-    sliderWidth?: number
+    sliderWidth?: number,
+    sliderCoordinates?: ISliderCoordinates
 }
 export interface ISliderCoordinates {
     left: number,

@@ -14,19 +14,17 @@ import { IRenderValues } from '../model/model'
         private minVal: HTMLElement
         private rangeTo : HTMLElement
         private rangeFrom : HTMLElement
-        private sliderCoords: ISliderCoordinates
         constructor(options: ISliderOptions = sliderOptionsDefault){
             this.options = options
             this.container = document.querySelector(options.containerClass)
             this.slider = createElementSlider(['range-slider'])
             this.init();
-            //sliderInit(this.slider,this.options)
-            //addEventListeners(this.slider,this.options)
         }
         init() {
             this.createSlider()
             this.getHandlerWidth()
             this.getSliderWidth()
+            this.getSliderCoords()
         }
         createSlider(){
             this.container.append(this.slider)
@@ -56,9 +54,22 @@ import { IRenderValues } from '../model/model'
         getSliderWidth(){
             this.options.sliderWidth = parseInt(getComputedStyle(this.slider).width)
         }
-        addEventListeners(){}
+        addEventListeners(clickHandler:(ev:MouseEvent) =>IRenderValues,dragNDropHandler:(ev:MouseEvent,handler:string)=>IRenderValues){
+            this.sliderBody.addEventListener('click',((event)=>{this.renderView(clickHandler(event))}))
+            this.rangeTo.addEventListener('mousedown',((event)=>{this.renderView(this.MouseDown(event,'rangeTo',dragNDropHandler))}))
+            this.rangeTo.addEventListener('dragstart', function() {return false})
+            this.rangeFrom.addEventListener('mousedown',((event)=>{this.renderView(this.MouseDown(event,'rangeFrom',dragNDropHandler))}))
+            this.rangeFrom.addEventListener('dragstart', function() {return false})
+        }
         getChanges(val: IRenderValues){
             this.renderView(val)
+        }
+        MouseDown(ev:MouseEvent,whichHandler:string,onMouseMove:(ev:MouseEvent,whichHandler:string)=>IRenderValues){
+            function onMouseUp(event:MouseEvent) {
+                document.removeEventListener('mouseup', onMouseUp)
+                document.removeEventListener('mousemove', onMouseMove)
+            }
+            return onMouseMove(ev,whichHandler)
         }
         renderView(values:IRenderValues){
             if(values.coordinates[0] == 'vertical'){ 
@@ -71,7 +82,7 @@ import { IRenderValues } from '../model/model'
                  (this.rangeFrom.setAttribute('style',`${values.coordinates[1]} ${values.rangeFrom}%`),this.rangeFrom.classList.add('hidden'))
             this.rangeTo.setAttribute('style',`${values.coordinates[1]} ${values.rangeTo}%`)
             values.showValues ? this.showValues(false,values.isRange) :this.showValues(true,values.isRange)
-            this.maxVal.innerHTML = values.values[0],this.minVal.innerHTML = values.values[1]
+            this.minVal.innerHTML = values.values[0],this.maxVal.innerHTML = values.values[1]
             this.minVal.setAttribute('style',`${values.coordinates[1]} ${values.valuesPosition[0]}%`),
             this.maxVal.setAttribute('style',`${values.coordinates[1]} ${values.valuesPosition[1]}%`)
             
@@ -80,6 +91,12 @@ import { IRenderValues } from '../model/model'
             if (show&&showBoth) {this.maxVal.classList.remove('hidden'),this.minVal.classList.remove('hidden')}
             else if(show&&showBoth==false){this.maxVal.classList.remove('hidden'),this.minVal.classList.add('hidden')}
             else  {this.maxVal.classList.remove('hidden'),this.minVal.classList.remove('hidden')}
+        }
+        getSliderCoords(){
+            this.options.sliderCoordinates  ={
+                left: this.slider.getBoundingClientRect().left,
+                bottom: this.slider.getBoundingClientRect().bottom
+            }
         }
     }   
     

@@ -1,36 +1,37 @@
-mixin panel()
+mixin panel(containerClass)
     .panel-container 
         p.range-name
-        .container__row
-            .row__unit.max-value
-                input#max-value(type="text")
-                label(for="max-value").max-value maxValue
-            .row__unit.min-value
-                input.min-value(type="text")
-                label(for="min-value").min-value minValue 
-        .container__row 
-                .row__unit.to-val
-                    input.to-val(type="text")
-                    label(for="to-val").to-val toVal 
-                .row__unit.from-val
-                    input.from-val(type="text")
-                    label(for="from-val").from-val fromVal
-        .container__row 
-                .row__unit.slider-step
-                    input.slider-step(type="text")
-                    label(for="slider-step").slider-step slider step 
-                .row__unit.units
-                    input.units(type="text")
-                    label(for="units").units units
-        .container__row 
-                .row__unit.vertical 
-                    input#vertical(type="checkbox", name="vertical")
-                    label(for="vertical").vertical isVertical
-                .row__unit.range 
-                    input#range(type="checkbox", name="range")
-                    label(for="range").range range 
-                .row__unit.show-values 
-                    input#show-values(type="checkbox",name="show-values")
-                    label(for="show-values").show-values show values
+        .container__rows
+            .container__row
+                .row__unit.max-value
+                    input.max-value(type="text")
+                    label(for="max-value").max-value maxValue
+                .row__unit.min-value
+                    input.min-value(type="text")
+                    label(for="min-value").min-value minValue 
+            .container__row 
+                    .row__unit.to-val
+                        input.to-val(type="text")
+                        label(for="to-val").to-val toVal 
+                    .row__unit.from-val
+                        input.from-val(type="text")
+                        label(for="from-val").from-val fromVal
+            .container__row 
+                    .row__unit.slider-step
+                        input.slider-step(type="text")
+                        label(for="slider-step").slider-step slider step 
+                    .row__unit.units
+                        input.units(type="text")
+                        label(for="units").units units
+            .container__row 
+                    .row__unit.vertical 
+                        input.is-checkbox(type="checkbox", name="vertical", id=`vertical-${containerClass}`)
+                        label(for="vertical-"+containerClass).vertical isVertical
+                    .row__unit.range 
+                        input.is-checkbox(type="checkbox", name="range" id=`range-${containerClass}`)
+                        label(for="range-"+containerClass).range range 
+                    .row__unit.show-values 
+                        input.is-checkbox(type="checkbox",name="show-values",id=`show-values-${containerClass}`)
+                        label(for="show-values-"+containerClass).show-values show values
 
 

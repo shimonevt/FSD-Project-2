@@ -10,12 +10,12 @@ export interface ISliderOptions {
     units : string,
     showValues : boolean,
     handlerWidth?: number,
-    sliderWidth?: number,
+    sliderParams?: CSSStyleDeclaration,
     sliderCoordinates?: ISliderCoordinates
 }
 export interface ISliderCoordinates {
     left: number,
-    bottom: number
+    top: number
 }
 
 export const sliderOptionsDefault : ISliderOptions = {

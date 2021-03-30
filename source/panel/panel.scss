@@ -2,10 +2,16 @@
     display: flex;
     flex-wrap: wrap;
     border: 2px solid darkcyan;
+    margin: 20px 0px;
 }
 p.range-name {
     font-size: 24px;
     font-family: 'Courier New', Courier, monospace;
+}
+.container__rows {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4,auto);
 }
 .container__row{
     border: 1px solid black;

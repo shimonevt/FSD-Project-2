@@ -15,7 +15,7 @@ export interface ISliderOptions {
 }
 export interface ISliderCoordinates {
     left: number,
-    top: number
+    bottom: number
 }
 
 export const sliderOptionsDefault : ISliderOptions = {

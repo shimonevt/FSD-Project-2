@@ -19,13 +19,12 @@ export class Panel extends EventEmitter{
          this.init()        
     }
     getData(options: ISliderOptions) {
-        console.log('ok')
         this.options = options
-        this.init()
     }
     init(){
          this.setValues()
          this.addPanelListeners()
+         this.subscribe('values-ready-for-panel',(data:ISliderOptions)=>{this.getData(data)})
     }
     setValues(){
         let maxValue,minValue,toValue,fromValue,sliderStep,units
@@ -41,10 +40,9 @@ export class Panel extends EventEmitter{
         this.checkInputs(range,this.options.range)
         const showValues = this.panel.querySelector('div.show-values > input')!
         this.checkInputs(showValues,this.options.showValues)
-        console.log(this.listeners)
     }
     checkInputs(elem:Element,isTrue:boolean){
-        isTrue  ? elem.setAttribute('checked','') : elem.setAttribute('unchecked','')
+        isTrue  ? elem.checked = true : elem.checked = false
         this.listeners.push(elem)
     }
     createPanelElement(elem:Element,selector: string, val: number| string){
@@ -60,13 +58,13 @@ export class Panel extends EventEmitter{
     handleChanges(ev:Event,el:Element){
         if(el.classList.contains('is-checkbox')){
             if (el.id==`vertical-${this.options.containerClass}`){
-                el.hasAttribute('checked')? this.options.isVertical =true : this.options.isVertical= false
+                el.checked=true? this.options.isVertical =true : this.options.isVertical= false
             }else if(el.id==`range-${this.options.containerClass}`){
-                el.checked? this.options.range =true : this.options.range=false
+                el.checked=true? this.options.range =true : this.options.range=false
             }else if(el.id==`show-values-${this.options.containerClass}`){
-                el.checked? this.options.showValues =true : this.options.showValues = false
+                el.checked=true? this.options.showValues =true : this.options.showValues = false
             }
-        }
+        }else{}
         this.emit('panel-changed',this.options)
     }
     

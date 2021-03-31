@@ -87,30 +87,31 @@ import { EventEmitter } from '../eventEmitter/eventEmitter'
         getChanges(val: IRenderValues){
             this.renderView(val)
         }
-        renderView(values:IRenderValues){
-            if(values.coordinates[0] == 'vertical'){ 
+        renderView({coordinates, barPosition, barSize, isRange, rangeTo, rangeFrom,
+                    showValues, values, valuesPosition}:IRenderValues){
+            if(coordinates[0] == 'vertical'){ 
                this.slider.classList.add('vertical')
             }else{
                this.slider.classList.remove('vertical') 
             }
-            this.progressBar.setAttribute('style',`${values.coordinates[1]}${values.barPosition}%;${values.coordinates[2]}${values.barSize}%`)
-            values.isRange ? (this.rangeFrom.setAttribute('style',`${values.coordinates[1]} ${values.rangeFrom}%`),this.rangeFrom.classList.remove('hidden')):
-                 (this.rangeFrom.setAttribute('style',`${values.coordinates[1]} ${values.rangeFrom}%`),this.rangeFrom.classList.add('hidden'))
-            this.rangeTo.setAttribute('style',`${values.coordinates[1]} ${values.rangeTo}%`)
-            values.showValues ? this.showValues(false,values.isRange) :this.showValues(true,values.isRange)
-            this.minVal.innerHTML = values.values[0],this.maxVal.innerHTML = values.values[1]
-            this.minVal.setAttribute('style',`${values.coordinates[1]} ${values.valuesPosition[0]}%`),
-            this.maxVal.setAttribute('style',`${values.coordinates[1]} ${values.valuesPosition[1]}%`)
+            this.progressBar.setAttribute('style',`${coordinates[1]}${barPosition}%;${coordinates[2]}${barSize}%`)
+            isRange ? (this.rangeFrom.setAttribute('style',`${coordinates[1]} ${rangeFrom}%`),this.rangeFrom.classList.remove('hidden')):
+                 (this.rangeFrom.setAttribute('style',`${coordinates[1]} ${rangeFrom}%`),this.rangeFrom.classList.add('hidden'))
+            this.rangeTo.setAttribute('style',`${coordinates[1]} ${rangeTo}%`)
+            showValues ? this.showValues(true,isRange) :this.showValues(false,isRange)
+            this.minVal.innerHTML = values[0],this.maxVal.innerHTML = values[1]
+            this.minVal.setAttribute('style',`${coordinates[1]} ${valuesPosition[0]}%`),
+            this.maxVal.setAttribute('style',`${coordinates[1]} ${valuesPosition[1]}%`)
         }
         showValues(show: boolean,showBoth: boolean){
-            if (show&&showBoth) {this.maxVal.classList.remove('hidden'),this.minVal.classList.remove('hidden')}
-            else if(show&&showBoth==false){this.maxVal.classList.remove('hidden'),this.minVal.classList.add('hidden')}
+            if (show==true &&showBoth== true) {this.maxVal.classList.remove('hidden'),this.minVal.classList.remove('hidden')}
+            else if(show == true&&showBoth==false){this.maxVal.classList.remove('hidden'),this.minVal.classList.add('hidden')}
             else if (show==false) {this.maxVal.classList.add('hidden'),this.minVal.classList.add('hidden')}
         }
         getSliderCoords(){
             this.options.sliderCoordinates ={
                 left: this.slider.getBoundingClientRect().left,
-                top: this.slider.getBoundingClientRect().top 
+                bottom: this.slider.getBoundingClientRect().bottom 
             }
         }
     }   

@@ -19,7 +19,8 @@ body {
     border-radius: 8px;
     box-sizing: border-box;
 }
-.slider__body .hidden {
+.slider__body  .range__values.hidden,
+.slider__body  .bar__range.hidden {
     display: none;
 }
 .progress__bar {

@@ -1,21 +1,25 @@
 export interface ISliderOptions {
     containerClass: string,
-    minValue : number,
+    minValue: number,
     maxValue: number,
     range: boolean,
     isVertical: boolean,
     fromVal: number,
     toVal: number,
     sliderStep: number,
-    units : string,
-    showValues : boolean,
+    units: string,
+    showValues: boolean,
     handlerWidth?: number,
-    sliderParams?: CSSStyleDeclaration,
+    sliderParams?: ISliderParameters,
     sliderCoordinates?: ISliderCoordinates
 }
 export interface ISliderCoordinates {
     left: number,
-    bottom: number
+    top: number
+}
+export interface ISliderParameters {
+    width : number,
+    height: number
 }
 
 export const sliderOptionsDefault : ISliderOptions = {

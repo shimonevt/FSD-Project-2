@@ -1,8 +1,8 @@
 import './index.scss'
 import $ from 'jquery'
-import {Slider} from '../slider/slider'
+import '../slider/slider'
 $(document).ready(function(){
-    let container =  new Slider({
+    $('.container').rangeSlider({
         containerClass: '.container',
         minValue: 0,
         maxValue: 500,
@@ -13,8 +13,8 @@ $(document).ready(function(){
         sliderStep: 1,
         units: '$',
         showValues: false
-    });
-    let cont2 = new Slider({
+    })
+    $('.container-2').rangeSlider({
         containerClass: '.container-2',
         minValue: 0,
         maxValue: 600,
@@ -26,7 +26,8 @@ $(document).ready(function(){
         units : 'F',
         showValues: false
     });
-    let cont3 =  new Slider({
+        
+    $('.container-3').rangeSlider({
         containerClass: '.container-3',
         minValue: 0,
         maxValue: 500,

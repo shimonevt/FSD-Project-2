@@ -1,12 +1,10 @@
 import $, { event } from 'jquery'
-import {ISliderCoordinates, ISliderOptions, sliderOptionsDefault} from '../options/options'
+import {ISliderCoordinates, ISliderOptions, ISliderParameters, sliderOptionsDefault} from '../options/options'
 import { ViewBar } from './viewBar/viewBar'
-import { createElementSlider } from '../functions/functions'
 import { IRenderValues } from '../model/model'
 import  {Presenter} from '../presenter/presenter'
 import { EventEmitter } from '../eventEmitter/eventEmitter'
-    export class View extends EventEmitter   {
-        private options: ISliderOptions
+    class View extends EventEmitter   {
         private container : Element
         private slider : HTMLElement
         private sliderBody : HTMLElement
@@ -15,59 +13,66 @@ import { EventEmitter } from '../eventEmitter/eventEmitter'
         private minVal: HTMLElement
         private rangeTo : HTMLElement
         private rangeFrom : HTMLElement
-        constructor(options: ISliderOptions = sliderOptionsDefault){
+        constructor(containerClass:string){
             super()
-            this.options = options
-            this.container = document.querySelector(options.containerClass)!
-            this.slider = createElementSlider(['range-slider'])
+            this.container = document.querySelector(containerClass)!
+            this.slider = this.createElementSlider(['range-slider'])
             this.init();
         }
         init() {
             this.createSlider()
-            this.getHandlerWidth()
-            this.getSliderWidth()
+    
             this.getSliderCoords()
             this.addEventListeners()
         }
         createSlider(){
             this.container.append(this.slider)
-            this.sliderBody = createElementSlider(['slider__body'])
-            this.progressBar = createElementSlider(['progress__bar'])
-            this.maxVal = createElementSlider(['bar__max-value'])
-            this.minVal = createElementSlider(['bar__min-value'])
-            this.rangeTo = createElementSlider(['bar__range','to'])
+            this.sliderBody = this.createElementSlider(['slider__body'])
+            this.progressBar = this.createElementSlider(['progress__bar'])
+            this.maxVal = this.createElementSlider(['bar__max-value'])
+            this.minVal = this.createElementSlider(['bar__min-value'])
+            this.rangeTo = this.createElementSlider(['bar__range','to'])
             this.sliderBody.append(this.maxVal)
             this.sliderBody.append(this.minVal)
             this.sliderBody.append(this.progressBar) 
             this.sliderBody.append(this.rangeTo)
-            this.rangeFrom = createElementSlider(['bar__range','from'])
+            this.rangeFrom = this.createElementSlider(['bar__range','from'])
             this.sliderBody.append(this.rangeFrom)
-            this.maxVal = createElementSlider(['range__values','max-value'])
+            this.maxVal = this.createElementSlider(['range__values','max-value'])
             this.sliderBody.append(this.maxVal)   
-            this.minVal = createElementSlider(['range__values','min-value'])
+            this.minVal = this.createElementSlider(['range__values','min-value'])
             this.sliderBody.append(this.minVal)
             this.slider.append(this.sliderBody)
         } 
-        sendDataFromViewToPresenter() {
-            return this.options
-        }
         getHandlerWidth(){
-            this.options.handlerWidth = parseInt(getComputedStyle(this.rangeTo).width)
+             return parseInt(getComputedStyle(this.rangeTo).width)
         }
-        getSliderWidth(){
-            this.options.sliderParams = getComputedStyle(this.slider)
-        }
-
-        getAndSendClickPosition(ev: MouseEvent):void{
-            if(ev.target != this.minVal&& ev.target !=this.maxVal){
-              this.emit('sliderClicked',{top: ev.clientY, left: ev.clientX})
+        getSliderParams():ISliderParameters{
+            return {
+                height: parseInt(getComputedStyle(this.slider).height) - this.getHandlerWidth(),
+                width: parseInt(getComputedStyle(this.slider).width) - this.getHandlerWidth()
             }
-            
         }
-        onMouseDown(ev:MouseEvent,view: this,whichHandle:string){
-            
+        updateParameters(){            
+            return {
+                sliderParameters:  this.getSliderParams(),
+                sliderCoordinates: this.getSliderCoords(),
+                handlerWidth: this.getHandlerWidth()
+            }
+        }
+        getAndSendClickPosition(ev: MouseEvent):void{
+            this.updateParameters()
+            if(this.checkClickTarget(ev.target!)){
+              this.emit('slider-clicked',{top: ev.clientY, left: ev.clientX})
+            }
+        }
+        checkClickTarget(target:EventTarget){
+            return target != this.minVal&& target !=this.maxVal
+        }
+        onMouseDown(ev:MouseEvent,thisView: this,whichHandle:string){
+            this.updateParameters()
             function onMouseMove(event:MouseEvent) {
-                view.emit('handle-dragged',{top:event.clientY,left:event.clientX,info:whichHandle})
+                thisView.emit('handle-dragged',{top:event.clientY,left:event.clientX,info:whichHandle})
             }
             function onMouseUp() {
                 document.removeEventListener('mousemove',onMouseMove)
@@ -75,14 +80,17 @@ import { EventEmitter } from '../eventEmitter/eventEmitter'
             }
             document.addEventListener('mousemove',onMouseMove)
             document.addEventListener('mouseup',onMouseUp)
+            ev.target?.addEventListener('dragstart',()=>{
+                return false
+            })
         }
         addEventListeners(){
             const thisView =  this
             this.sliderBody.addEventListener('click',(ev)=>{this.getAndSendClickPosition(ev)})
-            const newLocal = this.rangeTo
-            newLocal.addEventListener('mousedown',(ev)=>{this.onMouseDown(ev,thisView,'rangeTo')})
+            this.rangeTo.addEventListener('mousedown',(ev)=>{this.onMouseDown(ev,thisView,'rangeTo')})
             this.rangeFrom.addEventListener('mousedown',(ev)=>{this.onMouseDown(ev,thisView,'rangeFrom')})
-            
+            window.addEventListener('resize',()=>this.emit('window-resize',thisView.updateParameters()))
+            window.addEventListener('scroll',()=>this.emit('scroll',thisView.updateParameters()))
         }
         getChanges(val: IRenderValues){
             this.renderView(val)
@@ -100,18 +108,26 @@ import { EventEmitter } from '../eventEmitter/eventEmitter'
             this.rangeTo.setAttribute('style',`${coordinates[1]} ${rangeTo}%`)
             showValues ? this.showValues(true,isRange) :this.showValues(false,isRange)
             this.minVal.innerHTML = values[0],this.maxVal.innerHTML = values[1]
-            this.minVal.setAttribute('style',`${coordinates[1]} ${valuesPosition[0]}%`),
-            this.maxVal.setAttribute('style',`${coordinates[1]} ${valuesPosition[1]}%`)
+            this.minVal.setAttribute('style',`${coordinates[1]} ${valuesPosition[0]-1}%`),
+            this.maxVal.setAttribute('style',`${coordinates[1]} ${valuesPosition[1]-1}%`)
         }
         showValues(show: boolean,showBoth: boolean){
             if (show==true &&showBoth== true) {this.maxVal.classList.remove('hidden'),this.minVal.classList.remove('hidden')}
             else if(show == true&&showBoth==false){this.maxVal.classList.remove('hidden'),this.minVal.classList.add('hidden')}
             else if (show==false) {this.maxVal.classList.add('hidden'),this.minVal.classList.add('hidden')}
         }
-        getSliderCoords(){
-            this.options.sliderCoordinates ={
+        getSliderCoords():ISliderCoordinates{
+            return {
                 left: this.slider.getBoundingClientRect().left,
-                bottom: this.slider.getBoundingClientRect().bottom 
+                top: this.slider.getBoundingClientRect().top
             }
         }
+        createElementSlider(selectors:Array<string>){
+            const elem = document.createElement('div')
+            for (let i=0;i<selectors.length;i++) {
+                elem.classList.add(selectors[i])
+            }
+            return elem
+        }
     }   
+export {View}

@@ -18,16 +18,16 @@ class Panel extends EventEmitter{
         this.panel = this.container.parentElement!.querySelector('.panel-container')!
         this.init()        
     }
-    getData(options: ISliderOptions) {
+    getData(options: ISliderOptions):void {
         this.options = options
         this.updatePanel()
     }
-    init(){
+    init():void{
          this.setValues()
          this.addPanelListeners()
          this.subscribe('send-values-for-panel',(data:ISliderOptions)=>{this.getData(data)})
     }
-    setValues(){
+    setValues():void{
         let maxValue,minValue,toValue,fromValue,sliderStep,units
         this.createPanelElement(maxValue,'input.max-value',this.options.maxValue!)
         this.createPanelElement(minValue,'input.min-value',this.options.minValue!)
@@ -35,28 +35,33 @@ class Panel extends EventEmitter{
         this.createPanelElement(fromValue,'input.from-val',this.options.fromVal!)
         this.createPanelElement(sliderStep,'input.slider-step',this.options.sliderStep!)
         this.createPanelElement(units,'input.units',this.options.units!)
-        const isVertical = this.panel.querySelector('div.vertical > input')!
-        this.checkInputs(isVertical,this.options.isVertical!)
-        const range = this.panel.querySelector('div.range > input')!
-        this.checkInputs(range,this.options.range!)
-        const showValues = this.panel.querySelector('div.show-values > input')!
-        this.checkInputs(showValues,this.options.showValues!)
+        const isVertical = this.panel.querySelector('div.vertical > input')
+        this.checkInputs(isVertical,this.options.isVertical)
+        const isRange = this.panel.querySelector('div.range > input')
+        this.checkInputs(isRange,this.options.isRange)
+        const showValues = this.panel.querySelector('div.show-values > input')
+        this.checkInputs(showValues,this.options.showValues)
     }
-    checkInputs(elem:Element,isTrue:boolean){
-        isTrue  ? elem.checked = true : elem.checked = false
-        this.listeners.push(elem)
+    checkInputs(elem:Element|null,isTrue:boolean):void{
+        if (elem!=null){
+           isTrue  ? elem.checked = true : elem.checked = false
+            this.listeners.push(elem) 
+        }else {
+            throw Error(`${elem} is null!`)
+        }
+        
     }
-    createPanelElement(elem:Element,selector: string, val: number| string){
-        elem = this.panel.querySelector(selector)!
+    createPanelElement(elem:Element,selector: string, val: number| string):void{
+        elem = this.panel.querySelector(selector)
         elem.value = val.toString()
         this.listeners.push(elem)
     }
-    addPanelListeners(){
+    addPanelListeners():void{
         this.listeners.forEach(element => {
             element.addEventListener('change',(event)=>this.handleChanges(event,element))
         });
     }
-    updatePanel(){
+    updatePanel():void{
         for (let i =0;i<this.listeners.length;i++){
             if(this.listeners[i].classList.contains('max-value')){
                 this.listeners[i].value = this.options.maxValue
@@ -73,12 +78,12 @@ class Panel extends EventEmitter{
             }
         }
     }
-    handleChanges(ev:Event,el:HTMLElement){
+    handleChanges(ev:Event,el:HTMLElement):void{
         if(el.classList.contains('is-checkbox')){
             if (el.name=='vertical'){
                 el.checked? this.options.isVertical = true : this.options.isVertical = false
             }else if(el.name=='range'){
-                el.checked? this.options.range = true : this.options.range = false
+                el.checked? this.options.isRange = true : this.options.isRange = false
             }else if(el.name=='show-values'){
                 el.checked? this.options.showValues = true : this.options.showValues = false
             }

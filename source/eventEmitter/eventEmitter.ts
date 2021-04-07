@@ -1,5 +1,5 @@
 export class EventEmitter {
-    private events : any
+    events : any
     constructor() {
       this.events = {};
     }

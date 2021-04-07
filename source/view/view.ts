@@ -1,8 +1,5 @@
-import $, { event } from 'jquery'
-import {ISliderCoordinates, ISliderOptions, ISliderParameters, sliderOptionsDefault} from '../options/options'
-import { ViewBar } from './viewBar/viewBar'
+import {ISliderCoordinates, ISliderParameters} from '../options/options'
 import { IRenderValues } from '../model/model'
-import  {Presenter} from '../presenter/presenter'
 import { EventEmitter } from '../eventEmitter/eventEmitter'
     class View extends EventEmitter   {
         private container : Element
@@ -15,17 +12,17 @@ import { EventEmitter } from '../eventEmitter/eventEmitter'
         private rangeFrom : HTMLElement
         constructor(containerClass:string){
             super()
-            this.container = document.querySelector(containerClass)!
+            this.container = document.querySelector(containerClass)
             this.slider = this.createElementSlider(['range-slider'])
             this.init();
         }
-        init() {
+        init():void {
             this.createSlider()
     
             this.getSliderCoords()
             this.addEventListeners()
         }
-        createSlider(){
+        createSlider():void{
             this.container.append(this.slider)
             this.sliderBody = this.createElementSlider(['slider__body'])
             this.progressBar = this.createElementSlider(['progress__bar'])
@@ -44,7 +41,7 @@ import { EventEmitter } from '../eventEmitter/eventEmitter'
             this.sliderBody.append(this.minVal)
             this.slider.append(this.sliderBody)
         } 
-        getHandlerWidth(){
+        getHandlerWidth():number{
              return parseInt(getComputedStyle(this.rangeTo).width)
         }
         getSliderParams():ISliderParameters{
@@ -53,7 +50,11 @@ import { EventEmitter } from '../eventEmitter/eventEmitter'
                 width: parseInt(getComputedStyle(this.slider).width) - this.getHandlerWidth()
             }
         }
-        updateParameters(){            
+        updateParameters(): {
+            sliderParameters: ISliderParameters;
+            sliderCoordinates: ISliderCoordinates;
+            handlerWidth: number;
+        }{            
             return {
                 sliderParameters:  this.getSliderParams(),
                 sliderCoordinates: this.getSliderCoords(),
@@ -62,14 +63,14 @@ import { EventEmitter } from '../eventEmitter/eventEmitter'
         }
         getAndSendClickPosition(ev: MouseEvent):void{
             this.updateParameters()
-            if(this.checkClickTarget(ev.target!)){
+            if(this.checkClickTarget(ev.target)){
               this.emit('slider-clicked',{top: ev.clientY, left: ev.clientX})
             }
         }
-        checkClickTarget(target:EventTarget){
+        checkClickTarget(target:EventTarget):boolean{
             return target != this.minVal&& target !=this.maxVal
         }
-        onMouseDown(ev:MouseEvent,thisView: this,whichHandle:string){
+        onMouseDown(ev:MouseEvent,thisView: this,whichHandle:string):void{
             this.updateParameters()
             function onMouseMove(event:MouseEvent) {
                 thisView.emit('handle-dragged',{top:event.clientY,left:event.clientX,info:whichHandle})
@@ -84,19 +85,18 @@ import { EventEmitter } from '../eventEmitter/eventEmitter'
                 return false
             })
         }
-        addEventListeners(){
-            const thisView =  this
+        addEventListeners():void{
             this.sliderBody.addEventListener('click',(ev)=>{this.getAndSendClickPosition(ev)})
-            this.rangeTo.addEventListener('mousedown',(ev)=>{this.onMouseDown(ev,thisView,'rangeTo')})
-            this.rangeFrom.addEventListener('mousedown',(ev)=>{this.onMouseDown(ev,thisView,'rangeFrom')})
-            window.addEventListener('resize',()=>this.emit('window-resize',thisView.updateParameters()))
-            window.addEventListener('scroll',()=>this.emit('scroll',thisView.updateParameters()))
+            this.rangeTo.addEventListener('mousedown',(ev)=>{this.onMouseDown(ev,this,'rangeTo')})
+            this.rangeFrom.addEventListener('mousedown',(ev)=>{this.onMouseDown(ev,this,'rangeFrom')})
+            window.addEventListener('resize',()=>{this.emit('window-resize',this.updateParameters())})
+            window.addEventListener('scroll',()=>{this.emit('scroll',this.updateParameters())})
         }
-        getChanges(val: IRenderValues){
+        getChanges(val: IRenderValues):void{
             this.renderView(val)
         }
         renderView({coordinates, barPosition, barSize, isRange, rangeTo, rangeFrom,
-                    showValues, values, valuesPosition}:IRenderValues){
+                    showValues, values, valuesPosition}:IRenderValues):void{
             if(coordinates[0] == 'vertical'){ 
                this.slider.classList.add('vertical')
             }else{
@@ -111,7 +111,7 @@ import { EventEmitter } from '../eventEmitter/eventEmitter'
             this.minVal.setAttribute('style',`${coordinates[1]} ${valuesPosition[0]-1}%`),
             this.maxVal.setAttribute('style',`${coordinates[1]} ${valuesPosition[1]-1}%`)
         }
-        showValues(show: boolean,showBoth: boolean){
+        showValues(show: boolean,showBoth: boolean):void{
             if (show==true &&showBoth== true) {this.maxVal.classList.remove('hidden'),this.minVal.classList.remove('hidden')}
             else if(show == true&&showBoth==false){this.maxVal.classList.remove('hidden'),this.minVal.classList.add('hidden')}
             else if (show==false) {this.maxVal.classList.add('hidden'),this.minVal.classList.add('hidden')}
@@ -122,7 +122,7 @@ import { EventEmitter } from '../eventEmitter/eventEmitter'
                 top: this.slider.getBoundingClientRect().top
             }
         }
-        createElementSlider(selectors:Array<string>){
+        createElementSlider(selectors:Array<string>):HTMLDivElement{
             const elem = document.createElement('div')
             for (let i=0;i<selectors.length;i++) {
                 elem.classList.add(selectors[i])

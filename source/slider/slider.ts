@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import { ISliderCoordinates, ISliderOptions, sliderOptionsDefault } from '../options/options'
+import { ISliderOptions, sliderOptionsDefault } from '../options/options'
 import {Presenter} from '../presenter/presenter'
 interface jQuery {
     rangeSlider (options:ISliderOptions): JQuery
@@ -7,7 +7,16 @@ interface jQuery {
 (function($){
     $.fn.extend({
         rangeSlider: function (options:ISliderOptions=sliderOptionsDefault) {
-            const presenter = new Presenter(options)     
+            const initOptions:ISliderOptions = {}
+            options.containerClass = `.${this[0].classList.value}`
+            for(const key in options,sliderOptionsDefault){
+                if(options[key] === undefined){
+                   initOptions[key] = sliderOptionsDefault[key]
+                }else {
+                    initOptions[key] = options[key]
+                }
+            }
+            const presenter = new Presenter(initOptions)     
         }
     })
    

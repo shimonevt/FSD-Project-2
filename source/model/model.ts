@@ -1,6 +1,7 @@
 import { EventEmitter } from "../eventEmitter/eventEmitter"
 import { ISliderCoordinates, ISliderOptions, ISliderParameters} from "../options/options"
 import {checkUndefined} from '../functions/functions'
+import { handler } from "../view/view"
     export interface IRenderValues {
         coordinates : string[],
         barPosition: number,
@@ -49,7 +50,7 @@ import {checkUndefined} from '../functions/functions'
         CalcDataDrag(data:{top:number,left:number,info:string}):ISliderOptions{
             const currentPosition = this.calcCurrentPosition(data)
             const currentValue = this.calcCurrentValue(currentPosition)
-            if(data.info=='rangeTo') {
+            if(data.info==handler.rangeTo) {
             this.state.toVal = currentValue
                 if(this.state.toVal>=this.state.maxValue){
                         this.state.toVal = this.state.maxValue
@@ -77,19 +78,19 @@ import {checkUndefined} from '../functions/functions'
         CalcDataClick(data:{top:number,left: number}): ISliderOptions{
             const currentPosition = this.calcCurrentPosition(data)
             const currentValue = this.calcCurrentValue(currentPosition)
-            const fromValPosition = this.getHandlePosition('range-to')
-            const toValPosition = this.getHandlePosition('range-from')
+            const fromValPosition = this.getHandlePosition(handler.rangeFrom)
+            const toValPosition = this.getHandlePosition(handler.rangeTo)
             if(this.state.isRange){
-                 if(this.state.toVal==this.state.fromVal){
-                    if (currentValue - this.state.fromVal<0){
+                 if(toValPosition==fromValPosition){
+                    if (currentPosition - fromValPosition<0){
                         this.state.fromVal = currentValue
-                    }else if (currentValue - this.state.toVal>0){
+                    }else if (currentPosition - toValPosition>0){
                         this.state.toVal = currentValue
                     }
                 }else{
-                    if (Math.abs(currentPosition-fromValPosition)<=Math.abs(currentPosition-toValPosition)){
+                    if (Math.abs(currentPosition-fromValPosition)>=Math.abs(currentPosition-toValPosition)){
                         this.state.toVal = currentValue
-                    }else if(Math.abs(currentPosition-fromValPosition)>Math.abs(currentPosition-toValPosition)){
+                    }else if(Math.abs(currentPosition-fromValPosition)<Math.abs(currentPosition-toValPosition)){
                         this.state.fromVal =  currentValue
                     }
                 }
@@ -101,21 +102,21 @@ import {checkUndefined} from '../functions/functions'
     
         sendStylesForRender({minValue, maxValue, isRange, isVertical, fromVal, toVal,
                              units, showValues, handlerWidth, sliderParams}:ISliderOptions):void {
-            const obj =  {
+            const renderData =  {
                 coordinates: isVertical ? (['vertical','bottom: ','height: ']) : (['horizontal','left: ','width: ']),
                 barPosition:  this.calcBarPosition(fromVal,maxValue,minValue,isRange),
                 barSize:  isVertical? this.calcBarSize(fromVal,toVal,maxValue,minValue,isRange,checkUndefined(handlerWidth),checkUndefined(sliderParams?.height)):
                                       this.calcBarSize(fromVal,toVal,maxValue,minValue,isRange,checkUndefined(handlerWidth),checkUndefined(sliderParams?.width)),
                 isRange: isRange,
-                rangeTo:    this.getHandlePosition('range-to'),
-                rangeFrom:  this.getHandlePosition('range-from'),
+                rangeTo:    this.getHandlePosition(handler.rangeTo),
+                rangeFrom:  this.getHandlePosition(handler.rangeFrom),
                 showValues: showValues,
                 values: [this.setVal(fromVal,units),this.setVal(toVal,units)],
                 valuesPosition: [Math.abs(this.setValPosition(fromVal,maxValue-minValue,isVertical)),
                                 Math.abs(this.setValPosition(toVal,maxValue-minValue,isVertical))]
             } 
             this.emit('send-values-for-panel',this.state)
-            this.emit('values-ready',obj) 
+            this.emit('values-ready',renderData) 
         }
         setVal(text: number|undefined,units: string|undefined): string  {
             if (text!= undefined) {
@@ -132,30 +133,31 @@ import {checkUndefined} from '../functions/functions'
                                     Math.ceil((100*(val/minMax)-(checkUndefined(this.state.handlerWidth)/checkUndefined(this.state.sliderParams?.width)))))
         } 
         getHandlePosition(whichHandle:string):number{
-            if(whichHandle == 'range-to'){
+            const size = this.state.isVertical ? this.state.sliderParams?.height : this.state.sliderParams?.width
+            if(whichHandle == handler.rangeTo){
                 if(this.state.isRange){
-                    if(this.state.toVal<=this.state.fromVal){
+                    if(checkUndefined(this.state.toVal)<=checkUndefined(this.state.fromVal)){
                         this.state.toVal = this.state.fromVal
                     }
                 }
-                if(this.state.toVal>= this.state.maxValue) {
-                    return (100*(this.state.maxValue-this.state.minValue)/(this.state.maxValue - this.state.minValue))
+                if(checkUndefined(this.state.toVal)>= checkUndefined(this.state.maxValue)) {
+                    return 100*((this.state.maxValue-this.state.minValue)/(this.state.maxValue - this.state.minValue)-(0.5*this.state.handlerWidth/size))
                 }
-                else return 100*(this.state.toVal-this.state.minValue)/(this.state.maxValue-this.state.minValue)
+                return 100*((this.state.toVal-this.state.minValue)/(this.state.maxValue-this.state.minValue)-(0.5*this.state.handlerWidth/size))
             }else{
-                if(this.state.fromVal<=this.state.minValue)  return 0
-                else return 100*(this.state.fromVal-this.state.minValue)/(this.state.maxValue-this.state.minValue)
+                if(this.state.fromVal<=this.state.minValue)  return 100*(-0.5*this.state.handlerWidth/size)
+                else return 100*((this.state.fromVal-this.state.minValue)/(this.state.maxValue-this.state.minValue)-(0.5*this.state.handlerWidth/size))
             }
         }
         calcCurrentPosition(coords:{left: number,top:number}):number{
             let cursorPosition:number
             this.state.isVertical? cursorPosition=checkUndefined(this.state.sliderCoordinates?.top) + checkUndefined(this.state.sliderParams?.height)-coords.top :
-                                    cursorPosition=coords.left - checkUndefined(this.state.sliderCoordinates?.left) - checkUndefined(this.state.handlerWidth)
+                                    cursorPosition=coords.left - checkUndefined(this.state.sliderCoordinates?.left) 
             return this.state.isVertical?Math.ceil(100*cursorPosition/checkUndefined(this.state.sliderParams?.height)) :
                                          Math.ceil(100*cursorPosition/checkUndefined(this.state.sliderParams?.width))
         }
         calcCurrentValue(currentPosition:number):number{
-            return Math.ceil(this.state.minValue + 0.01*currentPosition*(this.state.maxValue-this.state.minValue))
+            return Math.ceil(this.state.minValue + 0.01*currentPosition*Math.abs(this.state.maxValue-this.state.minValue))
         }
 
         calcBarPosition(value:number,maxValue:number,minValue:number,range:boolean):number{
@@ -173,4 +175,3 @@ import {checkUndefined} from '../functions/functions'
         }
     }
     export {Model}
-module.exports = {Model}

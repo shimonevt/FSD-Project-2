@@ -1,31 +1,39 @@
 import {ISliderCoordinates, ISliderParameters} from '../options/options'
 import { IRenderValues } from '../model/model'
 import { EventEmitter } from '../eventEmitter/eventEmitter'
+import { ViewScale } from './viewBar/viewScale/viewScale'
+    export const handler = {
+        rangeTo: 'range-to',
+        rangeFrom: 'range-from'
+    }
     class View extends EventEmitter   {
         private container : Element
         private slider : HTMLElement
         private sliderBody : HTMLElement
         private progressBar : HTMLElement
+        private scaleBar : HTMLElement
         private maxVal: HTMLElement
         private minVal: HTMLElement
         private rangeTo : HTMLElement
         private rangeFrom : HTMLElement
+        private viewScale : ViewScale 
         constructor(containerClass:string){
             super()
             this.container = document.querySelector(containerClass)
             this.slider = this.createElementSlider(['range-slider'])
+            this.container.append(this.slider)
             this.init();
         }
         init():void {
             this.createSlider()
-    
             this.getSliderCoords()
             this.addEventListeners()
         }
         createSlider():void{
-            this.container.append(this.slider)
+            
             this.sliderBody = this.createElementSlider(['slider__body'])
             this.progressBar = this.createElementSlider(['progress__bar'])
+            this.scaleBar = this.createElementSlider(['progress__scale-bar'])
             this.maxVal = this.createElementSlider(['bar__max-value'])
             this.minVal = this.createElementSlider(['bar__min-value'])
             this.rangeTo = this.createElementSlider(['bar__range','to'])
@@ -39,15 +47,16 @@ import { EventEmitter } from '../eventEmitter/eventEmitter'
             this.sliderBody.append(this.maxVal)   
             this.minVal = this.createElementSlider(['range__values','min-value'])
             this.sliderBody.append(this.minVal)
+            this.sliderBody.append(this.scaleBar)
             this.slider.append(this.sliderBody)
         } 
         getHandlerWidth():number{
-             return parseInt(getComputedStyle(this.rangeTo).width)
+             return this.rangeTo.offsetWidth
         }
         getSliderParams():ISliderParameters{
             return {
-                height: parseInt(getComputedStyle(this.slider).height) - this.getHandlerWidth(),
-                width: parseInt(getComputedStyle(this.slider).width) - this.getHandlerWidth()
+                height: parseInt(getComputedStyle(this.slider).height),
+                width: parseInt(getComputedStyle(this.slider).width)
             }
         }
         updateParameters(): {
@@ -73,7 +82,11 @@ import { EventEmitter } from '../eventEmitter/eventEmitter'
         onMouseDown(ev:MouseEvent,thisView: this,whichHandle:string):void{
             this.updateParameters()
             function onMouseMove(event:MouseEvent) {
-                thisView.emit('handle-dragged',{top:event.clientY,left:event.clientX,info:whichHandle})
+                thisView.emit('handle-dragged',{
+                                                top:event.clientY,
+                                                left:event.clientX,
+                                                info:whichHandle
+                                                })
             }
             function onMouseUp() {
                 document.removeEventListener('mousemove',onMouseMove)
@@ -87,9 +100,9 @@ import { EventEmitter } from '../eventEmitter/eventEmitter'
         }
         addEventListeners():void{
             this.sliderBody.addEventListener('click',(ev)=>{this.getAndSendClickPosition(ev)})
-            this.rangeTo.addEventListener('mousedown',(ev)=>{this.onMouseDown(ev,this,'rangeTo')})
-            this.rangeFrom.addEventListener('mousedown',(ev)=>{this.onMouseDown(ev,this,'rangeFrom')})
-            window.addEventListener('resize',()=>{this.emit('window-resize',this.updateParameters())})
+            this.rangeTo.addEventListener('mousedown',(ev)=>{this.onMouseDown(ev,this, handler.rangeTo)})
+            this.rangeFrom.addEventListener('mousedown',(ev)=>{this.onMouseDown(ev,this,handler.rangeFrom)})
+            this.slider.addEventListener('resize',()=>{this.emit('window-resize',this.updateParameters())})
             window.addEventListener('scroll',()=>{this.emit('scroll',this.updateParameters())})
         }
         getChanges(val: IRenderValues):void{
@@ -97,7 +110,7 @@ import { EventEmitter } from '../eventEmitter/eventEmitter'
         }
         renderView({coordinates, barPosition, barSize, isRange, rangeTo, rangeFrom,
                     showValues, values, valuesPosition}:IRenderValues):void{
-            if(coordinates[0] == 'vertical'){ 
+            if(coordinates[0] === 'vertical'){ 
                this.slider.classList.add('vertical')
             }else{
                this.slider.classList.remove('vertical') 

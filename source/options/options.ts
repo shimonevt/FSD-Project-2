@@ -1,3 +1,11 @@
+export interface ISliderParameters {
+    width : number,
+    height: number
+}
+export interface ISliderCoordinates {
+    left: number,
+    top: number
+}
 export interface ISliderOptions {
     containerClass?: string,
     minValue?: number,
@@ -13,24 +21,16 @@ export interface ISliderOptions {
     sliderParams?: ISliderParameters,
     sliderCoordinates?: ISliderCoordinates
 }
-export interface ISliderCoordinates {
-    left: number,
-    top: number
-}
-export interface ISliderParameters {
-    width : number,
-    height: number
-}
 
 export const sliderOptionsDefault : ISliderOptions = {
-    containerClass: '.container',
-    minValue: 0,
-    maxValue: 500,
-    isRange : true,
-    isVertical: false,
-    fromVal: 50,
-    toVal : 400,
-    sliderStep: 1,
-    units: '$',
-    showValues: false
-}
+  containerClass: '.container',
+  minValue: 0,
+  maxValue: 500,
+  isRange: true,
+  isVertical: false,
+  fromVal: 50,
+  toVal: 400,
+  sliderStep: 1,
+  units: '$',
+  showValues: false,
+};

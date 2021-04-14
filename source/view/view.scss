@@ -38,23 +38,35 @@ body {
     border: 2px solid #FFFFFF;
     border-radius: 14px;
 }
-
 .bar__max-value,.bar__min-value {
     cursor: pointer;
     position: absolute;
     font-size: 14px;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;    
 }
-.range-slider:not(.vertical) .progress__scale-bar {
+.range-slider .progress__scale-bar {
     width: 100%;
-    top:10px;
+    height: 100%;
+}
+.range-slider:not(.vertical) .progress__scale-bar {
+    top:-4px;
 }
 .range-slider.vertical .progress__scale-bar{
-    height: 100%;
     left:-10px;
 }
 .progress__scale-bar {
     position: absolute;
+}
+.range-slider:not(.vertical) .progress__scale-bar .scale-bar__unit {
+    height: 100%;
+    position: absolute;
+}
+.progress__scale-bar .scale-bar__unit::before {
+    position: absolute;
+    content: '';
+    width: 2px;
+    height: 250%;
+    background: gray;
 }
 .bar__range.from {
     left: 5px;
@@ -62,7 +74,6 @@ body {
 .range__values{
     position: absolute;
     border-radius: 14px;
-    
     padding: 5px;
     font-size: 14px;
     min-width: 35px;
@@ -102,4 +113,16 @@ body {
 }
 .range-slider.vertical .range__values{
     left: 15px;
+}
+.range-slider.vertical .progress__scale-bar {
+    .scale-bar__unit {
+        width: 100%;
+    }
+    .scale-bar__unit::before {
+        position: absolute;
+        content: '';
+        width: 200%;
+        height: 2px;
+        background: cyan;
+    }
 }

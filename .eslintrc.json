@@ -5,16 +5,29 @@
 		"es2017": true
     },
     "extends": [
-		"eslint:recommended",
-		"plugin:@typescript-eslint/eslint-recommended",
-		"plugin:@typescript-eslint/recommended",
-		"plugin:@typescript-eslint/recommended-requiring-type-checking"
+		"plugin:fsd/all",
+		"airbnb"
 	],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"project": "tsconfig.json",
 		"tsconfigRootDir": "."
 	},
-	"plugins": ["@typescript-eslint"],
-	"rules": {}
+	"plugins": ["@typescript-eslint","fsd"],
+	"rules": {
+		"fsd/hof-name-prefix": "error",
+		"fsd/no-heavy-constructor": "error",
+		"fsd/jq-cache-dom-elements": "error",
+		"fsd/jq-use-js-prefix-in-selector": "error",
+		"fsd/split-conditionals": "error",
+		"linebreak-style": ["error", "windows"],
+		"no-unused-expressions": "off"
+	},
+	"settings": {
+		"import/resolver": {
+		  "node": {
+			"extensions": [".js", ".jsx", ".ts", ".tsx"]
+		  }
+		}
+	  }
 }

@@ -1,9 +1,9 @@
-import './index.scss'
-import $ from 'jquery'
-import '../slider/slider'
+import './index.scss';
+import $ from 'jquery';
+import '../slider/slider';
 $(document).ready(function(){
-    $('.container').rangeSlider({})
-    $('.container-2').rangeSlider({
+    $('.js-container').rangeSlider({});
+    $('.js-container-2').rangeSlider({
         minValue: 0,
         maxValue: 600,
         isRange : false,
@@ -15,7 +15,7 @@ $(document).ready(function(){
         showValues: false
     });
         
-    $('.container-3').rangeSlider({
+    $('.js-container-3').rangeSlider({
         minValue: 0,
         maxValue: 1000,
         isVertical: true,
@@ -25,4 +25,4 @@ $(document).ready(function(){
         units: '$',
         showValues: false
     });
-})
+});

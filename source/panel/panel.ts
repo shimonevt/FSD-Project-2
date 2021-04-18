@@ -1,6 +1,6 @@
-import { EventEmitter } from '../eventEmitter/eventEmitter.ts';
-import { getContainer } from '../functions/functions.ts';
-import { ISliderOptions } from '../options/options.ts';
+import { EventEmitter } from '../eventEmitter/eventEmitter';
+import { getContainer } from '../functions/functions';
+import { ISliderOptions } from '../options/options';
 
 class Panel extends EventEmitter {
     options: ISliderOptions

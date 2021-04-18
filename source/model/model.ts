@@ -1,6 +1,6 @@
 import { EventEmitter } from '../eventEmitter/eventEmitter';
 import { ISliderCoordinates, ISliderOptions, ISliderParameters } from '../options/options';
-import { handler } from '../view/view';
+import { handler } from '../view/viewHandlers';
 
 export interface IRenderValues {
         coordinates : string[],
@@ -29,8 +29,8 @@ class Model extends EventEmitter {
 
         setParameters(data:{sliderParameters: ISliderParameters,
             sliderCoordinates: ISliderCoordinates, handlerWidth: number}):void {
-          this.state.sliderParams = data.sliderParameters,
-          this.state.sliderCoordinates = data.sliderCoordinates,
+          this.state.sliderParams = data.sliderParameters;
+          this.state.sliderCoordinates = data.sliderCoordinates;
           this.state.handlerWidth = data.handlerWidth;
           this.getData(this.state);
         }

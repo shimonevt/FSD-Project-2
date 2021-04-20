@@ -11,7 +11,9 @@ export interface IRenderValues {
         rangeFrom: number,
         showValues: boolean,
         values: string[],
-        valuesPosition: number[]
+        valuesPosition: number[],
+        maxValue: number,
+        minValue: number
     }
 class Model extends EventEmitter {
         state: ISliderOptions
@@ -121,6 +123,8 @@ class Model extends EventEmitter {
             values: [Model.setVal(fromVal, units), Model.setVal(toVal, units)],
             valuesPosition: [Math.abs(this.setValPosition(fromVal!, maxValue! - minValue!)),
               Math.abs(this.setValPosition(toVal!, maxValue! - minValue!))],
+            minValue: this.state.minValue,
+            maxValue: this.state.maxValue,
           };
           this.emit('send-values-for-panel', this.state);
           this.emit('values-ready', renderData);
@@ -156,12 +160,15 @@ class Model extends EventEmitter {
               }
             }
             if (toVal! >= maxValue!) {
-              return 100 * ((maxValue! - minValue!) / (maxValue! - minValue!) - 0.5 * (handlerWidth! / size!));
+              return 100 * ((maxValue! - minValue!)
+              / (maxValue! - minValue!) - 0.5 * (handlerWidth! / size!));
             }
-            return 100 * ((toVal! - minValue!) / (maxValue! - minValue!) - 0.5 * (handlerWidth! / size!));
+            return 100 * ((toVal! - minValue!)
+             / (maxValue! - minValue!) - 0.5 * (handlerWidth! / size!));
           }
           if (fromVal! <= minValue!) return 100 * -0.5 * (handlerWidth! / size!);
-          return 100 * ((fromVal! - minValue!) / (maxValue! - minValue!) - 0.5 * (handlerWidth! / size!));
+          return 100 * ((fromVal! - minValue!)
+           / (maxValue! - minValue!) - 0.5 * (handlerWidth! / size!));
         }
 
         calcCurrentPosition(coords:{left: number, top:number}):number {

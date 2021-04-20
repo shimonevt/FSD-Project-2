@@ -37,6 +37,7 @@ body {
     background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
     border: 2px solid #FFFFFF;
     border-radius: 14px;
+    z-index: 3;
 }
 .bar__max-value,.bar__min-value {
     cursor: pointer;
@@ -48,18 +49,26 @@ body {
     width: 100%;
     height: 100%;
 }
-.range-slider:not(.vertical) .progress__scale-bar {
-    top:-4px;
-}
-.range-slider.vertical .progress__scale-bar{
-    left:-10px;
-}
+
 .progress__scale-bar {
     position: absolute;
+    z-index: 2;
 }
 .range-slider:not(.vertical) .progress__scale-bar .scale-bar__unit {
     height: 100%;
+    width: 2px;
+    top: -75%;
+    .unit__value {
+        position: absolute;
+        top: 250%;
+        left: -200%;
+    }
+}
+.scale-bar__unit {
     position: absolute;
+}
+.scale-bar__unit.hidden{
+    display: none;
 }
 .progress__scale-bar .scale-bar__unit::before {
     position: absolute;
@@ -115,8 +124,15 @@ body {
     left: 15px;
 }
 .range-slider.vertical .progress__scale-bar {
+    width: 150%;
     .scale-bar__unit {
         width: 100%;
+        left: -75%;
+        .unit__value {
+            position: absolute;
+            left: 250%;
+            top: -8px;
+        }
     }
     .scale-bar__unit::before {
         position: absolute;

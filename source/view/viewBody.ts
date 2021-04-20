@@ -52,11 +52,12 @@ class ViewBody extends EventEmitter {
 
   renderViewComponents(renderData: IRenderValues) {
     const {
-      coordinates, barPosition, barSize, isRange, rangeFrom, rangeTo,
+      coordinates, barPosition, barSize, isRange, rangeFrom, rangeTo, maxValue, minValue,
     } = renderData;
     this.viewBar.update(coordinates, barPosition, barSize);
     this.viewHandlers.update(isRange, coordinates, rangeFrom, rangeTo);
     this.handlerValues.update(renderData);
+    this.viewScale.update(coordinates, maxValue, minValue);
   }
 
   checkClickTarget(target:EventTarget):boolean {

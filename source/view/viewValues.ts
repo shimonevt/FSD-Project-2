@@ -1,5 +1,5 @@
-import { createElementSlider } from '../functions/functions';
-import { IRenderValues } from '../model/model';
+import { createElementSlider } from '../functions/functions.ts';
+import { IRenderValues } from '../options/options.ts';
 
 class ViewValues {
     private toVal: HTMLElement;
@@ -15,14 +15,14 @@ class ViewValues {
 
     update(renderData:IRenderValues) {
       const {
-        isRange, showValues, coordinates, rangeFrom, rangeTo, values,
+        isRange, showValues, coordinates, valuesPosition, values,
       } = renderData;
       const { fromVal, toVal } = this;
       showValues ? this.showValues(true, isRange) : this.showValues(false, isRange);
       fromVal.innerHTML = values[0];
       toVal.innerHTML = values[1];
-      fromVal.setAttribute('style', `${coordinates[1]} ${rangeFrom}%`);
-      toVal.setAttribute('style', `${coordinates[1]} ${rangeTo}%`);
+      fromVal.setAttribute('style', `${coordinates[1]} ${valuesPosition[0]}%`);
+      toVal.setAttribute('style', `${coordinates[1]} ${valuesPosition[1]}%`);
     }
 
     showValues(show: boolean, showBoth: boolean):void {

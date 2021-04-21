@@ -11,6 +11,6 @@ export function createElementSlider(selectors:Array<string>):HTMLDivElement {
   }
   return elem;
 }
-export function getContainer(selector:string) {
+export function getContainer(selector:string):HTMLElement {
   return document.querySelector(selector);
 }

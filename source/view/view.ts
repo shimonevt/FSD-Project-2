@@ -1,8 +1,8 @@
-import { ISliderCoordinates, ISliderParameters } from '../options/options';
-import { IRenderValues } from '../model/model';
-import { EventEmitter } from '../eventEmitter/eventEmitter';
-import { ViewBody } from './viewBody';
-import { createElementSlider, getContainer } from '../functions/functions';
+import { ISliderCoordinates, ISliderParameters } from '../options/options.ts';
+import { IRenderValues } from '../options/options.ts';
+import { EventEmitter } from '../eventEmitter/eventEmitter.ts';
+import { createElementSlider, getContainer } from '../functions/functions.ts';
+import { ViewBody } from './viewBody.ts';
 
 class View extends EventEmitter {
   private container : Element;

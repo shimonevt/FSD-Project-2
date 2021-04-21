@@ -1,11 +1,10 @@
 import { createElementSlider } from '../functions/functions.ts';
+import { ISliderCoordinates, ISliderParameters, IRenderValues } from '../options/options.ts';
+import { EventEmitter } from '../eventEmitter/eventEmitter.ts';
 import { ViewBar } from './viewBar.ts';
 import { ViewHandlers } from './viewHandlers.ts';
 import { ViewValues } from './viewValues.ts';
 import { ViewScale } from './viewScale.ts';
-import { ISliderCoordinates, ISliderParameters } from '../options/options.ts';
-import { IRenderValues } from '../model/model';// remove to options
-import { EventEmitter } from '../eventEmitter/eventEmitter';
 
 class ViewBody extends EventEmitter {
   private sliderBody: HTMLElement;

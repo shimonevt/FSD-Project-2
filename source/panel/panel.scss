@@ -12,7 +12,7 @@ p.range-name {
 .container__rows {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(4,auto);
+    grid-template-columns: repeat(2,auto);
 }
 .container__row{
     border: 1px solid black;

@@ -1,18 +1,16 @@
-import { createElementSlider } from '../functions/functions';
-import { SubView } from './subView';
+import { createElementSlider } from '../functions/functions.ts';
 
 const scaleUnits = {
   unitNames: ['min-value', '20-percent-value', '25-percent-value', '33-percent-value', '40-percent-value',
     '50-percent-value', '60-percent-value', '66-percent-value', '75-percent-value', '80-percent-value', 'max-value'],
   unitPositions: [-0.5, 20, 25, 33, 40, 50, 60, 66, 75, 80, 100],
 };
-class ViewScale extends SubView {
+class ViewScale {
     private viewScale : HTMLElement;
 
     private units: Array<HTMLElement>;
 
     constructor(sliderBody:HTMLElement) {
-      super();
       this.viewScale = createElementSlider(['progress__scale-bar']);
       sliderBody.appendChild(this.viewScale);
       this.units = [];
@@ -34,7 +32,7 @@ class ViewScale extends SubView {
         : parseFloat(getComputedStyle(this.viewScale).width);
       for (let i = 0; i < this.units.length; i += 1) {
         if (i === 0) {
-          this.units[i].setAttribute('style', `${coordinates[1]} 0%`);
+          this.units[i].setAttribute('style', `${coordinates[1]} -0.5%`);
           this.units[i].children[0].textContent = minValue.toString();
         } else {
           this.units[i].setAttribute('style', `${coordinates[1]} ${scaleUnits.unitPositions[i]}%`);

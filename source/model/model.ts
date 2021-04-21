@@ -1,20 +1,7 @@
-import { EventEmitter } from '../eventEmitter/eventEmitter';
-import { ISliderCoordinates, ISliderOptions, ISliderParameters } from '../options/options';
-import { handler } from '../view/viewHandlers';
+import { EventEmitter } from '../eventEmitter/eventEmitter.ts';
+import { ISliderCoordinates, ISliderOptions, ISliderParameters } from '../options/options.ts';
+import { handler } from '../view/viewHandlers.ts';
 
-export interface IRenderValues {
-        coordinates : string[],
-        barPosition: number,
-        barSize: number,
-        isRange: boolean,
-        rangeTo: number,
-        rangeFrom: number,
-        showValues: boolean,
-        values: string[],
-        valuesPosition: number[],
-        maxValue: number,
-        minValue: number
-    }
 class Model extends EventEmitter {
         state: ISliderOptions
 
@@ -23,23 +10,17 @@ class Model extends EventEmitter {
           this.state = options;
         }
 
-        getDataFromPresenterforModel(data:{sliderParameters: ISliderParameters,
-                                    sliderCoordinates: ISliderCoordinates,
-                                        handlerWidth: number}):void {
-          this.setParameters(data);
-        }
-
-        setParameters(data:{sliderParameters: ISliderParameters,
+        getViewParameters(data:{sliderParameters: ISliderParameters,
             sliderCoordinates: ISliderCoordinates, handlerWidth: number}):void {
           this.state.sliderParams = data.sliderParameters;
           this.state.sliderCoordinates = data.sliderCoordinates;
           this.state.handlerWidth = data.handlerWidth;
-          this.getData(this.state);
+          this.sendStylesForRender(this.state);
         }
 
         getData(options:ISliderOptions):void {
           this.state = options;
-          this.sendStylesForRender(options);
+          this.sendStylesForRender(this.state);
         }
 
         clickTreatment(data:{top:number, left: number}):void {
@@ -62,22 +43,22 @@ class Model extends EventEmitter {
           const currentValue = this.calcCurrentValue(currentPosition);
           if (data.info === handler.rangeTo) {
             this.state.toVal = currentValue;
-            if (this.state.toVal >= maxValue!) {
+            if (this.state.toVal >= maxValue) {
               this.state.toVal = maxValue;
             }
             if (isRange) {
-              if (toVal! <= fromVal!) {
+              if (toVal <= fromVal) {
                 this.state.toVal = fromVal;
               }
-            } else if (this.state.toVal! <= minValue!) {
+            } else if (this.state.toVal <= minValue) {
               this.state.toVal = minValue;
             }
             return this.state;
           }
           this.state.fromVal = currentValue;
-          if (fromVal! >= toVal!) {
+          if (fromVal >= toVal) {
             this.state.fromVal = toVal;
-          } else if (this.state.fromVal! <= minValue!) {
+          } else if (this.state.fromVal <= minValue) {
             this.state.fromVal = minValue;
           }
           return this.state;
@@ -96,9 +77,11 @@ class Model extends EventEmitter {
               } else if (currentPosition - toValPosition > 0) {
                 this.state.toVal = currentValue;
               }
-            } else if (Math.abs(currentPosition - fromValPosition) >= Math.abs(currentPosition - toValPosition)) {
+            } else if (Math.abs(currentPosition - fromValPosition)
+                    >= Math.abs(currentPosition - toValPosition)) {
               this.state.toVal = currentValue;
-            } else if (Math.abs(currentPosition - fromValPosition) < Math.abs(currentPosition - toValPosition)) {
+            } else if (Math.abs(currentPosition - fromValPosition)
+                  < Math.abs(currentPosition - toValPosition)) {
               this.state.fromVal = currentValue;
             }
           } else {
@@ -108,21 +91,31 @@ class Model extends EventEmitter {
         }
 
         sendStylesForRender({
-          minValue, maxValue, isRange, isVertical, fromVal, toVal,
-          units, showValues, sliderParams,
+          minValue, maxValue, isRange, isVertical, fromVal,
+          toVal, units, showValues, sliderParams,
         }:ISliderOptions):void {
+          if (toVal >= maxValue) {
+            this.state.toVal = maxValue;
+          } else if (toVal <= minValue) {
+            this.state.toVal = minValue;
+          }
+          if (isRange) {
+            if (fromVal <= minValue) {
+              this.state.fromVal = minValue;
+            }
+          }
           const renderData = {
             coordinates: isVertical ? (['vertical', 'bottom: ', 'height: ']) : (['horizontal', 'left: ', 'width: ']),
-            barPosition: Model.calcBarPosition(fromVal!, maxValue!, minValue!, isRange!),
-            barSize: isVertical ? this.calcBarSize(sliderParams?.height!)
-              : this.calcBarSize(sliderParams?.width!),
             isRange,
             rangeTo: this.getHandlePosition(handler.rangeTo),
             rangeFrom: this.getHandlePosition(handler.rangeFrom),
+            barPosition: Model.calcBarPosition(fromVal, maxValue, minValue, isRange),
+            barSize: isVertical ? this.calcBarSize(sliderParams?.height)
+              : this.calcBarSize(sliderParams?.width),
             showValues,
-            values: [Model.setVal(fromVal, units), Model.setVal(toVal, units)],
-            valuesPosition: [Math.abs(this.setValPosition(fromVal!, maxValue! - minValue!)),
-              Math.abs(this.setValPosition(toVal!, maxValue! - minValue!))],
+            values: [this.setVal(fromVal, units), this.setVal(toVal, units)],
+            valuesPosition: [this.setValPosition(fromVal, maxValue, minValue),
+              this.setValPosition(toVal, maxValue, minValue)],
             minValue: this.state.minValue,
             maxValue: this.state.maxValue,
           };
@@ -130,21 +123,23 @@ class Model extends EventEmitter {
           this.emit('values-ready', renderData);
         }
 
-        static setVal(text: number|undefined, units: string|undefined): string {
-          if (text !== undefined) {
-            if (units !== undefined) {
-              return (`${text} ${units}`);
+        setVal(value: number|undefined, units: string|undefined): string {
+          if (units !== undefined) {
+            if (value <= this.state.minValue) {
+              return (`${this.state.minValue} ${units}`);
+            } if (value >= this.state.maxValue) {
+              return (`${this.state.maxValue} ${units}`);
             }
-            return text.toString();
+            return (`${value} ${units}`);
           }
-          return '';
+          return value.toString();
         }
 
-        setValPosition(val:number, minMax:number): number {
+        setValPosition(val:number, maxValue:number, minValue:number): number {
           const { handlerWidth, sliderParams, isVertical } = this.state;
           return (isVertical
-            ? Math.ceil(100 * (val / minMax) - 2 * (handlerWidth! / sliderParams?.height!))
-            : Math.ceil(100 * (val / minMax) - (handlerWidth! / sliderParams?.width!)));
+            ? Math.ceil(100 * (((val - minValue) / (maxValue - minValue)) - 0.5 * (handlerWidth / sliderParams?.height)))
+            : Math.ceil(100 * (((val - minValue) / (maxValue - minValue)) - 1.25 * (handlerWidth / sliderParams?.width))));
         }
 
         getHandlePosition(whichHandle:string):number {
@@ -155,33 +150,34 @@ class Model extends EventEmitter {
           } = this.state;
           if (whichHandle === handler.rangeTo) {
             if (this.state.isRange) {
-              if (toVal! <= fromVal!) {
+              if (toVal <= fromVal) {
                 this.state.toVal = fromVal;
               }
             }
-            if (toVal! >= maxValue!) {
-              return 100 * ((maxValue! - minValue!)
-              / (maxValue! - minValue!) - 0.5 * (handlerWidth! / size!));
+            if (toVal >= maxValue) {
+              return 100 * ((maxValue - minValue)
+              / (maxValue - minValue) - 0.5 * (handlerWidth / size));
             }
-            return 100 * ((toVal! - minValue!)
-             / (maxValue! - minValue!) - 0.5 * (handlerWidth! / size!));
+            return 100 * ((toVal - minValue)
+             / (maxValue - minValue) - 0.5 * (handlerWidth / size));
           }
-          if (fromVal! <= minValue!) return 100 * -0.5 * (handlerWidth! / size!);
-          return 100 * ((fromVal! - minValue!)
-           / (maxValue! - minValue!) - 0.5 * (handlerWidth! / size!));
+          if (fromVal <= minValue) return 100 * -0.5 * (handlerWidth / size);
+          return 100 * ((fromVal - minValue)
+           / (maxValue - minValue) - 0.5 * (handlerWidth / size));
         }
 
         calcCurrentPosition(coords:{left: number, top:number}):number {
           const { isVertical, sliderCoordinates, sliderParams } = this.state;
-          const cursorPosition = isVertical ? sliderCoordinates?.top!
-                + sliderParams?.height! - coords.top : coords.left - sliderCoordinates?.left!;
-          return isVertical ? Math.ceil(100 * (cursorPosition / sliderParams?.height!))
-            : Math.ceil(100 * (cursorPosition / sliderParams?.width!));
+          const cursorPosition = isVertical ? sliderCoordinates?.top
+                + sliderParams?.height - coords.top : coords.left - sliderCoordinates?.left;
+          return isVertical ? Math.ceil(100 * (cursorPosition / sliderParams?.height))
+            : Math.ceil(100 * (cursorPosition / sliderParams?.width));
         }
 
         calcCurrentValue(currentPosition:number):number {
-          const { minValue, maxValue } = this.state;
-          return Math.ceil(minValue! + 0.01 * currentPosition * Math.abs(maxValue! - minValue!));
+          const { minValue, maxValue, sliderStep } = this.state;
+          return Math.round((0.01 * currentPosition * (maxValue - minValue)) / sliderStep)
+                * sliderStep + minValue;
         }
 
         static calcBarPosition(value:number, maxValue:number,
@@ -196,8 +192,8 @@ class Model extends EventEmitter {
           const {
             isRange, toVal, fromVal, maxValue, minValue, handlerWidth,
           } = this.state;
-          let barSize = isRange ? Math.abs(100 * ((toVal! - fromVal!) / (maxValue! - minValue!)))
-            : 100 * ((toVal! - minValue!) / (maxValue! - minValue!) - 0.5 * (handlerWidth! / size));
+          let barSize = isRange ? Math.abs(100 * ((toVal - fromVal) / (maxValue - minValue)))
+            : 100 * ((toVal - minValue) / (maxValue - minValue) - 0.5 * (handlerWidth / size));
           if (barSize >= 100) {
             barSize = 100;
           } else if (barSize <= 0) {

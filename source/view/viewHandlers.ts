@@ -1,14 +1,14 @@
-import { EventEmitter } from '../eventEmitter/eventEmitter';
-import { createElementSlider } from '../functions/functions';
+import { EventEmitter } from '../eventEmitter/eventEmitter.ts';
+import { createElementSlider } from '../functions/functions.ts';
 
 export const handler = {
   rangeTo: 'range-to',
   rangeFrom: 'range-from',
 };
 class ViewHandlers extends EventEmitter {
-  private rangeTo: HTMLElement;
+  rangeTo: HTMLElement;
 
-  private rangeFrom: HTMLElement;
+  rangeFrom: HTMLElement;
 
   constructor(sliderBody:HTMLElement) {
     super();

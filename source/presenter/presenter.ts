@@ -1,8 +1,10 @@
-import { EventEmitter } from '../eventEmitter/eventEmitter';
-import { IRenderValues, Model } from '../model/model';
-import { ISliderCoordinates, ISliderOptions, ISliderParameters } from '../options/options';
-import { Panel } from '../panel/panel';
-import { View } from '../view/view';
+import { EventEmitter } from '../eventEmitter/eventEmitter.ts';
+import { Model } from '../model/model.ts';
+import {
+  ISliderCoordinates, ISliderOptions, ISliderParameters, IRenderValues 
+} from '../options/options.ts';
+import { Panel } from '../panel/panel.ts';
+import { View } from '../view/view.ts';
 
 class Presenter extends EventEmitter {
     view : View
@@ -21,18 +23,18 @@ class Presenter extends EventEmitter {
 
     init():void {
       this.subscribeOnEvents();
-      this.model.getDataFromPresenterforModel(this.view.updateParameters());
+      this.model.getViewParameters(this.view.updateParameters());
     }
 
     subscribeOnEvents():void {
       const { model, view, panel } = this;
-      model.subscribe('values-ready', (obj:IRenderValues) => { this.view.getChanges(obj); });
-      view.subscribe('slider-clicked', (data:{top:number, left: number}) => { this.model.clickTreatment(data); });
-      view.subscribe('handle-dragged', (coords:{top:number, left:number, info:string}) => { this.model.dragNDropTreatment(coords); });
-      view.subscribe('window-resize', (data:{sliderParameters:ISliderParameters, sliderCoordinates: ISliderCoordinates, handlerWidth: number}) => { this.model.setParameters(data); });
-      view.subscribe('scroll', (data:{sliderParameters:ISliderParameters, sliderCoordinates: ISliderCoordinates, handlerWidth: number}) => { this.model.setParameters(data); });
-      panel.subscribe('panel-changed', (options:ISliderOptions) => { this.model.getData(options); const params = this.view.updateParameters(); this.model.setParameters(params); });
-      model.subscribe('send-values-for-panel', (state:ISliderOptions) => { this.panel.getData(state); });
+      model.subscribe('values-ready', (obj:IRenderValues) => { view.getChanges(obj); });
+      view.subscribe('slider-clicked', (data:{top:number, left: number}) => { model.clickTreatment(data); });
+      view.subscribe('handle-dragged', (coords:{top:number, left:number, info:string}) => { model.dragNDropTreatment(coords); });
+      view.subscribe('window-resize', (data:{sliderParameters:ISliderParameters, sliderCoordinates: ISliderCoordinates, handlerWidth: number}) => { model.getViewParameters(data); });
+      view.subscribe('scroll', (data:{sliderParameters:ISliderParameters, sliderCoordinates: ISliderCoordinates, handlerWidth: number}) => { model.getViewParameters(data); });
+      panel.subscribe('panel-changed', (options:ISliderOptions) => { model.getData(options); const params = view.updateParameters(); model.getViewParameters(params); });
+      model.subscribe('send-values-for-panel', (state:ISliderOptions) => { panel.getData(state); });
     }
 }
 export { Presenter };

@@ -1,15 +1,15 @@
-import { EventEmitter } from '../eventEmitter/eventEmitter';
-import { getContainer } from '../functions/functions';
-import { ISliderOptions } from '../options/options';
+import { EventEmitter } from '../eventEmitter/eventEmitter.ts';
+import { getContainer } from '../functions/functions.ts';
+import { ISliderOptions } from '../options/options.ts';
 
 class Panel extends EventEmitter {
     options: ISliderOptions
 
-    container: HTMLElement
+    container: Element
 
-    header: HTMLElement
+    header: Element
 
-    panel : HTMLElement
+    panel : Element
 
     listeners: Array<Element>
 
@@ -64,13 +64,13 @@ class Panel extends EventEmitter {
     }
 
     createPanelElement(selector: string, val: number| string):void {
-      let elem = this.panel.querySelector(selector)!;
+      const elem = this.panel.querySelector(selector)!;
       elem.nodeValue = val.toString();
       this.listeners.push(elem);
     }
 
     addPanelListeners():void {
-      this.listeners.forEach(element => {
+      this.listeners.forEach((element) => {
         element.addEventListener('change', (ev) => { this.handleChanges(ev); });
       });
     }
@@ -103,7 +103,7 @@ class Panel extends EventEmitter {
                 ev.target!.checked ? this.options.showValues = true : this.options.showValues = false;
         }
       } else if (ev.target!.classList.contains('max-value')) {
-        this.options.maxValue = parseInt(ev.target!.value);
+        this.options.maxValue = parseInt(ev.target!.value, 10);
       } else if (ev.target!.classList.contains('min-value')) {
         this.options.minValue = parseInt(ev.target!.value, 10);
       } else if (ev.target!.classList.contains('to-val')) {

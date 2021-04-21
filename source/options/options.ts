@@ -22,6 +22,20 @@ export interface ISliderOptions {
     sliderCoordinates?: ISliderCoordinates
 }
 
+export interface IRenderValues {
+    coordinates : string[],
+    barPosition: number,
+    barSize: number,
+    isRange: boolean,
+    rangeTo: number,
+    rangeFrom: number,
+    showValues: boolean,
+    values: string[],
+    valuesPosition: number[],
+    maxValue: number,
+    minValue: number
+}
+
 export const sliderOptionsDefault : ISliderOptions = {
   containerClass: '.container',
   minValue: 0,

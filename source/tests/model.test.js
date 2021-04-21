@@ -24,8 +24,8 @@ const testOptions1 = {
 }
 const testOptions2= {
     containerClass: '.container',
-    minValue: 5000,
-    maxValue: 1000,
+    minValue: 1000,
+    maxValue: 5000,
     range: false,
     isVertical: true,
     fromVal: 600,
@@ -45,16 +45,30 @@ const testOptions2= {
 }
 const model1 = new Model(testOptions1)
 const model2 = new Model(testOptions2)
-describe('Testing model1',()=>{
+
+/* Unit tests */
+
+describe('Тестирование функций model1: Model',()=>{
     test('Model1.calcCurrentPosition',()=>{
-        expect(model1.calcCurrentPosition({left:60,top:0})).toBe(16)
-        
+        expect(model1.calcCurrentPosition({left:60,top:0})).toBe(20)
+    })
+    test('Model1.calcCurrentValue',()=>{
+        expect(model1.calcCurrentValue(20)).toBe(600)
+    })
+    test('Model1.calcBarSize',() =>{
+        expect(model1.calcBarSize(20)).toBe(25)
     })
     
 })
-describe('Testing model2',()=>{
+describe('Тестирование функций model2: Model',()=>{
     test('Model2.calcCurrentPosition',()=>{
         expect(model2.calcCurrentPosition({left:0,top:100})).toBe(85)
+    })
+    test('Model2.calcCurrentValue',()=>{
+        expect(model2.calcCurrentValue(30)).toBe(2200)
+    })
+    test('Model2.calcBarSize',() =>{
+        expect(model2.calcBarSize(40)).toBe(0)
     })
 })
 

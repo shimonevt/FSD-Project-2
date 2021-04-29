@@ -109,7 +109,7 @@ class Model extends EventEmitter {
             isRange,
             rangeTo: this.getHandlePosition(handler.rangeTo),
             rangeFrom: this.getHandlePosition(handler.rangeFrom),
-            barPosition: Model.calcBarPosition(fromVal, maxValue, minValue, isRange),
+            barPosition: this.calcBarPosition(fromVal, maxValue, minValue),
             barSize: isVertical ? this.calcBarSize(sliderParams?.height)
               : this.calcBarSize(sliderParams?.width),
             showValues,
@@ -180,9 +180,10 @@ class Model extends EventEmitter {
                 * sliderStep + minValue;
         }
 
-        static calcBarPosition(value:number, maxValue:number,
-          minValue:number, range:boolean):number {
-          let barPosition = range ? Math.ceil(100 * ((-minValue + value) / (maxValue - minValue)))
+        calcBarPosition(value:number, maxValue:number,
+          minValue:number):number {
+          const { isRange } = this.state;
+          let barPosition = isRange ? Math.ceil(100 * ((-minValue + value) / (maxValue - minValue)))
             : Number(0);
           if (barPosition <= 0) barPosition = 0;
           return barPosition;

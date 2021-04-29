@@ -2,9 +2,9 @@ import { createElementSlider } from '../functions/functions.ts';
 import { IRenderValues } from '../options/options.ts';
 
 class ViewValues {
-    private toVal: HTMLElement;
+    toVal: HTMLElement;
 
-    private fromVal: HTMLElement;
+    fromVal: HTMLElement;
 
     constructor(sliderBody: HTMLElement) {
       this.toVal = createElementSlider(['range__values', 'max-value']);

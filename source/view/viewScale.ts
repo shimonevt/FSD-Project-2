@@ -6,9 +6,9 @@ const scaleUnits = {
   unitPositions: [-0.5, 20, 25, 33, 40, 50, 60, 66, 75, 80, 100],
 };
 class ViewScale {
-    private viewScale : HTMLElement;
+    viewScale : HTMLElement;
 
-    private units: Array<HTMLElement>;
+    units: Array<HTMLElement>;
 
     constructor(sliderBody:HTMLElement) {
       this.viewScale = createElementSlider(['progress__scale-bar']);

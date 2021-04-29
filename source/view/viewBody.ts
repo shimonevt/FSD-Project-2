@@ -7,15 +7,15 @@ import { ViewValues } from './viewValues.ts';
 import { ViewScale } from './viewScale.ts';
 
 class ViewBody extends EventEmitter {
-  private sliderBody: HTMLElement;
+  sliderBody: HTMLElement;
 
-  private viewBar : ViewBar;
+  viewBar : ViewBar;
 
-  private viewHandlers: ViewHandlers;
+  viewHandlers: ViewHandlers;
 
-  private handlerValues: ViewValues;
+  handlerValues: ViewValues;
 
-  private viewScale: ViewScale;
+  viewScale: ViewScale;
 
   constructor(slider:HTMLElement) {
     super();
@@ -64,7 +64,7 @@ class ViewBody extends EventEmitter {
   }
 
   getAndSendClickPosition(ev: MouseEvent):void {
-    if (this.checkClickTarget(ev.target!)) {
+    if (this.checkClickTarget(ev.target)) {
       this.emit('slider-clicked', { top: ev.clientY, left: ev.clientX });
     }
   }

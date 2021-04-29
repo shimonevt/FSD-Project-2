@@ -5,17 +5,17 @@ import { createElementSlider, getContainer } from '../functions/functions.ts';
 import { ViewBody } from './viewBody.ts';
 
 class View extends EventEmitter {
-  private container : Element;
+  container : Element;
 
-  private slider : HTMLElement;
+  slider : HTMLElement;
 
-  private viewBody : ViewBody;
+  viewBody : ViewBody;
 
   constructor(containerClass:string) {
     super();
-    this.container = getContainer(containerClass)!;
+    this.container = getContainer(containerClass);
     this.slider = createElementSlider(['range-slider']);
-    this.container.prepend(this.slider);
+    this.container.append(this.slider);
     this.viewBody = new ViewBody(this.slider);
     this.init();
   }
@@ -49,10 +49,6 @@ class View extends EventEmitter {
       this.slider.classList.remove('vertical');
     }
     this.viewBody.renderViewComponents(renderData);
-  }
-
-  updateScale() {
-    this.updateParameters();
   }
 }
 

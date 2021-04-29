@@ -1,7 +1,7 @@
 import { createElementSlider } from '../functions/functions.ts';
 
 class ViewBar {
-  private viewBar : HTMLElement;
+  viewBar : HTMLElement;
 
   constructor(sliderBody:HTMLElement) {
     this.viewBar = createElementSlider(['progress__bar']);

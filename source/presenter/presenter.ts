@@ -1,7 +1,7 @@
 import { EventEmitter } from '../eventEmitter/eventEmitter.ts';
 import { Model } from '../model/model.ts';
 import {
-  ISliderCoordinates, ISliderOptions, ISliderParameters, IRenderValues 
+  ISliderCoordinates, ISliderOptions, ISliderParameters, IRenderValues,
 } from '../options/options.ts';
 import { Panel } from '../panel/panel.ts';
 import { View } from '../view/view.ts';
@@ -15,7 +15,7 @@ class Presenter extends EventEmitter {
 
     constructor(options:ISliderOptions) {
       super();
-      this.view = new View(options.containerClass!);
+      this.view = new View(options.containerClass);
       this.model = new Model(options);
       this.panel = new Panel(options);
       this.init();

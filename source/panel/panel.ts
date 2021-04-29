@@ -17,11 +17,11 @@ class Panel extends EventEmitter {
       super();
       this.listeners = [];
       this.options = options;
-      this.container = this.getElement(this.options.containerClass!)!;
-      this.header = this.getElement(`${this.options.containerClass} p.range-name`)!;
-      this.container = getContainer(options.containerClass!)!;
-      this.header.innerHTML = this.options.containerClass!;
-      this.panel = this.getElement(`${this.options.containerClass} .panel-container`)!;
+      this.container = this.getElement(this.options.containerClass);
+      this.header = this.getElement(`${this.options.containerClass} p.range-name`);
+      this.container = getContainer(options.containerClass);
+      this.header.innerHTML = this.options.containerClass;
+      this.panel = this.getElement(`${this.options.containerClass} .panel-container`);
       this.init();
     }
 
@@ -40,18 +40,18 @@ class Panel extends EventEmitter {
       const {
         maxValue, minValue, toVal, fromVal, sliderStep, units, isVertical, isRange, showValues,
       } = this.options;
-      this.createPanelElement('input.max-value', maxValue!);
-      this.createPanelElement('input.min-value', minValue!);
-      this.createPanelElement('input.to-val', toVal!);
-      this.createPanelElement('input.from-val', fromVal!);
-      this.createPanelElement('input.slider-step', sliderStep!);
-      this.createPanelElement('input.units', units!);
+      this.createPanelElement('input.max-value', maxValue);
+      this.createPanelElement('input.min-value', minValue);
+      this.createPanelElement('input.to-val', toVal);
+      this.createPanelElement('input.from-val', fromVal);
+      this.createPanelElement('input.slider-step', sliderStep);
+      this.createPanelElement('input.units', units);
       const checkBoxIsVertical = this.panel.querySelector('div.vertical > input');
-      this.checkInputs(checkBoxIsVertical, isVertical!);
+      this.checkInputs(checkBoxIsVertical, isVertical);
       const checkBoxIsRange = this.panel.querySelector('div.range > input');
-      this.checkInputs(checkBoxIsRange, isRange!);
+      this.checkInputs(checkBoxIsRange, isRange);
       const checkBoxShowValues = this.panel.querySelector('div.show-values > input');
-      this.checkInputs(checkBoxShowValues, showValues!);
+      this.checkInputs(checkBoxShowValues, showValues);
     }
 
     checkInputs(elem:Element|null, isTrue:boolean):void {
@@ -64,7 +64,7 @@ class Panel extends EventEmitter {
     }
 
     createPanelElement(selector: string, val: number| string):void {
-      const elem = this.panel.querySelector(selector)!;
+      const elem = this.panel.querySelector(selector);
       elem.nodeValue = val.toString();
       this.listeners.push(elem);
     }
@@ -94,26 +94,26 @@ class Panel extends EventEmitter {
     }
 
     handleChanges(ev:Event):void {
-      if (ev.target!.classList.contains('is-checkbox')) {
-        if (ev.target!.name == 'vertical') {
-                ev.target!.checked ? this.options.isVertical = true : this.options.isVertical = false;
-        } else if (ev.target!.name == 'range') {
-                ev.target!.checked ? this.options.isRange = true : this.options.isRange = false;
-        } else if (ev.target!.name == 'show-values') {
-                ev.target!.checked ? this.options.showValues = true : this.options.showValues = false;
+      if (ev.target.classList.contains('is-checkbox')) {
+        if (ev.target.name === 'vertical') {
+                ev.target.checked ? this.options.isVertical = true : this.options.isVertical = false;
+        } else if (ev.target.name === 'range') {
+                ev.target.checked ? this.options.isRange = true : this.options.isRange = false;
+        } else if (ev.target.name === 'show-values') {
+                ev.target.checked ? this.options.showValues = true : this.options.showValues = false;
         }
-      } else if (ev.target!.classList.contains('max-value')) {
-        this.options.maxValue = parseInt(ev.target!.value, 10);
-      } else if (ev.target!.classList.contains('min-value')) {
-        this.options.minValue = parseInt(ev.target!.value, 10);
-      } else if (ev.target!.classList.contains('to-val')) {
-        this.options.toVal = parseInt(ev.target!.value, 10);
-      } else if (ev.target!.classList.contains('from-val')) {
-        this.options.fromVal = parseInt(ev.target!.value, 10);
-      } else if (ev.target!.classList.contains('slider-step')) {
-        this.options.sliderStep = parseInt(ev.target!.value, 10);
-      } else if (ev.target!.classList.contains('units')) {
-        this.options.units = ev.target!.value;
+      } else if (ev.target.classList.contains('max-value')) {
+        this.options.maxValue = parseInt(ev.target.value, 10);
+      } else if (ev.target.classList.contains('min-value')) {
+        this.options.minValue = parseInt(ev.target.value, 10);
+      } else if (ev.target.classList.contains('to-val')) {
+        this.options.toVal = parseInt(ev.target.value, 10);
+      } else if (ev.target.classList.contains('from-val')) {
+        this.options.fromVal = parseInt(ev.target.value, 10);
+      } else if (ev.target.classList.contains('slider-step')) {
+        this.options.sliderStep = parseInt(ev.target.value, 10);
+      } else if (ev.target.classList.contains('units')) {
+        this.options.units = ev.target.value;
       }
       this.emit('panel-changed', this.options);
     }

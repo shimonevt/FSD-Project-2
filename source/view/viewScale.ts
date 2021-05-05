@@ -5,6 +5,11 @@ const scaleUnits = {
     '50-percent-value', '60-percent-value', '66-percent-value', '75-percent-value', '80-percent-value', 'max-value'],
   unitPositions: [-0.5, 20, 25, 33, 40, 50, 60, 66, 75, 80, 100],
 };
+const displayUnitsAt400 = ['min-value', '20-percent-value', '40-percent-value',
+  '60-percent-value', '80-percent-value', 'max-value'];
+const displayUnitsAt300 = ['min-value', '25-percent-value', '50-percent-value', '75-percent-value', 'max-value'];
+const displayUnitsAt200 = ['min-value', '33-percent-value', '66-percent-value', 'max-value'];
+const displayUnitsAt150 = ['min-value', '50-percent-value', 'max-value'];
 class ViewScale {
     viewScale : HTMLElement;
 
@@ -43,11 +48,6 @@ class ViewScale {
     }
 
     changeScaleDisplay(scaleSize:number) {
-      const displayUnitsAt400 = ['min-value', '20-percent-value', '40-percent-value',
-        '60-percent-value', '80-percent-value', 'max-value'];
-      const displayUnitsAt300 = ['min-value', '25-percent-value', '50-percent-value', '75-percent-value', 'max-value'];
-      const displayUnitsAt200 = ['min-value', '33-percent-value', '66-percent-value', 'max-value'];
-      const displayUnitsAt150 = ['min-value', '50-percent-value', 'max-value'];
       if (scaleSize >= 400) {
         this.searchByScaleElements(displayUnitsAt400);
       } else if (scaleSize >= 300) {

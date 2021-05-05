@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/20</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/12</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.35% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/17</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -112,22 +112,22 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -151,7 +151,7 @@ class ViewValues {
         isRange, showValues, coordinates, valuesPosition, values,
       } = renderData;
       const { fromVal, toVal } = this;
-      showValues ? <span class="branch-0 cbranch-no" title="branch not covered" >this.showValues(true, isRange) </span>: this.showValues(false, isRange);
+      showValues ? this.showValues(true, isRange) : this.showValues(false, isRange);
       fromVal.innerHTML = values[0];
       toVal.innerHTML = values[1];
       fromVal.setAttribute('style', `${coordinates[1]} ${valuesPosition[0]}%`);
@@ -159,12 +159,12 @@ class ViewValues {
     }
 &nbsp;
     showValues(show: boolean, showBoth: boolean):void {
-      <span class="missing-if-branch" title="if path not taken" >I</span>if (show === true &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >showBoth === true)</span> {
-<span class="cstat-no" title="statement not covered" >        this.toVal.classList.remove('hidden');</span>
-<span class="cstat-no" title="statement not covered" >        this.fromVal.classList.remove('hidden');</span>
-      } else <span class="missing-if-branch" title="if path not taken" >I</span>if (show === true &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >showBoth === false)</span> {
-<span class="cstat-no" title="statement not covered" >        this.toVal.classList.remove('hidden'); <span class="cstat-no" title="statement not covered" ></span>this.fromVal.classList.add('hidden');</span>
-      } else <span class="missing-if-branch" title="else path not taken" >E</span>if (show === false) { this.toVal.classList.add('hidden'); this.fromVal.classList.add('hidden'); }
+      if (show === true &amp;&amp; showBoth === true) {
+        this.toVal.classList.remove('hidden');
+        this.fromVal.classList.remove('hidden');
+      } else if (show === true &amp;&amp; showBoth === false) {
+        this.toVal.classList.remove('hidden'); this.fromVal.classList.add('hidden');
+      } else if (show === false) { this.toVal.classList.add('hidden'); this.fromVal.classList.add('hidden'); }
     }
 }
 export { ViewValues };
@@ -175,7 +175,7 @@ export { ViewValues };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Apr 30 2021 00:07:58 GMT+0300 (GMT+03:00)
+                at Thu May 06 2021 00:21:44 GMT+0300 (GMT+03:00)
             </div>
         </div>
         <script src="../prettify.js"></script>

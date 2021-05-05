@@ -28,9 +28,10 @@ class ViewHandlers extends EventEmitter {
     this.rangeTo.setAttribute('style', `${coordinates[1]} ${rangeTo}%`);
   }
 
-  static onMouseDown(ev:MouseEvent, viewHandlers: any, whichHandle:string):void {
+  onMouseDown(ev:MouseEvent, whichHandle:string):void {
+    const viewHandlersPointer = this;
     function onMouseMove(event:MouseEvent) {
-      viewHandlers.emit('handle-dragged', { top: event.clientY, left: event.clientX, info: whichHandle });
+      viewHandlersPointer.emit('handle-dragged', { top: event.clientY, left: event.clientX, info: whichHandle });
     }
     function onMouseUp() {
       document.removeEventListener('mousemove', onMouseMove);
@@ -41,12 +42,12 @@ class ViewHandlers extends EventEmitter {
     }
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-    ev.target?.addEventListener('dragstart', onDragStart);
+    document.addEventListener('dragstart', onDragStart);
   }
 
   addDragNDrop() {
-    this.rangeTo.addEventListener('mousedown', (ev) => { ViewHandlers.onMouseDown(ev, this, handler.rangeTo); });
-    this.rangeFrom.addEventListener('mousedown', (ev) => { ViewHandlers.onMouseDown(ev, this, handler.rangeFrom); });
+    this.rangeTo.addEventListener('mousedown', (ev) => { this.onMouseDown(ev, handler.rangeTo); });
+    this.rangeFrom.addEventListener('mousedown', (ev) => { this.onMouseDown(ev, handler.rangeFrom); });
   }
 }
 export { ViewHandlers };

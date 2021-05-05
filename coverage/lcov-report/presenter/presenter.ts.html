@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">70.83% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/24</span>
+                <span class='fraction'>17/24</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/10</span>
+                <span class='fraction'>5/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/15</span>
+                <span class='fraction'>15/15</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -113,27 +113,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,28 +152,28 @@ class Presenter extends EventEmitter {
 &nbsp;
     panel: Panel
 &nbsp;
-<span class="fstat-no" title="function not covered" >    co</span>nstructor(options:ISliderOptions) {
-<span class="cstat-no" title="statement not covered" >      super();</span>
-<span class="cstat-no" title="statement not covered" >      this.view = new View(options.containerClass);</span>
-<span class="cstat-no" title="statement not covered" >      this.model = new Model(options);</span>
-<span class="cstat-no" title="statement not covered" >      this.panel = new Panel(options);</span>
-<span class="cstat-no" title="statement not covered" >      this.init();</span>
+    constructor(options:ISliderOptions) {
+      super();
+      this.view = new View(options.containerClass);
+      this.model = new Model(options);
+      this.panel = new Panel(options);
+      this.init();
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    in</span>it():void {
-<span class="cstat-no" title="statement not covered" >      this.subscribeOnEvents();</span>
-<span class="cstat-no" title="statement not covered" >      this.model.getViewParameters(this.view.updateParameters());</span>
+    init():void {
+      this.subscribeOnEvents();
+      this.model.getViewParameters(this.view.updateParameters());
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    su</span>bscribeOnEvents():void {
-      const { model, view, panel } = <span class="cstat-no" title="statement not covered" >this;</span>
-<span class="cstat-no" title="statement not covered" >      model.subscribe('values-ready', <span class="fstat-no" title="function not covered" >(o</span>bj:IRenderValues) =&gt; { <span class="cstat-no" title="statement not covered" >view.getChanges(obj); </span>});</span>
-<span class="cstat-no" title="statement not covered" >      view.subscribe('slider-clicked', <span class="fstat-no" title="function not covered" >(d</span>ata:{top:number, left: number}) =&gt; { <span class="cstat-no" title="statement not covered" >model.clickTreatment(data); </span>});</span>
-<span class="cstat-no" title="statement not covered" >      view.subscribe('handle-dragged', <span class="fstat-no" title="function not covered" >(c</span>oords:{top:number, left:number, info:string}) =&gt; { <span class="cstat-no" title="statement not covered" >model.dragNDropTreatment(coords); </span>});</span>
-<span class="cstat-no" title="statement not covered" >      view.subscribe('window-resize', <span class="fstat-no" title="function not covered" >(d</span>ata:{sliderParameters:ISliderParameters, sliderCoordinates: ISliderCoordinates, handlerWidth: number}) =&gt; { <span class="cstat-no" title="statement not covered" >model.getViewParameters(data); </span>});</span>
-<span class="cstat-no" title="statement not covered" >      view.subscribe('scroll', <span class="fstat-no" title="function not covered" >(d</span>ata:{sliderParameters:ISliderParameters, sliderCoordinates: ISliderCoordinates, handlerWidth: number}) =&gt; { <span class="cstat-no" title="statement not covered" >model.getViewParameters(data); </span>});</span>
-<span class="cstat-no" title="statement not covered" >      panel.subscribe('panel-changed', <span class="fstat-no" title="function not covered" >(o</span>ptions:ISliderOptions) =&gt; { <span class="cstat-no" title="statement not covered" >model.getData(options); </span>const params = <span class="cstat-no" title="statement not covered" >view.updateParameters();</span> <span class="cstat-no" title="statement not covered" >model.getViewParameters(params); </span>});</span>
-<span class="cstat-no" title="statement not covered" >      model.subscribe('send-values-for-panel', <span class="fstat-no" title="function not covered" >(s</span>tate:ISliderOptions) =&gt; { <span class="cstat-no" title="statement not covered" >panel.getData(state); </span>});</span>
+    subscribeOnEvents():void {
+      const { model, view, panel } = this;
+      model.subscribe('values-ready', (obj:IRenderValues) =&gt; { view.getChanges(obj); });
+      view.subscribe('slider-clicked', <span class="fstat-no" title="function not covered" >(d</span>ata:{top:number, left: number}) =&gt; { <span class="cstat-no" title="statement not covered" >model.clickTreatment(data); </span>});
+      view.subscribe('handle-dragged', <span class="fstat-no" title="function not covered" >(c</span>oords:{top:number, left:number, info:string}) =&gt; { <span class="cstat-no" title="statement not covered" >model.dragNDropTreatment(coords); </span>});
+      view.subscribe('window-resize', <span class="fstat-no" title="function not covered" >(d</span>ata:{sliderParameters:ISliderParameters, sliderCoordinates: ISliderCoordinates, handlerWidth: number}) =&gt; { <span class="cstat-no" title="statement not covered" >model.getViewParameters(data); </span>});
+      view.subscribe('scroll', <span class="fstat-no" title="function not covered" >(d</span>ata:{sliderParameters:ISliderParameters, sliderCoordinates: ISliderCoordinates, handlerWidth: number}) =&gt; { <span class="cstat-no" title="statement not covered" >model.getViewParameters(data); </span>});
+      panel.subscribe('panel-changed', <span class="fstat-no" title="function not covered" >(o</span>ptions:ISliderOptions) =&gt; { <span class="cstat-no" title="statement not covered" >model.getData(options); </span>const params = <span class="cstat-no" title="statement not covered" >view.updateParameters();</span> <span class="cstat-no" title="statement not covered" >model.getViewParameters(params); </span>});
+      model.subscribe('send-values-for-panel', (state:ISliderOptions) =&gt; { panel.getData(state); });
     }
 }
 export { Presenter };
@@ -184,7 +184,7 @@ export { Presenter };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Fri Apr 30 2021 00:07:58 GMT+0300 (GMT+03:00)
+                at Thu May 06 2021 00:21:44 GMT+0300 (GMT+03:00)
             </div>
         </div>
         <script src="../prettify.js"></script>

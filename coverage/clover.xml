@@ -1,75 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1619730479087" clover="3.2.0">
-  <project timestamp="1619730479088" name="All files">
-    <metrics statements="316" coveredstatements="126" conditionals="152" coveredconditionals="27" methods="86" coveredmethods="34" elements="554" coveredelements="187" complexity="0" loc="316" ncloc="316" packages="8" files="13" classes="13"/>
+<coverage generated="1620249705060" clover="3.2.0">
+  <project timestamp="1620249705061" name="All files">
+    <metrics statements="316" coveredstatements="220" conditionals="150" coveredconditionals="66" methods="85" coveredmethods="63" elements="551" coveredelements="349" complexity="0" loc="316" ncloc="316" packages="8" files="13" classes="13"/>
     <package name="eventEmitter">
-      <metrics statements="8" coveredstatements="4" conditionals="4" coveredconditionals="1" methods="4" coveredmethods="2"/>
+      <metrics statements="8" coveredstatements="8" conditionals="4" coveredconditionals="3" methods="4" coveredmethods="4"/>
       <file name="eventEmitter.ts" path="C:\Users\Gilmore\Desktop\FSD-Project-2\source\eventEmitter\eventEmitter.ts">
-        <metrics statements="8" coveredstatements="4" conditionals="4" coveredconditionals="1" methods="4" coveredmethods="2"/>
-        <line num="5" count="8" type="stmt"/>
-        <line num="9" count="6" type="cond" truecount="1" falsecount="1"/>
-        <line num="10" count="6" type="stmt"/>
-        <line num="12" count="6" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
+        <metrics statements="8" coveredstatements="8" conditionals="4" coveredconditionals="3" methods="4" coveredmethods="4"/>
+        <line num="5" count="11" type="stmt"/>
+        <line num="9" count="12" type="cond" truecount="1" falsecount="1"/>
+        <line num="10" count="12" type="stmt"/>
+        <line num="12" count="12" type="stmt"/>
+        <line num="16" count="19" type="stmt"/>
+        <line num="17" count="19" type="cond" truecount="2" falsecount="0"/>
+        <line num="18" count="5" type="stmt"/>
+        <line num="19" count="5" type="stmt"/>
       </file>
     </package>
     <package name="functions">
-      <metrics statements="8" coveredstatements="5" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="2"/>
+      <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="functions.ts" path="C:\Users\Gilmore\Desktop\FSD-Project-2\source\functions\functions.ts">
-        <metrics statements="8" coveredstatements="5" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="2"/>
-        <line num="2" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="3" count="0" type="stmt"/>
-        <line num="5" count="0" type="stmt"/>
-        <line num="8" count="60" type="stmt"/>
-        <line num="9" count="60" type="stmt"/>
-        <line num="10" count="90" type="stmt"/>
-        <line num="12" count="60" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
+        <line num="2" count="60" type="stmt"/>
+        <line num="3" count="60" type="stmt"/>
+        <line num="4" count="90" type="stmt"/>
+        <line num="6" count="60" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
       </file>
     </package>
     <package name="model">
-      <metrics statements="93" coveredstatements="18" conditionals="72" coveredconditionals="9" methods="16" coveredmethods="5"/>
+      <metrics statements="93" coveredstatements="67" conditionals="72" coveredconditionals="32" methods="16" coveredmethods="16"/>
       <file name="model.ts" path="C:\Users\Gilmore\Desktop\FSD-Project-2\source\model\model.ts">
-        <metrics statements="93" coveredstatements="18" conditionals="72" coveredconditionals="9" methods="16" coveredmethods="5"/>
-        <line num="9" count="2" type="stmt"/>
-        <line num="10" count="2" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
-        <line num="44" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="45" count="0" type="stmt"/>
-        <line num="46" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="49" count="0" type="cond" truecount="0" falsecount="2"/>
+        <metrics statements="93" coveredstatements="67" conditionals="72" coveredconditionals="32" methods="16" coveredmethods="16"/>
+        <line num="9" count="4" type="stmt"/>
+        <line num="10" count="4" type="stmt"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="44" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="46" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="49" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="50" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="51" count="0" type="stmt"/>
-        <line num="53" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="53" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="54" count="0" type="stmt"/>
-        <line num="56" count="0" type="stmt"/>
+        <line num="56" count="1" type="stmt"/>
         <line num="58" count="0" type="stmt"/>
         <line num="59" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="60" count="0" type="stmt"/>
         <line num="61" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="62" count="0" type="stmt"/>
         <line num="64" count="0" type="stmt"/>
-        <line num="68" count="0" type="stmt"/>
-        <line num="69" count="0" type="stmt"/>
-        <line num="70" count="0" type="stmt"/>
-        <line num="71" count="0" type="stmt"/>
-        <line num="72" count="0" type="stmt"/>
-        <line num="73" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="68" count="1" type="stmt"/>
+        <line num="69" count="1" type="stmt"/>
+        <line num="70" count="1" type="stmt"/>
+        <line num="71" count="1" type="stmt"/>
+        <line num="72" count="1" type="stmt"/>
+        <line num="73" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="74" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="75" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="76" count="0" type="stmt"/>
@@ -79,54 +76,54 @@
         <line num="82" count="0" type="stmt"/>
         <line num="83" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="85" count="0" type="stmt"/>
-        <line num="88" count="0" type="stmt"/>
-        <line num="90" count="0" type="stmt"/>
-        <line num="97" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="98" count="0" type="stmt"/>
-        <line num="99" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="88" count="1" type="stmt"/>
+        <line num="90" count="1" type="stmt"/>
+        <line num="97" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="98" count="4" type="stmt"/>
+        <line num="99" count="3" type="cond" truecount="1" falsecount="1"/>
         <line num="100" count="0" type="stmt"/>
-        <line num="102" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="102" count="7" type="cond" truecount="1" falsecount="1"/>
         <line num="103" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="104" count="0" type="stmt"/>
-        <line num="107" count="0" type="stmt"/>
-        <line num="122" count="0" type="stmt"/>
-        <line num="123" count="0" type="stmt"/>
-        <line num="127" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="128" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="129" count="0" type="stmt"/>
-        <line num="130" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="131" count="0" type="stmt"/>
-        <line num="133" count="0" type="stmt"/>
+        <line num="107" count="7" type="stmt"/>
+        <line num="122" count="7" type="stmt"/>
+        <line num="123" count="7" type="stmt"/>
+        <line num="127" count="14" type="cond" truecount="1" falsecount="1"/>
+        <line num="128" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="129" count="4" type="stmt"/>
+        <line num="130" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="131" count="4" type="stmt"/>
+        <line num="133" count="6" type="stmt"/>
         <line num="135" count="0" type="stmt"/>
-        <line num="139" count="0" type="stmt"/>
-        <line num="140" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="146" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="150" count="0" type="stmt"/>
-        <line num="151" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="152" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="139" count="14" type="stmt"/>
+        <line num="140" count="14" type="cond" truecount="1" falsecount="1"/>
+        <line num="146" count="16" type="cond" truecount="1" falsecount="1"/>
+        <line num="150" count="16" type="stmt"/>
+        <line num="151" count="16" type="cond" truecount="2" falsecount="0"/>
+        <line num="152" count="8" type="cond" truecount="1" falsecount="1"/>
         <line num="153" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="154" count="0" type="stmt"/>
-        <line num="157" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="158" count="0" type="stmt"/>
-        <line num="161" count="0" type="stmt"/>
-        <line num="164" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="165" count="0" type="stmt"/>
-        <line num="170" count="1" type="stmt"/>
-        <line num="171" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="173" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="178" count="1" type="stmt"/>
-        <line num="179" count="1" type="stmt"/>
-        <line num="185" count="1" type="stmt"/>
-        <line num="186" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="188" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="189" count="1" type="stmt"/>
-        <line num="195" count="3" type="stmt"/>
-        <line num="196" count="3" type="cond" truecount="1" falsecount="1"/>
-        <line num="198" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="199" count="1" type="stmt"/>
-        <line num="200" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="201" count="1" type="stmt"/>
-        <line num="203" count="3" type="stmt"/>
+        <line num="157" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="158" count="4" type="stmt"/>
+        <line num="161" count="4" type="stmt"/>
+        <line num="164" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="165" count="4" type="stmt"/>
+        <line num="170" count="3" type="stmt"/>
+        <line num="171" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="173" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="178" count="3" type="stmt"/>
+        <line num="179" count="3" type="stmt"/>
+        <line num="185" count="8" type="stmt"/>
+        <line num="186" count="8" type="cond" truecount="1" falsecount="1"/>
+        <line num="188" count="8" type="cond" truecount="1" falsecount="1"/>
+        <line num="189" count="8" type="stmt"/>
+        <line num="195" count="8" type="stmt"/>
+        <line num="196" count="8" type="cond" truecount="1" falsecount="1"/>
+        <line num="198" count="8" type="cond" truecount="1" falsecount="1"/>
+        <line num="199" count="0" type="stmt"/>
+        <line num="200" count="8" type="cond" truecount="1" falsecount="1"/>
+        <line num="201" count="0" type="stmt"/>
+        <line num="203" count="8" type="stmt"/>
       </file>
     </package>
     <package name="options">
@@ -137,9 +134,9 @@
       </file>
     </package>
     <package name="panel">
-      <metrics statements="70" coveredstatements="0" conditionals="42" coveredconditionals="0" methods="13" coveredmethods="0"/>
+      <metrics statements="69" coveredstatements="0" conditionals="42" coveredconditionals="0" methods="13" coveredmethods="0"/>
       <file name="panel.ts" path="C:\Users\Gilmore\Desktop\FSD-Project-2\source\panel\panel.ts">
-        <metrics statements="70" coveredstatements="0" conditionals="42" coveredconditionals="0" methods="13" coveredmethods="0"/>
+        <metrics statements="69" coveredstatements="0" conditionals="42" coveredconditionals="0" methods="13" coveredmethods="0"/>
         <line num="17" count="0" type="stmt"/>
         <line num="18" count="0" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
@@ -148,12 +145,12 @@
         <line num="22" count="0" type="stmt"/>
         <line num="23" count="0" type="stmt"/>
         <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
         <line num="29" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
         <line num="34" count="0" type="stmt"/>
         <line num="35" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
         <line num="42" count="0" type="stmt"/>
         <line num="43" count="0" type="stmt"/>
         <line num="44" count="0" type="stmt"/>
@@ -166,89 +163,91 @@
         <line num="51" count="0" type="stmt"/>
         <line num="52" count="0" type="stmt"/>
         <line num="53" count="0" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
+        <line num="57" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="58" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="59" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="60" count="0" type="stmt"/>
-        <line num="62" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="66" count="0" type="stmt"/>
         <line num="67" count="0" type="stmt"/>
         <line num="68" count="0" type="stmt"/>
-        <line num="69" count="0" type="stmt"/>
+        <line num="72" count="0" type="stmt"/>
         <line num="73" count="0" type="stmt"/>
-        <line num="74" count="0" type="stmt"/>
-        <line num="79" count="0" type="stmt"/>
-        <line num="80" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="81" count="0" type="stmt"/>
-        <line num="82" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="83" count="0" type="stmt"/>
-        <line num="84" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="86" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="87" count="0" type="stmt"/>
-        <line num="88" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="89" count="0" type="stmt"/>
-        <line num="90" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="91" count="0" type="stmt"/>
+        <line num="78" count="0" type="stmt"/>
+        <line num="79" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="80" count="0" type="stmt"/>
+        <line num="81" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="82" count="0" type="stmt"/>
+        <line num="83" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="84" count="0" type="stmt"/>
+        <line num="85" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="86" count="0" type="stmt"/>
+        <line num="87" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="88" count="0" type="stmt"/>
+        <line num="89" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="90" count="0" type="stmt"/>
+        <line num="96" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="97" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="98" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="99" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="100" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="101" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="102" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="103" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="105" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="106" count="0" type="stmt"/>
-        <line num="107" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="108" count="0" type="stmt"/>
-        <line num="109" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="110" count="0" type="stmt"/>
-        <line num="111" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="112" count="0" type="stmt"/>
-        <line num="113" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="114" count="0" type="stmt"/>
-        <line num="115" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="116" count="0" type="stmt"/>
-        <line num="118" count="0" type="stmt"/>
-        <line num="123" count="0" type="stmt"/>
+        <line num="104" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="105" count="0" type="stmt"/>
+        <line num="106" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="107" count="0" type="stmt"/>
+        <line num="108" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="109" count="0" type="stmt"/>
+        <line num="110" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="111" count="0" type="stmt"/>
+        <line num="112" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="113" count="0" type="stmt"/>
+        <line num="114" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="115" count="0" type="stmt"/>
+        <line num="117" count="0" type="stmt"/>
+        <line num="122" count="0" type="stmt"/>
       </file>
     </package>
     <package name="presenter">
-      <metrics statements="15" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="10" coveredmethods="0"/>
+      <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="10" coveredmethods="5"/>
       <file name="presenter.ts" path="C:\Users\Gilmore\Desktop\FSD-Project-2\source\presenter\presenter.ts">
-        <metrics statements="15" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="10" coveredmethods="0"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
+        <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="10" coveredmethods="5"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
       </file>
     </package>
     <package name="tests">
-      <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="test-import.js" path="C:\Users\Gilmore\Desktop\FSD-Project-2\source\tests\test-import.js">
-        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="7" count="2" type="stmt"/>
-        <line num="8" count="2" type="stmt"/>
-        <line num="10" count="2" type="stmt"/>
-        <line num="32" count="2" type="stmt"/>
-        <line num="33" count="2" type="stmt"/>
-        <line num="34" count="2" type="stmt"/>
+        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="52" count="1" type="stmt"/>
+        <line num="65" count="1" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="79" count="1" type="stmt"/>
+        <line num="80" count="1" type="stmt"/>
       </file>
     </package>
     <package name="view">
-      <metrics statements="115" coveredstatements="92" conditionals="32" coveredconditionals="17" methods="40" coveredmethods="25"/>
+      <metrics statements="116" coveredstatements="115" conditionals="32" coveredconditionals="31" methods="40" coveredmethods="36"/>
       <file name="view.ts" path="C:\Users\Gilmore\Desktop\FSD-Project-2\source\view\view.ts">
-        <metrics statements="19" coveredstatements="19" conditionals="2" coveredconditionals="2" methods="10" coveredmethods="6"/>
+        <metrics statements="19" coveredstatements="19" conditionals="2" coveredconditionals="2" methods="10" coveredmethods="8"/>
         <line num="15" count="2" type="stmt"/>
         <line num="16" count="2" type="stmt"/>
         <line num="17" count="2" type="stmt"/>
@@ -261,22 +260,22 @@
         <line num="30" count="2" type="stmt"/>
         <line num="31" count="2" type="stmt"/>
         <line num="32" count="2" type="stmt"/>
-        <line num="37" count="1" type="stmt"/>
-        <line num="41" count="2" type="stmt"/>
-        <line num="45" count="2" type="stmt"/>
-        <line num="46" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="37" count="2" type="stmt"/>
+        <line num="41" count="3" type="stmt"/>
+        <line num="45" count="3" type="stmt"/>
+        <line num="46" count="3" type="cond" truecount="2" falsecount="0"/>
         <line num="47" count="1" type="stmt"/>
-        <line num="49" count="1" type="stmt"/>
-        <line num="51" count="2" type="stmt"/>
+        <line num="49" count="2" type="stmt"/>
+        <line num="51" count="3" type="stmt"/>
       </file>
       <file name="viewBar.ts" path="C:\Users\Gilmore\Desktop\FSD-Project-2\source\view\viewBar.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="7" count="2" type="stmt"/>
         <line num="8" count="2" type="stmt"/>
-        <line num="12" count="2" type="stmt"/>
+        <line num="12" count="4" type="stmt"/>
       </file>
       <file name="viewBody.ts" path="C:\Users\Gilmore\Desktop\FSD-Project-2\source\view\viewBody.ts">
-        <metrics statements="21" coveredstatements="18" conditionals="2" coveredconditionals="0" methods="10" coveredmethods="6"/>
+        <metrics statements="21" coveredstatements="21" conditionals="2" coveredconditionals="1" methods="10" coveredmethods="10"/>
         <line num="21" count="2" type="stmt"/>
         <line num="22" count="2" type="stmt"/>
         <line num="23" count="2" type="stmt"/>
@@ -284,101 +283,102 @@
         <line num="25" count="2" type="stmt"/>
         <line num="26" count="2" type="stmt"/>
         <line num="27" count="2" type="stmt"/>
-        <line num="31" count="1" type="stmt"/>
-        <line num="39" count="1" type="stmt"/>
-        <line num="46" count="1" type="stmt"/>
-        <line num="55" count="2" type="stmt"/>
-        <line num="56" count="2" type="stmt"/>
-        <line num="57" count="2" type="stmt"/>
-        <line num="58" count="2" type="stmt"/>
-        <line num="59" count="2" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
-        <line num="67" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="68" count="0" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="39" count="2" type="stmt"/>
+        <line num="46" count="2" type="stmt"/>
+        <line num="55" count="4" type="stmt"/>
+        <line num="56" count="4" type="stmt"/>
+        <line num="57" count="4" type="stmt"/>
+        <line num="58" count="4" type="stmt"/>
+        <line num="59" count="4" type="stmt"/>
+        <line num="63" count="2" type="stmt"/>
+        <line num="67" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="68" count="1" type="stmt"/>
         <line num="73" count="2" type="stmt"/>
         <line num="74" count="2" type="stmt"/>
         <line num="75" count="2" type="stmt"/>
       </file>
       <file name="viewHandlers.ts" path="C:\Users\Gilmore\Desktop\FSD-Project-2\source\view\viewHandlers.ts">
-        <metrics statements="18" coveredstatements="11" conditionals="2" coveredconditionals="1" methods="10" coveredmethods="4"/>
-        <line num="4" count="4" type="stmt"/>
+        <metrics statements="19" coveredstatements="18" conditionals="2" coveredconditionals="2" methods="10" coveredmethods="8"/>
+        <line num="4" count="3" type="stmt"/>
         <line num="14" count="2" type="stmt"/>
         <line num="15" count="2" type="stmt"/>
         <line num="16" count="2" type="stmt"/>
         <line num="17" count="2" type="stmt"/>
         <line num="18" count="2" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
-        <line num="26" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="28" count="2" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="40" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
-        <line num="44" count="0" type="stmt"/>
-        <line num="48" count="2" type="stmt"/>
-        <line num="49" count="2" type="stmt"/>
-      </file>
-      <file name="viewScale.ts" path="C:\Users\Gilmore\Desktop\FSD-Project-2\source\view\viewScale.ts">
-        <metrics statements="37" coveredstatements="27" conditionals="14" coveredconditionals="8" methods="5" coveredmethods="4"/>
-        <line num="3" count="3" type="stmt"/>
-        <line num="14" count="2" type="stmt"/>
-        <line num="15" count="2" type="stmt"/>
-        <line num="16" count="2" type="stmt"/>
-        <line num="17" count="2" type="stmt"/>
-        <line num="21" count="2" type="stmt"/>
-        <line num="22" count="22" type="stmt"/>
-        <line num="23" count="22" type="stmt"/>
-        <line num="24" count="22" type="stmt"/>
-        <line num="25" count="22" type="stmt"/>
-        <line num="26" count="22" type="stmt"/>
-        <line num="31" count="2" type="cond" truecount="2" falsecount="0"/>
-        <line num="33" count="2" type="stmt"/>
-        <line num="34" count="22" type="cond" truecount="2" falsecount="0"/>
-        <line num="35" count="2" type="stmt"/>
-        <line num="36" count="2" type="stmt"/>
-        <line num="38" count="20" type="stmt"/>
-        <line num="39" count="20" type="stmt"/>
-        <line num="42" count="2" type="stmt"/>
-        <line num="46" count="2" type="stmt"/>
-        <line num="48" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="26" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="28" count="4" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="45" count="1" type="stmt"/>
         <line num="49" count="2" type="stmt"/>
         <line num="50" count="2" type="stmt"/>
-        <line num="51" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="53" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="55" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="56" count="0" type="stmt"/>
-        <line num="57" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="58" count="0" type="stmt"/>
-        <line num="63" count="0" type="stmt"/>
-        <line num="64" count="0" type="stmt"/>
-        <line num="65" count="0" type="stmt"/>
-        <line num="66" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="67" count="0" type="stmt"/>
-        <line num="68" count="0" type="stmt"/>
+      </file>
+      <file name="viewScale.ts" path="C:\Users\Gilmore\Desktop\FSD-Project-2\source\view\viewScale.ts">
+        <metrics statements="37" coveredstatements="37" conditionals="14" coveredconditionals="14" methods="5" coveredmethods="5"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="27" count="22" type="stmt"/>
+        <line num="28" count="22" type="stmt"/>
+        <line num="29" count="22" type="stmt"/>
+        <line num="30" count="22" type="stmt"/>
+        <line num="31" count="22" type="stmt"/>
+        <line num="36" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="38" count="5" type="stmt"/>
+        <line num="39" count="55" type="cond" truecount="2" falsecount="0"/>
+        <line num="40" count="5" type="stmt"/>
+        <line num="41" count="5" type="stmt"/>
+        <line num="43" count="50" type="stmt"/>
+        <line num="44" count="50" type="stmt"/>
+        <line num="47" count="5" type="stmt"/>
+        <line num="51" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="52" count="1" type="stmt"/>
+        <line num="53" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="55" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="57" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="63" count="4" type="stmt"/>
+        <line num="64" count="44" type="stmt"/>
+        <line num="65" count="44" type="stmt"/>
+        <line num="66" count="164" type="cond" truecount="2" falsecount="0"/>
+        <line num="67" count="18" type="stmt"/>
+        <line num="68" count="18" type="stmt"/>
       </file>
       <file name="viewValues.ts" path="C:\Users\Gilmore\Desktop\FSD-Project-2\source\view\viewValues.ts">
-        <metrics statements="17" coveredstatements="14" conditionals="12" coveredconditionals="6" methods="3" coveredmethods="3"/>
+        <metrics statements="17" coveredstatements="17" conditionals="12" coveredconditionals="12" methods="3" coveredmethods="3"/>
         <line num="10" count="2" type="stmt"/>
         <line num="11" count="2" type="stmt"/>
         <line num="12" count="2" type="stmt"/>
         <line num="13" count="2" type="stmt"/>
-        <line num="19" count="2" type="stmt"/>
-        <line num="20" count="2" type="stmt"/>
-        <line num="21" count="2" type="cond" truecount="1" falsecount="1"/>
-        <line num="22" count="2" type="stmt"/>
-        <line num="23" count="2" type="stmt"/>
-        <line num="24" count="2" type="stmt"/>
-        <line num="25" count="2" type="stmt"/>
-        <line num="29" count="2" type="cond" truecount="2" falsecount="2"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
-        <line num="32" count="2" type="cond" truecount="2" falsecount="2"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="34" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="19" count="4" type="stmt"/>
+        <line num="20" count="4" type="stmt"/>
+        <line num="21" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="22" count="4" type="stmt"/>
+        <line num="23" count="4" type="stmt"/>
+        <line num="24" count="4" type="stmt"/>
+        <line num="25" count="4" type="stmt"/>
+        <line num="29" count="7" type="cond" truecount="4" falsecount="0"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="32" count="6" type="cond" truecount="4" falsecount="0"/>
+        <line num="33" count="1" type="stmt"/>
+        <line num="34" count="5" type="cond" truecount="2" falsecount="0"/>
       </file>
     </package>
   </project>

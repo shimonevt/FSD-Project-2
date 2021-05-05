@@ -20,7 +20,6 @@ class Panel extends EventEmitter {
       this.container = this.getElement(this.options.containerClass);
       this.header = this.getElement(`${this.options.containerClass} p.range-name`);
       this.container = getContainer(options.containerClass);
-      this.header.innerHTML = this.options.containerClass;
       this.panel = this.getElement(`${this.options.containerClass} .panel-container`);
       this.init();
     }
@@ -64,7 +63,7 @@ class Panel extends EventEmitter {
     }
 
     createPanelElement(selector: string, val: number| string):void {
-      const elem = this.panel.querySelector(selector);
+      const elem = this.container.querySelector(selector);
       elem.nodeValue = val.toString();
       this.listeners.push(elem);
     }

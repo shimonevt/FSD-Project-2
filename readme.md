@@ -1,6 +1,6 @@
 # Plugin (Range slider) mvp Typescript
 
-[Демонстрация](shimonevt/github.com.io/FSD-Project-2/build/index.html) 
+[Демонстрация](https://shimonevt.github.com.io/FSD-Project-2/build/index.html) 
 
 [Репозиторий](https://github.com/shimonevt/FSD-Project-2/)
 

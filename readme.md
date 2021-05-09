@@ -1,8 +1,8 @@
 # Plugin (Range slider) mvp Typescript
 
-[Демонстрация]() 
+[Демонстрация](shimonevt/github.com.io/FSD-Project-2/build/index.html) 
 
-[Репозиторий]()
+[Репозиторий](https://github.com/shimonevt/FSD-Project-2/)
 
 Тестовое задание для Fullstack Development
 

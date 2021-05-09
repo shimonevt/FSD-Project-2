@@ -24,18 +24,18 @@ class Model extends EventEmitter {
         }
 
         clickTreatment(data:{top:number, left: number}):void {
-          this.sendStylesForRender(this.CalcDataClick(data));
+          this.sendStylesForRender(this.calcDataClick(data));
         }
 
         dragNDropTreatment(data:{top:number, left:number, info:string}):void {
-          this.sendStylesForRender(this.CalcDataDrag(data));
+          this.sendStylesForRender(this.calcDataDrag(data));
         }
 
         loadInitData(options:ISliderOptions):void {
           this.sendStylesForRender(options);
         }
 
-        CalcDataDrag(data:{top:number, left:number, info:string}):ISliderOptions {
+        calcDataDrag(data:{top:number, left:number, info:string}):ISliderOptions {
           const {
             maxValue, minValue, fromVal, toVal, isRange,
           } = this.state;
@@ -64,7 +64,7 @@ class Model extends EventEmitter {
           return this.state;
         }
 
-        CalcDataClick(data:{top:number, left: number}): ISliderOptions {
+        calcDataClick(data:{top:number, left: number}): ISliderOptions {
           const { isRange } = this.state;
           const currentPosition = this.calcCurrentPosition(data);
           const currentValue = this.calcCurrentValue(currentPosition);
@@ -120,7 +120,7 @@ class Model extends EventEmitter {
             maxValue: this.state.maxValue,
           };
           this.emit('send-values-for-panel', this.state);
-          this.emit('values-ready', renderData);
+          this.emit('values-ready', renderData); 
         }
 
         setVal(value: number|undefined, units: string|undefined): string {

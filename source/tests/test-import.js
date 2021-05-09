@@ -4,6 +4,7 @@ import { Model } from '../model/model';
 import { Panel } from '../panel/panel';
 import { Presenter } from '../presenter/presenter';
 import { View } from '../view/view';
+jest.mock('../panel/panel')
 const container1 = $('<div class="container"></div>');
 $('body').append(container1);
 
@@ -76,6 +77,9 @@ const renderData2 = {
     minValue: 0
 }
 const view = new View(testOptions1.containerClass);
+const presenter = new Presenter(testOptions1);
+const panel = new Panel(testOptions1);
+presenter.panel = panel;
 const {viewBody} = view;
 const { sliderBody, viewBar, viewHandlers, handlerValues, viewScale } = viewBody;
-export { view, viewBody, sliderBody, viewBar, viewHandlers, viewScale, handlerValues, renderData1, renderData2};
+export { view, viewBody, sliderBody, viewBar, viewHandlers, viewScale, handlerValues, renderData1, renderData2, presenter };

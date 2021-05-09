@@ -6,7 +6,7 @@ const testOptions1 = {
     containerClass: '.container',
     minValue: 500,
     maxValue: 1000,
-    range: true,
+    isRange: true,
     isVertical: false,
     fromVal: 600,
     toVal: 800,
@@ -27,10 +27,10 @@ const testOptions2 = {
     containerClass: '.container',
     minValue: 800,
     maxValue: 1000,
-    range: false,
+    isRange: false,
     isVertical: false,
     fromVal: 660,
-    toVal: 650,
+    toVal: 660,
     sliderStep: 1,
     units: '',
     showValues: true,
@@ -46,12 +46,12 @@ const testOptions2 = {
 }
 const testOptions3 = {
     containerClass: '.container',
-    minValue: 800,
-    maxValue: 1000,
-    range: false,
+    minValue: 650,
+    maxValue: 800,
+    isRange: true,
     isVertical: false,
-    fromVal: 650,
-    toVal: 650,
+    fromVal: 700,
+    toVal: 300,
     sliderStep: 1,
     units: '',
     showValues: true,
@@ -79,10 +79,11 @@ describe('Тестирование функций Model',()=>{
         expect(model1.calcCurrentValue(20)).toBe(600);
     })
     it('Model1.calcBarSize',() =>{
-        expect(model1.calcBarSize(20)).toBe(25);
+        expect(model1.calcBarSize(20)).toBe(40);
+        expect(model1.calcBarSize(-0.01)).toBe(40);
     })
     it('Model.calcBarPosition',()=>{
-        expect(model1.calcBarPosition(400,500,1000)).toBe(0);
+        expect(model1.calcBarPosition(400,500,1000)).toBe(120);
     })
     it('Model.getViewParameters',()=>{
         const { sliderParams, sliderCoordinates, handlerWidth} = testOptions1;
@@ -92,24 +93,84 @@ describe('Тестирование функций Model',()=>{
     })
     it('Model.clickTreatment',()=>{
         model1.clickTreatment({top: 0,left: 10});
-        expect(model1.state.fromVal).toBe(600); 
+        expect(model1.state.fromVal).toBe(600);
+        model3.clickTreatment({top: 0 , left: 400}); 
+        expect(model3.state.fromVal).toBe(851);
     })
     it('Model.dragNDropTreatment',()=>{
         model2.dragNDropTreatment({top:0, left:305, info : handler.rangeTo});
         expect(model2.state.fromVal).toBe(660);
+
     })
     it('model.getData',()=>{
         model1.getData(testOptions2);
-        expect(model1.state.range).toBe(false);
+        expect(model1.state.isRange).toBe(false);
     }) 
     it('model1.loadInitData',()=>{
         model1.loadInitData(testOptions2);
-        expect(model1.state.range).toBe(false);
+        expect(model1.state.isRange).toBe(false);
     })   
     it('model.sendStyleForRender',()=>{
         model2.sendStylesForRender(testOptions2);
         expect(model2.state.fromVal).toBe(660);
+        model3.sendStylesForRender(testOptions3);
+        expect(model3.state.toVal).toBe(851);
     })    
+    it('model.setVal',()=>{
+        expect(model3.setVal(1,'')).toBe('650 ');
+        expect(model3.setVal(1)).toBe('1');
+    })
+    it('model.CalcDataDrag',()=>{
+        const dataDragOptions = {
+            containerClass: '.container',
+            toVal : 851,
+            fromVal: 851,
+            handlerWidth: 14,
+            isVertical: false,
+            maxValue: 800,
+            minValue: 650,
+            isRange: true,
+            units: '',
+            showValues: true,
+            sliderCoordinates:{
+               left: 0,
+               top: 0
+            },
+            sliderParams: {
+                height: 300,
+                width: 300
+            },
+            sliderStep: 1
+        }
+        expect(model3.calcDataDrag({top: 0, left: 1, info: handler.rangeFrom})).toEqual(dataDragOptions);
+        expect(model3.calcDataDrag({top: 0, left: 20, info: handler.rangeTo})).toEqual(dataDragOptions);
+    })
+    it('model.calcDataClick',()=>{
+        expect(model2.calcDataClick({top:0, left: -10})).toEqual(testOptions2);
+        const clickOptions = {
+            containerClass: ".container",
+            fromVal: 660,
+            handlerWidth: 14,
+            isRange: false, 
+            isVertical: false,
+            maxValue: 1000,
+            minValue: 800,
+            showValues: true,
+            sliderCoordinates: {
+                left: 0,
+                top: 0
+            },
+            sliderParams: {
+                height: 300,
+                width: 300
+            },
+            sliderStep: 1, 
+            toVal: 1000,
+            units: ''
+        }
+        expect(model2.calcDataClick({top:0, left: 299})).toEqual(clickOptions);
+    })
+
 })
 
 

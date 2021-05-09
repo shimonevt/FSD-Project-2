@@ -37,4 +37,4 @@ npm run build
 
 ## UML диаграмма 
 
-![alt text](..)
+![alt text](https://github.com/shimonevt/FSD-Project-2/source/diagram.svg)

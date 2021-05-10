@@ -3,6 +3,7 @@ const HTMLWebpackPlugin = require("html-webpack-plugin");
 const { CheckerPlugin } = require('awesome-typescript-loader');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 module.exports = {
     context: path.resolve(__dirname, "source"),    
@@ -98,6 +99,9 @@ module.exports = {
         new MiniCSSExtractPlugin({
             filename: "[name].css"
         }), 
-        new CleanWebpackPlugin()
+        new CleanWebpackPlugin(),
+        new CopyWebpackPlugin({ patterns:[
+          {from: path.resolve(__dirname, "source/favicons"), to:  path.resolve(__dirname, "build/favicons")}
+        ]}),
     ]
 }

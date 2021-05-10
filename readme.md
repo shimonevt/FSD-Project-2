@@ -33,7 +33,7 @@ npm run build
 
 Слой Model манипулирует данными. 
 
-Слой Controller управляет приложением, класс Slider - обертка Controller .
+Слой Controller управляет приложением, Slider - jQuery-обертка Controller .
 
 ## UML диаграмма 
 

@@ -119,8 +119,8 @@ class Model extends EventEmitter {
             minValue: this.state.minValue,
             maxValue: this.state.maxValue,
           };
-          this.emit('send-values-for-panel', this.state);
-          this.emit('values-ready', renderData); 
+          this.emit('send-state', this.state);
+          this.emit('values-ready', renderData);
         }
 
         setVal(value: number|undefined, units: string|undefined): string {

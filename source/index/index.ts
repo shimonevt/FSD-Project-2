@@ -2,10 +2,11 @@ import $ from 'jquery';
 
 import './index.scss';
 import '../slider/slider.ts';
+import { Panel } from '../panel/panel';
 
 $(document).ready(() => {
-  $('.js-container').rangeSlider({});
-  $('.js-container-2').rangeSlider({
+  const $slider1 = $('.js-container').rangeSlider({});
+  const $slider2 = $('.js-container-2').rangeSlider({
     minValue: 0,
     maxValue: 600,
     isRange: false,
@@ -17,7 +18,7 @@ $(document).ready(() => {
     showValues: false,
   });
 
-  $('.js-container-3').rangeSlider({
+  const $slider3 = $('.js-container-3').rangeSlider({
     minValue: 0,
     maxValue: 1000,
     isVertical: true,
@@ -27,4 +28,7 @@ $(document).ready(() => {
     units: '$',
     showValues: false,
   });
+  const panel1 = new Panel($slider1);
+  const panel2 = new Panel($slider2);
+  const panel3 = new Panel($slider3);
 });

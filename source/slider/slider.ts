@@ -19,7 +19,7 @@ interface jQuery {
           initOptions[key] = options[key];
         }
       }
-      const presenter = new Presenter(initOptions);
+      return new Presenter(initOptions);
     },
   });
 }(jQuery));

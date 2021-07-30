@@ -1,12 +1,10 @@
 @import '../view/view.scss';
 .demo-container {
-    display: grid;
-    grid-template-rows: repeat(1,1fr);
-    grid-gap: 80px;
+    display: flex;
+    justify-content: space-between;
 }
 .group {
-    max-width: 500px;
-    height: 33%;
+    width: 500px;
 }
 .js-container {
     width: 100%;

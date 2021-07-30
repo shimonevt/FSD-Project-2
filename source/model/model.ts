@@ -1,6 +1,6 @@
 import { EventEmitter } from '../eventEmitter/eventEmitter.ts';
 import { ISliderCoordinates, ISliderOptions, ISliderParameters } from '../options/options.ts';
-import { handler } from '../view/viewHandlers.ts';
+import { handler } from '../view/viewHandlers/viewHandlers.ts';
 
 class Model extends EventEmitter {
         state: ISliderOptions

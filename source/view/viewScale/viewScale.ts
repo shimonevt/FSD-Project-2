@@ -1,4 +1,4 @@
-import { createElementSlider } from '../functions/functions.ts';
+import { createElementSlider } from '../../functions/functions.ts';
 
 const scaleUnits = {
   unitNames: ['min-value', '20-percent-value', '25-percent-value', '33-percent-value', '40-percent-value',

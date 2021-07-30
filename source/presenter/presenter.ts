@@ -1,3 +1,4 @@
+import { data } from 'jquery';
 import { EventEmitter } from '../eventEmitter/eventEmitter.ts';
 import { Model } from '../model/model.ts';
 import {
@@ -24,6 +25,7 @@ class Presenter extends EventEmitter {
 
     subscribeOnEvents():void {
       const { model, view } = this;
+      view.subscribe('slider-init', (data:{sliderParameters:ISliderParameters, sliderCoordinates: ISliderCoordinates, handlerWidth: number}) => { model.getViewParameters(data); });
       model.subscribe('send-state', (state: ISliderOptions) => { this.emit('send-state', state); });
       model.subscribe('values-ready', (obj:IRenderValues) => { view.getChanges(obj); });
       view.subscribe('slider-clicked', (data:{top:number, left: number}) => { model.clickTreatment(data); });

@@ -1,5 +1,5 @@
-import { createElementSlider } from '../functions/functions.ts';
-import { IRenderValues } from '../options/options.ts';
+import { createElementSlider } from '../../functions/functions.ts';
+import { IRenderValues } from '../../options/options.ts';
 
 class ViewValues {
     toVal: HTMLElement;
@@ -9,8 +9,8 @@ class ViewValues {
     constructor(sliderBody: HTMLElement) {
       this.toVal = createElementSlider(['range__values', 'max-value']);
       this.fromVal = createElementSlider(['range__values', 'min-value']);
-      sliderBody.appendChild(this.toVal);
-      sliderBody.appendChild(this.fromVal);
+      sliderBody.append(this.toVal);
+      sliderBody.append(this.fromVal);
     }
 
     update(renderData:IRenderValues) {

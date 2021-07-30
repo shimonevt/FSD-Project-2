@@ -1,5 +1,5 @@
-import { EventEmitter } from '../eventEmitter/eventEmitter.ts';
-import { createElementSlider } from '../functions/functions.ts';
+import { EventEmitter } from '../../eventEmitter/eventEmitter.ts';
+import { createElementSlider } from '../../functions/functions.ts';
 
 export const handler = {
   rangeTo: 'range-to',

@@ -1,10 +1,10 @@
-import { createElementSlider } from '../functions/functions.ts';
-import { ISliderCoordinates, ISliderParameters, IRenderValues } from '../options/options.ts';
-import { EventEmitter } from '../eventEmitter/eventEmitter.ts';
-import { ViewBar } from './viewBar.ts';
-import { ViewHandlers } from './viewHandlers.ts';
-import { ViewValues } from './viewValues.ts';
-import { ViewScale } from './viewScale.ts';
+import { createElementSlider } from '../../functions/functions.ts';
+import { ISliderCoordinates, ISliderParameters, IRenderValues } from '../../options/options.ts';
+import { EventEmitter } from '../../eventEmitter/eventEmitter.ts';
+import { ViewBar } from '../viewBar/viewBar.ts';
+import { ViewHandlers } from '../viewHandlers/viewHandlers.ts';
+import { ViewValues } from '../viewValues/viewValues.ts';
+import { ViewScale } from '../viewScale/viewScale.ts';
 
 class ViewBody extends EventEmitter {
   sliderBody: HTMLElement;
@@ -37,8 +37,8 @@ class ViewBody extends EventEmitter {
 
   getSliderParams():ISliderParameters {
     return {
-      height: parseInt(getComputedStyle(this.sliderBody).height, 10),
-      width: parseInt(getComputedStyle(this.sliderBody).width, 10),
+      height: parseInt(window.getComputedStyle(this.sliderBody).height, 10),
+      width: parseInt(window.getComputedStyle(this.sliderBody).width, 10),
     };
   }
 

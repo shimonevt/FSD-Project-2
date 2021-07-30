@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --mode production",
     "dev": "webpack --mode development",
-    "start": "webpack serve",
+    "start": "webpack serve --content-base build --hot --inline",
     "test": "jest"
   },
   "author": "",

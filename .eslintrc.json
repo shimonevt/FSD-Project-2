@@ -5,7 +5,6 @@
 		"es2017": true
     },
     "extends": [
-		"plugin:fsd/all",
 		"airbnb"
 	],
 	"parser": "@typescript-eslint/parser",

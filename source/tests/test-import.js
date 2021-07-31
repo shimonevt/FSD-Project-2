@@ -1,9 +1,9 @@
 /* eslint-disable */
 import $ from 'jquery';
-import { Model } from '../model/model';
-import { Panel } from '../panel/panel';
-import { Presenter } from '../presenter/presenter';
-import { View } from '../view/view';
+import Model from '../model/model';
+import Panel from '../panel/panel';
+import Presenter from '../presenter/presenter';
+import View from '../view/view';
 jest.mock('../panel/panel')
 const container1 = $('<div class="container"></div>');
 $('body').append(container1);

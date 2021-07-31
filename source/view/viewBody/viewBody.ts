@@ -29,13 +29,13 @@ class ViewBody extends EventEmitter {
 
   getParameters() {
     return {
-      sliderParams: this.getSliderParams(),
+      sliderParameters: this.getSliderParameters(),
       sliderCoordinates: this.getSliderCoords(),
       handlerWidth: this.viewHandlers.getHandlerWidth(),
     };
   }
 
-  getSliderParams():ISliderParameters {
+  getSliderParameters():ISliderParameters {
     return {
       height: parseInt(window.getComputedStyle(this.sliderBody).height, 10),
       width: parseInt(window.getComputedStyle(this.sliderBody).width, 10),
@@ -64,14 +64,15 @@ class ViewBody extends EventEmitter {
   }
 
   getAndSendClickPosition(ev: MouseEvent):void {
+    const sliderData = this.getParameters();
     if (this.checkClickTarget(ev.target)) {
-      this.emit('slider-clicked', { top: ev.clientY, left: ev.clientX, sliderParameters: this.getParameters() });
+      this.emit('slider-clicked', { top: ev.clientY, left: ev.clientX, sliderData });
     }
   }
 
   sendHandleDragData(data:{ top:number, left:number, info:string }) {
-    const sliderParams = this.getParameters();
-    this.emit('handle-dragged', { ...data, sliderParams });
+    const sliderData = this.getParameters();
+    this.emit('handle-dragged', { ...data, sliderData });
   }
 
   addEventListeners():void {

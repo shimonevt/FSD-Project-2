@@ -10,22 +10,22 @@ class Model extends EventEmitter {
           this.state = options;
         }
 
-        getInitViewParameters(data:{sliderParams: ISliderParameters,
+        getInitViewParameters(data:{sliderParameters: ISliderParameters,
           sliderCoordinates: ISliderCoordinates, handlerWidth: number}) {
           this.state = {
             ...this.state,
-            sliderParams: data.sliderParams,
+            sliderParameters: data.sliderParameters,
             sliderCoordinates: data.sliderCoordinates,
             handlerWidth: data.handlerWidth,
           };
           this.sendStylesForFirstRender(this.state);
         }
 
-        getViewParameters(data:{sliderParams: ISliderParameters,
+        getViewParameters(data:{sliderParameters: ISliderParameters,
             sliderCoordinates: ISliderCoordinates, handlerWidth: number}):void {
           this.state = {
             ...this.state,
-            sliderParams: data.sliderParams,
+            sliderParameters: data.sliderParameters,
             sliderCoordinates: data.sliderCoordinates,
             handlerWidth: data.handlerWidth,
           };
@@ -38,16 +38,16 @@ class Model extends EventEmitter {
         }
 
         clickTreatment(data:{top:number, left: number,
-          sliderParameters:{sliderParameters: ISliderParameters,
+          sliderData:{sliderParameters: ISliderParameters,
           sliderCoordinates: ISliderCoordinates, handlerWidth: number} }):void {
-          this.getViewParameters(data.sliderParameters);
+          this.getViewParameters(data.sliderData);
           this.sendStylesForRender(this.calcDataClick(data));
         }
 
         dragNDropTreatment(data:{top:number, left:number, info:string,
-          sliderParams:{sliderParams: ISliderParameters,
+          sliderData:{sliderParameters: ISliderParameters,
           sliderCoordinates: ISliderCoordinates, handlerWidth: number}}):void {
-          this.getViewParameters(data.sliderParams);
+          this.getViewParameters(data.sliderData);
           this.sendStylesForRender(this.calcDataDrag(data));
         }
 
@@ -112,7 +112,7 @@ class Model extends EventEmitter {
 
         sendStylesForFirstRender({
           minValue, maxValue, isRange, isVertical, fromVal,
-          toVal, units, showValues, sliderParams,
+          toVal, units, showValues, sliderParameters,
         }:ISliderOptions):void {
           if (toVal >= maxValue) {
             this.state.toVal = maxValue;
@@ -128,13 +128,13 @@ class Model extends EventEmitter {
             coordinates: isVertical ? (['vertical', 'bottom: ', 'height: ']) : (['horizontal', 'left: ', 'width: ']),
             isRange,
             barPosition: this.calcBarPosition(fromVal, maxValue, minValue),
-            rangeTo: isVertical ? (this.calcBarSize(sliderParams?.height)
+            rangeTo: isVertical ? (this.calcBarSize(sliderParameters?.height)
             + this.calcBarPosition(fromVal, maxValue, minValue))
-              : this.calcBarSize(sliderParams?.width)
+              : this.calcBarSize(sliderParameters?.width)
               + this.calcBarPosition(fromVal, maxValue, minValue),
             rangeFrom: this.calcBarPosition(fromVal, maxValue, minValue),
-            barSize: isVertical ? this.calcBarSize(sliderParams?.height)
-              : this.calcBarSize(sliderParams?.width),
+            barSize: isVertical ? this.calcBarSize(sliderParameters?.height)
+              : this.calcBarSize(sliderParameters?.width),
             showValues,
             values: [this.setVal(fromVal, units), this.setVal(toVal, units)],
             valuesPosition: [this.setValPosition(fromVal, maxValue, minValue),
@@ -148,7 +148,7 @@ class Model extends EventEmitter {
 
         sendStylesForRender({
           minValue, maxValue, isRange, isVertical, fromVal,
-          toVal, units, showValues, sliderParams,
+          toVal, units, showValues, sliderParameters,
         }:ISliderOptions):void {
           if (toVal >= maxValue) {
             this.state.toVal = maxValue;
@@ -166,8 +166,8 @@ class Model extends EventEmitter {
             rangeTo: this.getHandlePosition(handler.rangeTo),
             rangeFrom: this.getHandlePosition(handler.rangeFrom),
             barPosition: this.calcBarPosition(fromVal, maxValue, minValue),
-            barSize: isVertical ? this.calcBarSize(sliderParams?.height)
-              : this.calcBarSize(sliderParams?.width),
+            barSize: isVertical ? this.calcBarSize(sliderParameters?.height)
+              : this.calcBarSize(sliderParameters?.width),
             showValues,
             values: [this.setVal(fromVal, units), this.setVal(toVal, units)],
             valuesPosition: [this.setValPosition(fromVal, maxValue, minValue),
@@ -179,7 +179,7 @@ class Model extends EventEmitter {
           this.emit('values-ready', renderData);
         }
 
-        setVal(value: number|undefined, units: string|undefined): string {
+        setVal(value: number, units: string|undefined): string {
           if (units !== undefined) {
             if (value <= this.state.minValue) {
               return (`${this.state.minValue} ${units}`);
@@ -214,17 +214,17 @@ class Model extends EventEmitter {
         }
 
         setValPosition(val:number, maxValue:number, minValue:number): number {
-          const { handlerWidth, sliderParams, isVertical } = this.state;
+          const { handlerWidth, sliderParameters, isVertical } = this.state;
           return (isVertical
             ? Math.ceil(100 * (((val - minValue) / (maxValue - minValue))
-            - 1 * (handlerWidth / sliderParams?.height)))
+            - 1 * (handlerWidth / sliderParameters?.height)))
             : Math.ceil(100 * (((val - minValue) / (maxValue - minValue))
-            - 1.25 * (handlerWidth / sliderParams?.width))));
+            - 1.25 * (handlerWidth / sliderParameters?.width))));
         }
 
         getHandlePosition(whichHandle:string):number {
-          const size = this.state.isVertical ? this.state.sliderParams?.height
-            : this.state.sliderParams?.width;
+          const size = this.state.isVertical ? this.state.sliderParameters?.height
+            : this.state.sliderParameters?.width;
           const {
             toVal, fromVal, maxValue, minValue, handlerWidth,
           } = this.state;
@@ -247,11 +247,11 @@ class Model extends EventEmitter {
         }
 
         calcCurrentPosition(coords:{left: number, top:number}):number {
-          const { isVertical, sliderCoordinates, sliderParams } = this.state;
+          const { isVertical, sliderCoordinates, sliderParameters } = this.state;
           const cursorPosition = isVertical ? sliderCoordinates?.top
-                + sliderParams?.height - coords.top : coords.left - sliderCoordinates?.left;
-          return isVertical ? Math.ceil(100 * (cursorPosition / sliderParams?.height))
-            : Math.ceil(100 * (cursorPosition / sliderParams?.width));
+                + sliderParameters?.height - coords.top : coords.left - sliderCoordinates?.left;
+          return isVertical ? Math.ceil(100 * (cursorPosition / sliderParameters?.height))
+            : Math.ceil(100 * (cursorPosition / sliderParameters?.width));
         }
 
         calcCurrentValue(currentPosition:number):number {

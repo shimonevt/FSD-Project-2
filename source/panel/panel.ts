@@ -9,7 +9,7 @@ class Panel extends EventEmitter {
 
     panel : Element
 
-    listeners: Array<Element>
+    listeners: Element[]
 
     constructor(slider: Presenter) {
       super();
@@ -71,46 +71,49 @@ class Panel extends EventEmitter {
     }
 
     updatePanel():void {
-      for (let i = 0; i < this.listeners.length; i += 1) {
-        if (this.listeners[i].classList.contains('max-value')) {
-          this.listeners[i].value = this.state.maxValue;
-        } else if (this.listeners[i].classList.contains('min-value')) {
-          this.listeners[i].value = this.state.minValue;
-        } else if (this.listeners[i].classList.contains('to-val')) {
-          this.listeners[i].value = this.state.toVal;
-        } else if (this.listeners[i].classList.contains('from-val')) {
-          this.listeners[i].value = this.state.fromVal;
-        } else if (this.listeners[i].classList.contains('slider-step')) {
-          this.listeners[i].value = this.state.sliderStep;
-        } else if (this.listeners[i].classList.contains('units')) {
-          this.listeners[i].value = this.state.units;
+      this.listeners.forEach((listener) => {
+        if (listener.classList.contains('max-value')) {
+          listener.value = this.state.maxValue;
+        } else if (listener.classList.contains('min-value')) {
+          listener.value = this.state.minValue;
+        } else if (listener.classList.contains('to-val')) {
+          listener.value = this.state.toVal;
+        } else if (listener.classList.contains('from-val')) {
+          listener.value = this.state.fromVal;
+        } else if (listener.classList.contains('slider-step')) {
+          listener.value = this.state.sliderStep;
+        } else if (listener.classList.contains('units')) {
+          listener.value = this.state.units;
         }
-      }
+      });
     }
 
     handleChanges(ev:Event):void {
-      if (ev.target.classList.contains('is-checkbox')) {
-        if (ev.target.name === 'vertical') {
-          ev.target.checked ? this.state.isVertical = true : this.state.isVertical = false;
-        } else if (ev.target.name === 'range') {
-          ev.target.checked ? this.state.isRange = true : this.state.isRange = false;
-        } else if (ev.target.name === 'show-values') {
-          ev.target.checked ? this.state.showValues = true : this.state.showValues = false;
+      const {
+        classList, checked, name, value,
+      } = ev.target;
+      if (classList.contains('is-checkbox')) {
+        if (name === 'vertical') {
+          this.state.isVertical = checked === true;
+        } else if (name === 'range') {
+          this.state.isRange = checked === true;
+        } else if (name === 'show-values') {
+          this.state.showValues = checked === true;
         }
-      } else if (ev.target.classList.contains('max-value')) {
-        this.state.maxValue = parseInt(ev.target.value, 10);
-      } else if (ev.target.classList.contains('min-value')) {
-        this.state.minValue = parseInt(ev.target.value, 10);
-      } else if (ev.target.classList.contains('to-val')) {
-        this.state.toVal = parseInt(ev.target.value, 10);
-      } else if (ev.target.classList.contains('from-val')) {
-        this.state.fromVal = parseInt(ev.target.value, 10);
-      } else if (ev.target.classList.contains('slider-step')) {
-        this.state.sliderStep = parseInt(ev.target.value, 10);
-      } else if (ev.target.classList.contains('units')) {
-        this.state.units = ev.target.value;
+      } else if (classList.contains('max-value')) {
+        this.state.maxValue = parseInt(value, 10);
+      } else if (classList.contains('min-value')) {
+        this.state.minValue = parseInt(value, 10);
+      } else if (classList.contains('to-val')) {
+        this.state.toVal = parseInt(value, 10);
+      } else if (classList.contains('from-val')) {
+        this.state.fromVal = parseInt(value, 10);
+      } else if (classList.contains('slider-step')) {
+        this.state.sliderStep = parseInt(value, 10);
+      } else if (classList.contains('units')) {
+        this.state.units = value;
       }
       this.slider.getDataFromPanel(this.state);
     }
 }
-export { Panel };
+export default Panel;

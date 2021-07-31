@@ -23,28 +23,29 @@ class ViewScale {
     }
 
     init() {
-      for (let i = 0; i < scaleUnits.unitNames.length; i += 1) {
-        const barUnit = createElementSlider(['js-range-slider__bar-unit', 'range-slider__bar-unit', `${scaleUnits.unitNames[i]}`]);
+      scaleUnits.unitNames.forEach((unitName) => {
+        const barUnit = createElementSlider(['js-range-slider__bar-unit', 'range-slider__bar-unit', `${unitName}`]);
         const unitValue = createElementSlider(['js-range-slider__unit-value', 'range-slider__unit-value']);
         barUnit.append(unitValue);
         this.units.push(barUnit);
         this.viewScale.appendChild(barUnit);
-      }
+      });
     }
 
     update(coordinates:string[], maxValue:number, minValue:number) :void{
       const size = coordinates[0] === 'vertical' ? parseFloat(getComputedStyle(this.viewScale).height)
         : parseFloat(getComputedStyle(this.viewScale).width);
-      for (let i = 0; i < this.units.length; i += 1) {
-        if (i === 0) {
-          this.units[i].setAttribute('style', `${coordinates[1]} -0.5%`);
-          this.units[i].children[0].textContent = minValue.toString();
+      this.units.forEach((unit, index) => {
+        const { children } = unit;
+        if (index === 0) {
+          unit.setAttribute('style', `${coordinates[1]} -0.5%`);
+          children[0].textContent = minValue.toString();
         } else {
-          this.units[i].setAttribute('style', `${coordinates[1]} ${scaleUnits.unitPositions[i]}%`);
-          this.units[i].children[0].textContent = (minValue + 0.01 * scaleUnits.unitPositions[i]
+          unit.setAttribute('style', `${coordinates[1]} ${scaleUnits.unitPositions[index]}%`);
+          children[0].textContent = (minValue + 0.01 * scaleUnits.unitPositions[index]
           * (maxValue - minValue)).toString();
         }
-      }
+      });
       this.changeScaleDisplay(size);
     }
 
@@ -61,15 +62,14 @@ class ViewScale {
     }
 
     searchByScaleElements(displayUnitsAtSomeSize:string[]) {
-      for (let i = 0; i < this.units.length; i += 1) {
-        this.units[i].classList.add('range-slider__bar-unit_hidden');
-        for (let j = 0; j < displayUnitsAtSomeSize.length; j += 1) {
-          if (this.units[i].classList.contains(displayUnitsAtSomeSize[j])) {
-            this.units[i].classList.remove('range-slider__bar-unit_hidden');
-            break;
+      this.units.forEach((unit) => {
+        unit.classList.add('range-slider__bar-unit_hidden');
+        displayUnitsAtSomeSize.forEach((someSizeUnit) => {
+          if (unit.classList.contains(someSizeUnit)) {
+            unit.classList.remove('range-slider__bar-unit_hidden');
           }
-        }
-      }
+        });
+      });
     }
 }
 export default ViewScale;

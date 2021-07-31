@@ -18,7 +18,7 @@ export interface ISliderOptions {
     units?: string,
     showValues?: boolean,
     handlerWidth?: number,
-    sliderParams?: ISliderParameters,
+    sliderParameters?: ISliderParameters,
     sliderCoordinates?: ISliderCoordinates
 }
 

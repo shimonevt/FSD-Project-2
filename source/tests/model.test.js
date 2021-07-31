@@ -1,7 +1,7 @@
 /* eslint-disable */
 
-import {Model} from '../model/model';
-import {handler} from '../view/viewHandlers';
+import Model from '../model/model';
+import {handler} from '../view/viewHandlers/viewHandlers';
 const testOptions1 = {
     containerClass: '.container',
     minValue: 500,
@@ -14,7 +14,7 @@ const testOptions1 = {
     units: 'F',
     showValues: true,
     handlerWidth: 14,
-    sliderParams: {
+    sliderParameters: {
         height: 300,
         width:  300
     },
@@ -35,7 +35,7 @@ const testOptions2 = {
     units: '',
     showValues: true,
     handlerWidth: 14,
-    sliderParams: {
+    sliderParameters: {
         height: 300,
         width:  300
     },
@@ -56,7 +56,7 @@ const testOptions3 = {
     units: '',
     showValues: true,
     handlerWidth: 14,
-    sliderParams: {
+    sliderParameters: {
         height: 300,
         width:  300
     },
@@ -72,9 +72,6 @@ describe('Создание экземпляра Model',()=>{
     expect(model1).toBeDefined();
 })
 describe('Тестирование функций Model',()=>{
-    it('Model1.calcCurrentPosition',()=>{
-        expect(model1.calcCurrentPosition({left:60,top:0})).toBe(20);
-    })
     it('Model1.calcCurrentValue',()=>{
         expect(model1.calcCurrentValue(20)).toBe(600);
     })
@@ -86,19 +83,23 @@ describe('Тестирование функций Model',()=>{
         expect(model1.calcBarPosition(400,500,1000)).toBe(120);
     })
     it('Model.getViewParameters',()=>{
-        const { sliderParams, sliderCoordinates, handlerWidth} = testOptions1;
-        model1.getViewParameters(sliderParams,sliderCoordinates,handlerWidth)
+        const { sliderParameters, sliderCoordinates, handlerWidth} = testOptions1;
+        model1.getViewParameters(sliderParameters,sliderCoordinates,handlerWidth);
         expect(model1.state.handlerWidth).not.toBeNull();
     
     })
     it('Model.clickTreatment',()=>{
-        model1.clickTreatment({top: 0,left: 10});
-        expect(model1.state.fromVal).toBe(600);
-        model3.clickTreatment({top: 0 , left: 400}); 
-        expect(model3.state.fromVal).toBe(851);
+        const { sliderParameters, sliderCoordinates, handlerWidth} = testOptions1;
+        const sliderData = {sliderParameters, sliderCoordinates, handlerWidth};
+        model1.clickTreatment({top: 0,left: 10, sliderData});
+        expect(model1.state.fromVal).toBe(520);
+        model3.clickTreatment({top: 0 , left: 400, sliderData}); 
+        expect(model3.state.fromVal).toBe(700);
     })
     it('Model.dragNDropTreatment',()=>{
-        model2.dragNDropTreatment({top:0, left:305, info : handler.rangeTo});
+        const {sliderParameters,sliderCoordinates,handlerWidth} = testOptions2;
+        const sliderData = { sliderParameters, sliderCoordinates, handlerWidth};
+        model2.dragNDropTreatment({top:0, left:305, info: handler.rangeTo, sliderData});
         expect(model2.state.fromVal).toBe(660);
 
     })
@@ -114,7 +115,7 @@ describe('Тестирование функций Model',()=>{
         model2.sendStylesForRender(testOptions2);
         expect(model2.state.fromVal).toBe(660);
         model3.sendStylesForRender(testOptions3);
-        expect(model3.state.toVal).toBe(851);
+        expect(model3.state.toVal).toBe(700);
     })    
     it('model.setVal',()=>{
         expect(model3.setVal(1,'')).toBe('650 ');
@@ -123,8 +124,8 @@ describe('Тестирование функций Model',()=>{
     it('model.CalcDataDrag',()=>{
         const dataDragOptions = {
             containerClass: '.container',
-            toVal : 851,
-            fromVal: 851,
+            toVal : 700,
+            fromVal: 700,
             handlerWidth: 14,
             isVertical: false,
             maxValue: 800,
@@ -136,7 +137,7 @@ describe('Тестирование функций Model',()=>{
                left: 0,
                top: 0
             },
-            sliderParams: {
+            sliderParameters: {
                 height: 300,
                 width: 300
             },
@@ -146,7 +147,6 @@ describe('Тестирование функций Model',()=>{
         expect(model3.calcDataDrag({top: 0, left: 20, info: handler.rangeTo})).toEqual(dataDragOptions);
     })
     it('model.calcDataClick',()=>{
-        expect(model2.calcDataClick({top:0, left: -10})).toEqual(testOptions2);
         const clickOptions = {
             containerClass: ".container",
             fromVal: 660,
@@ -160,15 +160,15 @@ describe('Тестирование функций Model',()=>{
                 left: 0,
                 top: 0
             },
-            sliderParams: {
+            sliderParameters: {
                 height: 300,
                 width: 300
             },
             sliderStep: 1, 
-            toVal: 1000,
+            toVal: 800,
             units: ''
         }
-        expect(model2.calcDataClick({top:0, left: 299})).toEqual(clickOptions);
+        expect(model2.calcDataClick({top:0, left: 0})).toEqual(clickOptions);
     })
 
 })

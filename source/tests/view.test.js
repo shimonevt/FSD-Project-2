@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { test } from 'mocha';
 import {view,viewBody,viewBar, viewHandlers, viewScale,handlerValues, renderData1, renderData2} from './test-import';
-import {handler} from '../view/viewHandlers';
+import {handler} from '../view/viewHandlers/viewHandlers';
 
 describe('Тестирование View', function () {
     it('Создается экземпляр класса View', () => {
@@ -15,11 +15,11 @@ describe('Тестирование функций View',()=>{
     })
     it('Проверка работы renderView(вертикальный случай)',()=>{
         view.getChanges(renderData1);
-        expect(view.slider.classList.contains('vertical')).toBe(true);
+        expect(view.slider.classList.contains('range-slider_vertical')).toBe(true);
     })
     it('Проверка работы renderView(горизонтальный случай)',()=>{
         view.getChanges(renderData2);
-        expect(view.slider.classList.contains('vertical')).not.toBe(true);
+        expect(view.slider.classList.contains('range-slider_vertical')).not.toBe(true);
     })
 })
 describe('Тестирование клика',()=>{
@@ -51,19 +51,19 @@ describe('Проверка работы ViewScale при различных ши
         viewScale.update(coordinates, maxValue, minValue);
     it('Проверка работы ViewScale.changeScaleDisplay при ширине 160px',()=>{
         viewScale.changeScaleDisplay(160);
-        expect(viewScale.units[1].classList.contains('hidden')).toBe(true);    
+        expect(viewScale.units[1].classList.contains('range-slider__bar-unit_hidden')).toBe(true);    
     })
     it('Проверка работы ViewScale.changeScaleDisplay при ширине 200px',()=>{
         viewScale.changeScaleDisplay(200);
-        expect(viewScale.units[3].classList.contains('hidden')).toBe(false);    
+        expect(viewScale.units[3].classList.contains('range-slider__bar-unit_hidden')).toBe(false);    
     })
     it('Проверка работы ViewScale.changeScaleDisplay при ширине 300px',()=>{
         viewScale.changeScaleDisplay(300);
-        expect(viewScale.units[2].classList.contains('hidden')).toBe(false);    
+        expect(viewScale.units[2].classList.contains('range-slider__bar-unit_hidden')).toBe(false);    
     })
     it('Проверка работы ViewScale.changeScaleDisplay при ширине 500px',()=>{
         viewScale.changeScaleDisplay(500);
-        expect(viewScale.units[0].classList.contains('hidden')).toBe(false);    
+        expect(viewScale.units[0].classList.contains('range-slider__bar-unit_hidden')).toBe(false);    
     }) 
 })
 describe('Проверка работы ViewValues',()=>{
@@ -73,10 +73,10 @@ describe('Проверка работы ViewValues',()=>{
     })
     it('Проверка работы showValues',()=>{
         handlerValues.showValues(renderData1.showValues,renderData1.isRange);
-        expect(fromVal.classList.contains('hidden')).toBe(true);
+        expect(fromVal.classList.contains('range-slider__values_hidden')).toBe(true);
         handlerValues.showValues(true,true);
-        expect(fromVal.classList.contains('hidden')).toBe(false);
+        expect(fromVal.classList.contains('range-slider__values_hidden')).toBe(false);
         handlerValues.showValues(true,false);
-        expect(toVal.classList.contains('hidden')).toBe(false);
+        expect(toVal.classList.contains('range-slider__values_hidden')).toBe(false);
     })
 })

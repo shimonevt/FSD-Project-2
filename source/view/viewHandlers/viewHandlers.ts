@@ -23,8 +23,9 @@ class ViewHandlers extends EventEmitter {
   }
 
   update(isRange:boolean, coordinates:string[], rangeFrom:number, rangeTo:number) {
-    isRange ? (this.rangeFrom.setAttribute('style', `${coordinates[1]} ${rangeFrom}%`), this.rangeFrom.classList.remove('range-slider__bar-range_hidden'))
-      : (this.rangeFrom.setAttribute('style', `${coordinates[1]} ${rangeFrom}%`), this.rangeFrom.classList.add('range-slider__bar-range_hidden'));
+    this.rangeFrom.setAttribute('style', `${coordinates[1]} ${rangeFrom}%`);
+    isRange ? (this.rangeFrom.classList.remove('range-slider__bar-range_hidden'))
+      : (this.rangeFrom.classList.add('range-slider__bar-range_hidden'));
     this.rangeTo.setAttribute('style', `${coordinates[1]} ${rangeTo}%`);
   }
 

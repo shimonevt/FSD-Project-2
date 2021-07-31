@@ -26,9 +26,9 @@ class View extends EventEmitter {
   addEventListeners() {
     window.addEventListener('resize', () => { this.emit('window-resize', this.updateParameters()); });
     window.addEventListener('scroll', () => { this.emit('scroll', this.updateParameters()); });
-    this.viewBody.subscribe('slider-clicked', (data:{ top: number, left: number, sliderParameters: {sliderParams :ISliderParameters
+    this.viewBody.subscribe('slider-clicked', (data:{ top: number, left: number, sliderData: {sliderParameters :ISliderParameters,
       sliderCoordinates: ISliderCoordinates, handlerWidth: number }}) => { this.emit('slider-clicked', data); });
-    this.viewBody.subscribe('handle-dragged', (data:{top: number, left: number, info: string, sliderParams: {sliderParameters: ISliderParameters, sliderCoordinates: ISliderCoordinates, handlerWidth: number}}) => { this.emit('handle-dragged', data); });
+    this.viewBody.subscribe('handle-dragged', (data:{top: number, left: number, info: string, sliderData: {sliderParameters: ISliderParameters, sliderCoordinates: ISliderCoordinates, handlerWidth: number}}) => { this.emit('handle-dragged', data); });
     this.viewBody.addEventListeners();
   }
 

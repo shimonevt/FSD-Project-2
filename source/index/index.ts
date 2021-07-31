@@ -2,13 +2,12 @@ import $ from 'jquery';
 
 import './index.scss';
 import '../slider/slider.ts';
-import { Panel } from '../panel/panel';
+import Panel from '../panel/panel.ts';
 
 $(document).ready(() => {
   const $slider1 = $('.js-container').rangeSlider({
     isVertical: true,
   });
-  /*
   const $slider2 = $('.js-container-2').rangeSlider({
     minValue: 0,
     maxValue: 600,
@@ -33,6 +32,5 @@ $(document).ready(() => {
   });
   const panel2 = new Panel($slider2);
   const panel3 = new Panel($slider3);
-  */
- const panel1 = new Panel($slider1);
+  const panel1 = new Panel($slider1);
 });

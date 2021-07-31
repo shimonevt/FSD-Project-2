@@ -13,7 +13,7 @@ const displayUnitsAt150 = ['min-value', '50-percent-value', 'max-value'];
 class ViewScale {
     viewScale : HTMLElement;
 
-    units: Array<HTMLElement>;
+    units: HTMLElement[];
 
     constructor(sliderBody:HTMLElement) {
       this.viewScale = createElementSlider(['js-range-slider__scale-bar', 'range-slider__scale-bar']);

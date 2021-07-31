@@ -1,4 +1,4 @@
-export function createElementSlider(selectors:Array<string>):HTMLDivElement {
+export function createElementSlider(selectors:string[]):HTMLDivElement {
   const elem = document.createElement('div');
   for (let i = 0; i < selectors.length; i += 1) {
     elem.classList.add(selectors[i]);

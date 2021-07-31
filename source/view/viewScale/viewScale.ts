@@ -16,7 +16,7 @@ class ViewScale {
     units: Array<HTMLElement>;
 
     constructor(sliderBody:HTMLElement) {
-      this.viewScale = createElementSlider(['progress__scale-bar']);
+      this.viewScale = createElementSlider(['js-range-slider__scale-bar', 'range-slider__scale-bar']);
       sliderBody.appendChild(this.viewScale);
       this.units = [];
       this.init();
@@ -24,8 +24,8 @@ class ViewScale {
 
     init() {
       for (let i = 0; i < scaleUnits.unitNames.length; i += 1) {
-        const barUnit = createElementSlider(['scale-bar__unit', `${scaleUnits.unitNames[i]}`]);
-        const unitValue = createElementSlider(['unit__value']);
+        const barUnit = createElementSlider(['js-range-slider__bar-unit', 'range-slider__bar-unit', `${scaleUnits.unitNames[i]}`]);
+        const unitValue = createElementSlider(['js-range-slider__unit-value', 'range-slider__unit-value']);
         barUnit.append(unitValue);
         this.units.push(barUnit);
         this.viewScale.appendChild(barUnit);

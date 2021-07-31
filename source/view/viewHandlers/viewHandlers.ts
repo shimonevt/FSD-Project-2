@@ -12,8 +12,8 @@ class ViewHandlers extends EventEmitter {
 
   constructor(sliderBody:HTMLElement) {
     super();
-    this.rangeTo = createElementSlider(['bar__range', 'to']);
-    this.rangeFrom = createElementSlider(['bar__range', 'from']);
+    this.rangeTo = createElementSlider(['js-range-slider__bar-range', 'range-slider__bar-range', 'range-slider__bar-range_to']);
+    this.rangeFrom = createElementSlider(['js-range-slider__bar-range', 'range-slider__bar-range', 'range-slider__bar-range_from']);
     sliderBody.appendChild(this.rangeTo);
     sliderBody.appendChild(this.rangeFrom);
   }
@@ -23,8 +23,8 @@ class ViewHandlers extends EventEmitter {
   }
 
   update(isRange:boolean, coordinates:string[], rangeFrom:number, rangeTo:number) {
-    isRange ? (this.rangeFrom.setAttribute('style', `${coordinates[1]} ${rangeFrom}%`), this.rangeFrom.classList.remove('hidden'))
-      : (this.rangeFrom.setAttribute('style', `${coordinates[1]} ${rangeFrom}%`), this.rangeFrom.classList.add('hidden'));
+    isRange ? (this.rangeFrom.setAttribute('style', `${coordinates[1]} ${rangeFrom}%`), this.rangeFrom.classList.remove('range-slider__bar-range_hidden'))
+      : (this.rangeFrom.setAttribute('style', `${coordinates[1]} ${rangeFrom}%`), this.rangeFrom.classList.add('range-slider__bar-range_hidden'));
     this.rangeTo.setAttribute('style', `${coordinates[1]} ${rangeTo}%`);
   }
 

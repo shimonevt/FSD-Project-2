@@ -19,7 +19,7 @@ class ViewBody extends EventEmitter {
 
   constructor(slider:HTMLElement) {
     super();
-    this.sliderBody = createElementSlider(['slider__body']);
+    this.sliderBody = createElementSlider(['js-range-slider__body', 'range-slider__body']);
     slider.append(this.sliderBody);
     this.viewBar = new ViewBar(this.sliderBody);
     this.viewHandlers = new ViewHandlers(this.sliderBody);

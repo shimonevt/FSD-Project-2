@@ -7,8 +7,8 @@ class ViewValues {
     fromVal: HTMLElement;
 
     constructor(sliderBody: HTMLElement) {
-      this.toVal = createElementSlider(['range__values', 'max-value']);
-      this.fromVal = createElementSlider(['range__values', 'min-value']);
+      this.toVal = createElementSlider(['js-range-slider__values', 'range-slider__values', 'range-slider__values_max']);
+      this.fromVal = createElementSlider(['js-range-slider__values', 'range-slider__values', 'range-slider__values_min']);
       sliderBody.append(this.toVal);
       sliderBody.append(this.fromVal);
     }
@@ -27,11 +27,11 @@ class ViewValues {
 
     showValues(show: boolean, showBoth: boolean):void {
       if (show === true && showBoth === true) {
-        this.toVal.classList.remove('hidden');
-        this.fromVal.classList.remove('hidden');
+        this.toVal.classList.remove('range-slider__values_hidden');
+        this.fromVal.classList.remove('range-slider__values_hidden');
       } else if (show === true && showBoth === false) {
-        this.toVal.classList.remove('hidden'); this.fromVal.classList.add('hidden');
-      } else if (show === false) { this.toVal.classList.add('hidden'); this.fromVal.classList.add('hidden'); }
+        this.toVal.classList.remove('range-slider__values_hidden'); this.fromVal.classList.add('range-slider__values_hidden');
+      } else if (show === false) { this.toVal.classList.add('range-slider__values_hidden'); this.fromVal.classList.add('range-slider__values_hidden'); }
     }
 }
 export default ViewValues;

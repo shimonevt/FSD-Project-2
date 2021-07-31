@@ -4,7 +4,7 @@ class ViewBar {
   viewBar : HTMLElement;
 
   constructor(sliderBody:HTMLElement) {
-    this.viewBar = createElementSlider(['progress__bar']);
+    this.viewBar = createElementSlider(['js-range-slider__progress-bar', 'range-slider__progress-bar']);
     sliderBody.append(this.viewBar);
   }
 

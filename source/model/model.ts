@@ -216,8 +216,10 @@ class Model extends EventEmitter {
         setValPosition(val:number, maxValue:number, minValue:number): number {
           const { handlerWidth, sliderParams, isVertical } = this.state;
           return (isVertical
-            ? Math.ceil(100 * (((val - minValue) / (maxValue - minValue)) - 0.5 * (handlerWidth / sliderParams?.height)))
-            : Math.ceil(100 * (((val - minValue) / (maxValue - minValue)) - 1.25 * (handlerWidth / sliderParams?.width))));
+            ? Math.ceil(100 * (((val - minValue) / (maxValue - minValue))
+            - 0.5 * (handlerWidth / sliderParams?.height)))
+            : Math.ceil(100 * (((val - minValue) / (maxValue - minValue))
+            - 1.25 * (handlerWidth / sliderParams?.width))));
         }
 
         getHandlePosition(whichHandle:string):number {

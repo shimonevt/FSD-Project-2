@@ -1,4 +1,4 @@
-import { EventEmitter } from '../../eventEmitter/eventEmitter.ts';
+import EventEmitter from '../../eventEmitter/eventEmitter.ts';
 import { createElementSlider } from '../../functions/functions.ts';
 
 export const handler = {

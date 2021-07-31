@@ -1,4 +1,4 @@
-import { EventEmitter } from '../eventEmitter/eventEmitter.ts';
+import EventEmitter from '../eventEmitter/eventEmitter.ts';
 import Model from '../model/model.ts';
 import {
   ISliderCoordinates, ISliderOptions, ISliderParameters, IRenderValues,
@@ -40,7 +40,7 @@ class Presenter extends EventEmitter {
 
     getDataFromPanel(options:ISliderOptions) {
       this.model.sendStylesForRender(options);
-      this.model.getInitViewParameters(this.view.updateParameters());
+      this.model.getViewParameters(this.view.updateParameters());
     }
 }
 export default Presenter;

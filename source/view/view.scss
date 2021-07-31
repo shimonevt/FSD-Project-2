@@ -1,136 +1,127 @@
 @import '../panel/panel.scss';
-body {
-    margin: 0px;
-}
 .range-slider {
     width: 100%;
-    
+    &__body {
+        width: 100%;
+        height: 8px;
+        position: relative;
+        background-color: #FFFFFF;
+        border: 1px solid rgba(31,32,65,0.5);
+        border-radius: 8px;
+        box-sizing: border-box;
+        cursor: pointer;
+    }
+    &__values_hidden,
+    &__bar-range_hidden {
+        display: none;
+    }
+    &__progress-bar {
+        position: absolute;
+        height: 100%;
+        background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);    
+    }
+    &__bar-range {
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
+        border: 2px solid #FFFFFF;
+        border-radius: 14px;
+        z-index: 3;
+    }
+    &__values_max,&__values_min {
+        cursor: pointer;
+        position: absolute;
+        font-size: 14px;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;    
+    }
+
+    &__scale-bar {
+        width: 100%;
+        height: 100%;
+    }
+
+    &__scale-bar {
+        position: absolute;
+        z-index: 2;
+    }
+    &__bar-unit {
+        position: absolute;
+    }
+    &__bar-unit_hidden{
+        display: none;
+    }
+    &__bar-unit::before {
+        position: absolute;
+        content: '';
+        width: 2px;
+        height: 250%;
+        background: gray;
+    }
+    &__bar-range_from {
+        left: 5px;
+    }
+    &__values {
+        position: absolute;
+        z-index: 3;
+        border-radius: 14px;
+        padding: 5px;
+        font-size: 14px;
+        min-width: 40px;
+        height: 20px;
+        font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
+        color: #FFFFFF;
+        text-align: center;
+        background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
+    }
+    &:not(.range-slider_vertical) {
+        .range-slider__bar-unit {
+            height: 100%;
+            width: 2px;
+            top: -75%;
+            .range-slider__unit-value {
+                position: absolute;
+                top: 250%;
+                left: -200%;
+            }
+        }
+        .range-slider__values_max {
+            left: 96%;
+        }
+        .range-slider__bar-range {
+            top: -6px;
+        }
+        .range-slider__values {
+            top: -3em;
+        }
+    }
 }
-.range-slider.vertical {
+.range-slider_vertical {
     height: 100%;
     min-height: 260px;
     width: 8px;
-}
-.range-slider__body{
-    width: 100%;
-    height: 8px;
-    position: relative;
-    background-color: #FFFFFF;
-    border: 1px solid rgba(31,32,65,0.5);
-    border-radius: 8px;
-    box-sizing: border-box;
-    cursor: pointer;
-}
-.range-slider__body  .range-slider__values_hidden,
-.range-slider__body  .range-slider__bar-range_hidden {
-    display: none;
-}
-.range-slider__progress-bar {
-    position: absolute;
-    height: 100%;
-    background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);    
-}
-.range-slider__bar-range {
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
-    border: 2px solid #FFFFFF;
-    border-radius: 14px;
-    z-index: 3;
-}
-.range-slider__values_max,.range-slider__values_min {
-    cursor: pointer;
-    position: absolute;
-    font-size: 14px;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;    
-}
-.range-slider .range-slider__scale-bar {
-    width: 100%;
-    height: 100%;
-}
-
-.range-slider__scale-bar {
-    position: absolute;
-    z-index: 2;
-}
-.range-slider:not(.vertical) .range-slider__scale-bar .range-slider__bar-unit {
-    height: 100%;
-    width: 2px;
-    top: -75%;
-    .range-slider__unit-value {
-        position: absolute;
-        top: 250%;
-        left: -200%;
+    .range-slider__body {
+        height: 100%;
     }
-}
-.range-slider__bar-unit {
-    position: absolute;
-}
-.range-slider__bar-unit.hidden{
-    display: none;
-}
-.range-slider__scale-bar .range-slider__bar-unit::before {
-    position: absolute;
-    content: '';
-    width: 2px;
-    height: 250%;
-    background: gray;
-}
-.range-slider__bar-range_from {
-    left: 5px;
-}
-.range-slider__values {
-    position: absolute;
-    z-index: 3;
-    border-radius: 14px;
-    padding: 5px;
-    font-size: 14px;
-    min-width: 40px;
-    height: 20px;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; 
-    color: #FFFFFF;
-    text-align: center;
-    background: linear-gradient(180deg, #6FCF97 0%, #66D2EA 100%);
-}
-.range-slider:not(.vertical) .range-slider__values {
-    top : -40px;
-}
-.range-slider:not(.vertical) .range-slider__values_max{
-    left: 96%;
-}
-.range-slider:not(.vertical) .range-slider__bar-range {
-    top: -6px;
-}
-.range-slider:not(.vertical) .range-slider__values_max,.range-slider:not(.vertical) .range-slider__values_min {
-    top: -3em;
-}
-.range-slider.vertical .range-slider__body {
-    height: 100%;
-}
-.range-slider.vertical .range-slider__progress-bar {
-    width: 100%;
-    bottom:0;
-}
-.range-slider.vertical .range-slider__bar-range {
-    left: -6px;
-}
-.range-slider.vertical .range-slider__values_min {
-    bottom: -20px;
-}
-.range-slider.vertical .range-slider__values{
-    left: 1em;
-}
-.range-slider.vertical .range-slider__scale-bar {
-    width: 150%;
+    .range-slider__progress-bar {
+        width: 100%;
+        bottom:0;
+    }
+    .range-slider__bar-range {
+        left: -6px;
+    }
+    .range-slider__values_min {
+        bottom: -20px;
+    }
+    .range-slider__values{
+        left: 1em;
+    }
+    .range-slider__scale-bar {
+        width: 150%;
+    }
     .range-slider__bar-unit {
         width: 100%;
         left: -75%;
-        .range-slider__unit-value {
-            position: absolute;
-            left: 250%;
-            top: -8px;
-        }
     }
     .range-slider__bar-unit::before {
         position: absolute;
@@ -138,5 +129,10 @@ body {
         width: 200%;
         height: 2px;
         background: gray;
+    }
+    .range-slider__unit-value {
+        position: absolute;
+        left: 250%;
+        top: -8px;
     }
 }

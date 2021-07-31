@@ -1,6 +1,6 @@
 import { createElementSlider } from '../../functions/functions.ts';
 import { ISliderCoordinates, ISliderParameters, IRenderValues } from '../../options/options.ts';
-import { EventEmitter } from '../../eventEmitter/eventEmitter.ts';
+import EventEmitter from '../../eventEmitter/eventEmitter.ts';
 import ViewBar from '../viewBar/viewBar.ts';
 import ViewHandlers from '../viewHandlers/viewHandlers.ts';
 import ViewValues from '../viewValues/viewValues.ts';

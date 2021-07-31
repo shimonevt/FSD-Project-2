@@ -1,4 +1,4 @@
-import { EventEmitter } from '../eventEmitter/eventEmitter.ts';
+import EventEmitter from '../eventEmitter/eventEmitter.ts';
 import { ISliderCoordinates, ISliderOptions, ISliderParameters } from '../options/options.ts';
 import { handler } from '../view/viewHandlers/viewHandlers.ts';
 
@@ -217,7 +217,7 @@ class Model extends EventEmitter {
           const { handlerWidth, sliderParams, isVertical } = this.state;
           return (isVertical
             ? Math.ceil(100 * (((val - minValue) / (maxValue - minValue))
-            - 0.5 * (handlerWidth / sliderParams?.height)))
+            - 1 * (handlerWidth / sliderParams?.height)))
             : Math.ceil(100 * (((val - minValue) / (maxValue - minValue))
             - 1.25 * (handlerWidth / sliderParams?.width))));
         }

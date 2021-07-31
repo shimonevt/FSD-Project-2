@@ -1,18 +1,18 @@
 class EventEmitter {
-    events : any
+    events : Event[]
 
     constructor() {
       this.events = {};
     }
 
-    subscribe(eventName:any, func:any) {
+    subscribe(eventName:string, func:Function) {
       if (!this.events[eventName]) {
         this.events[eventName] = [];
       }
       this.events[eventName].push(func);
     }
 
-    emit(eventName:string, data:Object) {
+    emit(eventName:string, data:Record<number, unknown>) {
       const event = this.events[eventName];
       if (event) {
         event.forEach((func) => {
@@ -21,4 +21,4 @@ class EventEmitter {
       }
     }
 }
-export { EventEmitter };
+export default EventEmitter;

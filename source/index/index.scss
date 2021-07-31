@@ -1,4 +1,7 @@
 @import '../view/view.scss';
+body {
+    margin: 0px;
+}
 .demo-container {
     display: flex;
     justify-content: space-between;

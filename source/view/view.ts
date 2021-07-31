@@ -1,5 +1,5 @@
 import { ISliderCoordinates, ISliderParameters, IRenderValues } from '../options/options.ts';
-import { EventEmitter } from '../eventEmitter/eventEmitter.ts';
+import EventEmitter from '../eventEmitter/eventEmitter.ts';
 import { createElementSlider, getContainer } from '../functions/functions.ts';
 import ViewBody from './viewBody/viewBody.ts';
 
@@ -13,7 +13,7 @@ class View extends EventEmitter {
   constructor(containerClass:string) {
     super();
     this.container = getContainer(containerClass);
-    this.slider = createElementSlider(['range-slider']);
+    this.slider = createElementSlider(['js-range-slider', 'range-slider']);
     this.container.append(this.slider);
     this.viewBody = new ViewBody(this.slider);
     this.init();
@@ -44,9 +44,9 @@ class View extends EventEmitter {
   renderView(renderData: IRenderValues):void {
     const { coordinates } = renderData;
     if (coordinates[0] === 'vertical') {
-      this.slider.classList.add('vertical');
+      this.slider.classList.add('range-slider_vertical');
     } else {
-      this.slider.classList.remove('vertical');
+      this.slider.classList.remove('range-slider_vertical');
     }
     this.viewBody.renderViewComponents(renderData);
   }

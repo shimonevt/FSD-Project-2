@@ -41,7 +41,8 @@ class ViewScale {
           this.units[i].children[0].textContent = minValue.toString();
         } else {
           this.units[i].setAttribute('style', `${coordinates[1]} ${scaleUnits.unitPositions[i]}%`);
-          this.units[i].children[0].textContent = (minValue + 0.01 * scaleUnits.unitPositions[i] * (maxValue - minValue)).toString();
+          this.units[i].children[0].textContent = (minValue + 0.01 * scaleUnits.unitPositions[i]
+          * (maxValue - minValue)).toString();
         }
       }
       this.changeScaleDisplay(size);
@@ -61,10 +62,10 @@ class ViewScale {
 
     searchByScaleElements(displayUnitsAtSomeSize:string[]) {
       for (let i = 0; i < this.units.length; i += 1) {
-        this.units[i].classList.add('hidden');
+        this.units[i].classList.add('range-slider__bar-unit_hidden');
         for (let j = 0; j < displayUnitsAtSomeSize.length; j += 1) {
           if (this.units[i].classList.contains(displayUnitsAtSomeSize[j])) {
-            this.units[i].classList.remove('hidden');
+            this.units[i].classList.remove('range-slider__bar-unit_hidden');
             break;
           }
         }

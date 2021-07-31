@@ -1,7 +1,5 @@
-import { EventEmitter } from '../eventEmitter/eventEmitter.ts';
-
+import EventEmitter from '../eventEmitter/eventEmitter.ts';
 import { ISliderOptions } from '../options/options.ts';
-
 import Presenter from '../presenter/presenter.ts';
 
 class Panel extends EventEmitter {
@@ -13,7 +11,7 @@ class Panel extends EventEmitter {
 
     listeners: Array<Element>
 
-    constructor(slider: any) {
+    constructor(slider: Presenter) {
       super();
       this.listeners = [];
       this.slider = slider;

@@ -12,4 +12,4 @@ class ViewBar {
     this.viewBar.setAttribute('style', `${coordinates[1]}${barPosition}%;${coordinates[2]}${barSize}%`);
   }
 }
-export { ViewBar };
+export default ViewBar;

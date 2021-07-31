@@ -1,10 +1,10 @@
 import { createElementSlider } from '../../functions/functions.ts';
 import { ISliderCoordinates, ISliderParameters, IRenderValues } from '../../options/options.ts';
 import { EventEmitter } from '../../eventEmitter/eventEmitter.ts';
-import { ViewBar } from '../viewBar/viewBar.ts';
-import { ViewHandlers } from '../viewHandlers/viewHandlers.ts';
-import { ViewValues } from '../viewValues/viewValues.ts';
-import { ViewScale } from '../viewScale/viewScale.ts';
+import ViewBar from '../viewBar/viewBar.ts';
+import ViewHandlers from '../viewHandlers/viewHandlers.ts';
+import ViewValues from '../viewValues/viewValues.ts';
+import ViewScale from '../viewScale/viewScale.ts';
 
 class ViewBody extends EventEmitter {
   sliderBody: HTMLElement;
@@ -29,7 +29,7 @@ class ViewBody extends EventEmitter {
 
   getParameters() {
     return {
-      sliderParameters: this.getSliderParams(),
+      sliderParams: this.getSliderParams(),
       sliderCoordinates: this.getSliderCoords(),
       handlerWidth: this.viewHandlers.getHandlerWidth(),
     };
@@ -65,14 +65,19 @@ class ViewBody extends EventEmitter {
 
   getAndSendClickPosition(ev: MouseEvent):void {
     if (this.checkClickTarget(ev.target)) {
-      this.emit('slider-clicked', { top: ev.clientY, left: ev.clientX });
+      this.emit('slider-clicked', { top: ev.clientY, left: ev.clientX, sliderParameters: this.getParameters() });
     }
+  }
+
+  sendHandleDragData(data:{ top:number, left:number, info:string }) {
+    const sliderParams = this.getParameters();
+    this.emit('handle-dragged', { ...data, sliderParams });
   }
 
   addEventListeners():void {
     this.sliderBody.addEventListener('click', (ev) => { this.getAndSendClickPosition(ev); });
-    this.viewHandlers.subscribe('handle-dragged', (data:{ top:number, left:number, info:string }) => { this.emit('handle-dragged', data); });
+    this.viewHandlers.subscribe('handle-dragged', (data:{ top:number, left:number, info:string }) => { this.sendHandleDragData(data); });
     this.viewHandlers.addDragNDrop();
   }
 }
-export { ViewBody };
+export default ViewBody;

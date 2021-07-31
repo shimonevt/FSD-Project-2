@@ -2,7 +2,7 @@
 import $ from 'jquery';
 
 import { ISliderOptions, sliderOptionsDefault } from '../options/options.ts';
-import { Presenter } from '../presenter/presenter.ts';
+import Presenter from '../presenter/presenter.ts';
 
 interface jQuery {
     rangeSlider (options:ISliderOptions): void
@@ -11,7 +11,6 @@ interface jQuery {
   $.fn.extend({
     rangeSlider(options:ISliderOptions = sliderOptionsDefault) {
       const initOptions:ISliderOptions = {};
-      options.containerClass = `.${this[0].classList.value}`;
       for (const key in options, sliderOptionsDefault) {
         if (options[key] === undefined) {
           initOptions[key] = sliderOptionsDefault[key];
@@ -19,6 +18,7 @@ interface jQuery {
           initOptions[key] = options[key];
         }
       }
+      initOptions.containerClass = `.${this[0].classList.value}`;
       return new Presenter(initOptions);
     },
   });

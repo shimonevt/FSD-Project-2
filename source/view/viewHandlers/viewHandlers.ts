@@ -50,4 +50,4 @@ class ViewHandlers extends EventEmitter {
     this.rangeFrom.addEventListener('mousedown', (ev) => { this.onMouseDown(ev, handler.rangeFrom); });
   }
 }
-export { ViewHandlers };
+export default ViewHandlers;

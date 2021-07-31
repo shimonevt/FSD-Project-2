@@ -34,4 +34,4 @@ class ViewValues {
       } else if (show === false) { this.toVal.classList.add('hidden'); this.fromVal.classList.add('hidden'); }
     }
 }
-export { ViewValues };
+export default ViewValues;

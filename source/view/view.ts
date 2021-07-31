@@ -1,8 +1,7 @@
 import { ISliderCoordinates, ISliderParameters, IRenderValues } from '../options/options.ts';
-
 import { EventEmitter } from '../eventEmitter/eventEmitter.ts';
 import { createElementSlider, getContainer } from '../functions/functions.ts';
-import { ViewBody } from './viewBody/viewBody.ts';
+import ViewBody from './viewBody/viewBody.ts';
 
 class View extends EventEmitter {
   container : Element;
@@ -27,8 +26,9 @@ class View extends EventEmitter {
   addEventListeners() {
     window.addEventListener('resize', () => { this.emit('window-resize', this.updateParameters()); });
     window.addEventListener('scroll', () => { this.emit('scroll', this.updateParameters()); });
-    this.viewBody.subscribe('slider-clicked', (data:{ top: number, left: number }) => { this.emit('slider-clicked', data); });
-    this.viewBody.subscribe('handle-dragged', (data:{top: number, left: number, info: string}) => { this.emit('handle-dragged', data); });
+    this.viewBody.subscribe('slider-clicked', (data:{ top: number, left: number, sliderParameters: {sliderParams :ISliderParameters
+      sliderCoordinates: ISliderCoordinates, handlerWidth: number }}) => { this.emit('slider-clicked', data); });
+    this.viewBody.subscribe('handle-dragged', (data:{top: number, left: number, info: string, sliderParams: {sliderParameters: ISliderParameters, sliderCoordinates: ISliderCoordinates, handlerWidth: number}}) => { this.emit('handle-dragged', data); });
     this.viewBody.addEventListeners();
   }
 
@@ -52,4 +52,4 @@ class View extends EventEmitter {
   }
 }
 
-export { View };
+export default View;

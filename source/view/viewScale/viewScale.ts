@@ -71,4 +71,4 @@ class ViewScale {
       }
     }
 }
-export { ViewScale };
+export default ViewScale;

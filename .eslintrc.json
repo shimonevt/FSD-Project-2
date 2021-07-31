@@ -21,8 +21,7 @@
 		"fsd/jq-cache-dom-elements": "error",
 		"fsd/jq-use-js-prefix-in-selector": "error",
 		"fsd/split-conditionals": "error",
-		"linebreak-style": ["error", "windows"],
-		"no-unused-expressions": "off"
+		"linebreak-style": ["error", "windows"]
 	},
 	"settings": {
 		"import/resolver": {

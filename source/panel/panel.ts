@@ -2,7 +2,7 @@ import { EventEmitter } from '../eventEmitter/eventEmitter.ts';
 
 import { ISliderOptions } from '../options/options';
 
-import { Presenter } from '../presenter/presenter';
+import Presenter from '../presenter/presenter';
 
 class Panel extends EventEmitter {
     slider: Presenter

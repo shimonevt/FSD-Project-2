@@ -5,6 +5,7 @@ const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
 module.exports = {
     context: path.resolve(__dirname, "source"),    
     resolve: {
@@ -34,6 +35,15 @@ module.exports = {
                   },
                   {
                     loader: "css-loader"
+                  },
+                  {
+                    loader: 'postcss-loader',
+                    options: {
+                      postcssOptions: {
+                        plugins: [autoprefixer({overrideBrowserslist: ['last 5 versions','> 0.5%','ie >= 9']})],
+                        sourceMap: true
+                      }
+                    }
                   },
                   {
                     loader: "resolve-url-loader"

@@ -1,5 +1,9 @@
 import { createElementSlider } from '../../functions/functions.ts';
-import { ISliderCoordinates, ISliderParameters, IRenderValues } from '../../options/options.ts';
+import {
+  ISliderCoordinates,
+  ISliderParameters,
+  IRenderValues,
+} from '../../options/options.ts';
 import EventEmitter from '../../eventEmitter/eventEmitter.ts';
 import ViewBar from '../viewBar/viewBar.ts';
 import ViewHandlers from '../viewHandlers/viewHandlers.ts';
@@ -9,7 +13,7 @@ import ViewScale from '../viewScale/viewScale.ts';
 class ViewBody extends EventEmitter {
   sliderBody: HTMLElement;
 
-  viewBar : ViewBar;
+  viewBar: ViewBar;
 
   viewHandlers: ViewHandlers;
 
@@ -17,9 +21,12 @@ class ViewBody extends EventEmitter {
 
   viewScale: ViewScale;
 
-  constructor(slider:HTMLElement) {
+  constructor(slider: HTMLElement) {
     super();
-    this.sliderBody = createElementSlider(['js-range-slider__body', 'range-slider__body']);
+    this.sliderBody = createElementSlider([
+      'js-range-slider__body',
+      'range-slider__body',
+    ]);
     slider.append(this.sliderBody);
     this.viewBar = new ViewBar(this.sliderBody);
     this.viewHandlers = new ViewHandlers(this.sliderBody);
@@ -35,14 +42,14 @@ class ViewBody extends EventEmitter {
     };
   }
 
-  getSliderParameters():ISliderParameters {
+  getSliderParameters(): ISliderParameters {
     return {
       height: parseInt(window.getComputedStyle(this.sliderBody).height, 10),
       width: parseInt(window.getComputedStyle(this.sliderBody).width, 10),
     };
   }
 
-  getSliderCoords():ISliderCoordinates {
+  getSliderCoords(): ISliderCoordinates {
     return {
       left: this.sliderBody.getBoundingClientRect().left,
       top: this.sliderBody.getBoundingClientRect().top,
@@ -51,7 +58,14 @@ class ViewBody extends EventEmitter {
 
   renderViewComponents(renderData: IRenderValues) {
     const {
-      coordinates, barPosition, barSize, isRange, rangeFrom, rangeTo, maxValue, minValue,
+      coordinates,
+      barPosition,
+      barSize,
+      isRange,
+      rangeFrom,
+      rangeTo,
+      maxValue,
+      minValue,
     } = renderData;
     this.viewBar.update(coordinates, barPosition, barSize);
     this.viewHandlers.update(isRange, coordinates, rangeFrom, rangeTo);
@@ -59,25 +73,36 @@ class ViewBody extends EventEmitter {
     this.viewScale.update(coordinates, maxValue, minValue);
   }
 
-  checkClickTarget(target:EventTarget):boolean {
+  checkClickTarget(target: EventTarget): boolean {
     return target !== this.handlerValues;
   }
 
-  getAndSendClickPosition(ev: MouseEvent):void {
+  getAndSendClickPosition(ev: MouseEvent): void {
     const sliderData = this.getParameters();
     if (this.checkClickTarget(ev.target)) {
-      this.emit('slider-clicked', { top: ev.clientY, left: ev.clientX, sliderData });
+      this.emit('slider-clicked', {
+        top: ev.clientY,
+        left: ev.clientX,
+        sliderData,
+      });
     }
   }
 
-  sendHandleDragData(data:{ top:number, left:number, info:string }) {
+  sendHandleDragData(data: { top: number; left: number; info: string }) {
     const sliderData = this.getParameters();
     this.emit('handle-dragged', { ...data, sliderData });
   }
 
-  addEventListeners():void {
-    this.sliderBody.addEventListener('click', (ev) => { this.getAndSendClickPosition(ev); });
-    this.viewHandlers.subscribe('handle-dragged', (data:{ top:number, left:number, info:string }) => { this.sendHandleDragData(data); });
+  addEventListeners(): void {
+    this.sliderBody.addEventListener('click', (ev) => {
+      this.getAndSendClickPosition(ev);
+    });
+    this.viewHandlers.subscribe(
+      'handle-dragged',
+      (data: { top: number; left: number; info: string }) => {
+        this.sendHandleDragData(data);
+      },
+    );
     this.viewHandlers.addDragNDrop();
   }
 }

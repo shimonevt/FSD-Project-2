@@ -1,24 +1,24 @@
 class EventEmitter {
-    events : Event[]
+  events: Event[];
 
-    constructor() {
-      this.events = {};
-    }
+  constructor() {
+    this.events = {};
+  }
 
-    subscribe(eventName:string, func:Function) {
-      if (!this.events[eventName]) {
-        this.events[eventName] = [];
-      }
-      this.events[eventName].push(func);
+  subscribe(eventName: string, func: Function) {
+    if (!this.events[eventName]) {
+      this.events[eventName] = [];
     }
+    this.events[eventName].push(func);
+  }
 
-    emit(eventName:string, data:Record<number, unknown>) {
-      const event = this.events[eventName];
-      if (event) {
-        event.forEach((func) => {
-          func.call(null, data);
-        });
-      }
+  emit(eventName: string, data: Record<number, unknown>) {
+    const event = this.events[eventName];
+    if (event) {
+      event.forEach((func:Function) => {
+        func.call(null, data);
+      });
     }
+  }
 }
 export default EventEmitter;

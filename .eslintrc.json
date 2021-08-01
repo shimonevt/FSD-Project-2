@@ -19,7 +19,6 @@
 		"fsd/no-function-declaration-in-event-listener" : "off",
 		"fsd/jq-cache-dom-elements": "error",
 		"fsd/jq-use-js-prefix-in-selector": "error",
-		"fsd/split-conditionals": "error",
 		"linebreak-style": ["error", "windows"]
 	},
 	"settings": {

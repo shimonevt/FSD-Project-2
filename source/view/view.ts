@@ -1,16 +1,20 @@
-import { ISliderCoordinates, ISliderParameters, IRenderValues } from '../options/options.ts';
+import {
+  ISliderCoordinates,
+  ISliderParameters,
+  IRenderValues,
+} from '../options/options.ts';
 import EventEmitter from '../eventEmitter/eventEmitter.ts';
 import { createElementSlider, getContainer } from '../functions/functions.ts';
 import ViewBody from './viewBody/viewBody.ts';
 
 class View extends EventEmitter {
-  container : Element;
+  container: Element;
 
-  slider : HTMLElement;
+  slider: HTMLElement;
 
-  viewBody : ViewBody;
+  viewBody: ViewBody;
 
-  constructor(containerClass:string) {
+  constructor(containerClass: string) {
     super();
     this.container = getContainer(containerClass);
     this.slider = createElementSlider(['js-range-slider', 'range-slider']);
@@ -19,29 +23,62 @@ class View extends EventEmitter {
     this.init();
   }
 
-  init():void {
+  init(): void {
     this.addEventListeners();
   }
 
   addEventListeners() {
-    window.addEventListener('resize', () => { this.emit('window-resize', this.updateParameters()); });
-    window.addEventListener('scroll', () => { this.emit('scroll', this.updateParameters()); });
-    this.viewBody.subscribe('slider-clicked', (data:{ top: number, left: number, sliderData: {sliderParameters :ISliderParameters,
-      sliderCoordinates: ISliderCoordinates, handlerWidth: number }}) => { this.emit('slider-clicked', data); });
-    this.viewBody.subscribe('handle-dragged', (data:{top: number, left: number, info: string, sliderData: {sliderParameters: ISliderParameters, sliderCoordinates: ISliderCoordinates, handlerWidth: number}}) => { this.emit('handle-dragged', data); });
+    window.addEventListener('resize', () => {
+      this.emit('window-resize', this.updateParameters());
+    });
+    window.addEventListener('scroll', () => {
+      this.emit('scroll', this.updateParameters());
+    });
+    this.viewBody.subscribe(
+      'slider-clicked',
+      (data: {
+        top: number;
+        left: number;
+        sliderData: {
+          sliderParameters: ISliderParameters;
+          sliderCoordinates: ISliderCoordinates;
+          handlerWidth: number;
+        };
+      }) => {
+        this.emit('slider-clicked', data);
+      },
+    );
+    this.viewBody.subscribe(
+      'handle-dragged',
+      (data: {
+        top: number;
+        left: number;
+        info: string;
+        sliderData: {
+          sliderParameters: ISliderParameters;
+          sliderCoordinates: ISliderCoordinates;
+          handlerWidth: number;
+        };
+      }) => {
+        this.emit('handle-dragged', data);
+      },
+    );
     this.viewBody.addEventListeners();
   }
 
-  updateParameters(): {sliderParameters: ISliderParameters; sliderCoordinates: ISliderCoordinates;
-                        handlerWidth: number;} {
+  updateParameters(): {
+    sliderParameters: ISliderParameters;
+    sliderCoordinates: ISliderCoordinates;
+    handlerWidth: number;
+    } {
     return this.viewBody.getParameters();
   }
 
-  getChanges(val: IRenderValues):void {
+  getChanges(val: IRenderValues): void {
     this.renderView(val);
   }
 
-  renderView(renderData: IRenderValues):void {
+  renderView(renderData: IRenderValues): void {
     const { coordinates } = renderData;
     if (coordinates[0] === 'vertical') {
       this.slider.classList.add('range-slider_vertical');

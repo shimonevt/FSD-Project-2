@@ -8,3 +8,11 @@ export function createElementSlider(selectors: string[]): HTMLDivElement {
 export function getContainer(selector: string): HTMLElement {
   return document.querySelector(selector);
 }
+export function calcScaleStep(range: number, sliderStep: number):number {
+  for (let i = sliderStep; i <= range; i += sliderStep) {
+    if (range / i <= 10) {
+      return i;
+    }
+  }
+  return sliderStep;
+}

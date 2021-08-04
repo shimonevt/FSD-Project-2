@@ -48,8 +48,10 @@ class Model extends EventEmitter {
   }
 
   clickTreatment(data: {
-    top: number;
-    left: number;
+    top: number,
+    left: number,
+    target: EventTarget,
+    isBarUnit: boolean,
     sliderData: {
       sliderParameters: ISliderParameters;
       sliderCoordinates: ISliderCoordinates;
@@ -57,7 +59,9 @@ class Model extends EventEmitter {
     };
   }): void {
     this.getViewParameters(data.sliderData);
-    this.sendStylesForRender(this.calcDataClick(data));
+    this.sendStylesForRender(this.calcDataClick({
+      top: data.top, left: data.left, target: data.target, isBarUnit: data.isBarUnit,
+    }));
   }
 
   dragNDropTreatment(data: {
@@ -111,9 +115,17 @@ class Model extends EventEmitter {
     return this.state;
   }
 
-  calcDataClick(data: { top: number; left: number }): ISliderOptions {
+  calcDataClick(data: {
+    top: number, left: number,
+    target: HTMLElement, isBarUnit: boolean }): ISliderOptions {
+    const { target, isBarUnit } = data;
     const { isRange } = this.state;
-    const currentPosition = this.calcCurrentPosition(data);
+    let currentPosition;
+    if (isBarUnit) {
+      currentPosition = parseInt(target.dataset.location, 10);
+    } else {
+      currentPosition = this.calcCurrentPosition(data);
+    }
     const currentValue = this.calcCurrentValue(currentPosition);
     const fromValPosition = this.getHandlePosition(handler.rangeFrom);
     const toValPosition = this.getHandlePosition(handler.rangeTo);
@@ -151,6 +163,7 @@ class Model extends EventEmitter {
     units,
     showValues,
     sliderParameters,
+    sliderStep,
   }: ISliderOptions): void {
     if (toVal >= maxValue) {
       this.state.toVal = maxValue;
@@ -185,6 +198,7 @@ class Model extends EventEmitter {
       ],
       minValue: this.state.minValue,
       maxValue: this.state.maxValue,
+      sliderStep,
     };
     this.emit('send-state', this.state);
     this.emit('values-ready', firstRenderData);
@@ -200,6 +214,7 @@ class Model extends EventEmitter {
     units,
     showValues,
     sliderParameters,
+    sliderStep,
   }: ISliderOptions): void {
     if (toVal >= maxValue) {
       this.state.toVal = maxValue;
@@ -233,6 +248,7 @@ class Model extends EventEmitter {
       ],
       minValue: this.state.minValue,
       maxValue: this.state.maxValue,
+      sliderStep,
     };
     this.emit('send-state', this.state);
     this.emit('values-ready', renderData);

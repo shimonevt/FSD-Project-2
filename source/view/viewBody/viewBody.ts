@@ -66,15 +66,20 @@ class ViewBody extends EventEmitter {
       rangeTo,
       maxValue,
       minValue,
+      sliderStep,
     } = renderData;
     this.viewBar.update(coordinates, barPosition, barSize);
     this.viewHandlers.update(isRange, coordinates, rangeFrom, rangeTo);
     this.handlerValues.update(renderData);
-    this.viewScale.update(coordinates, maxValue, minValue);
+    this.viewScale.update(coordinates, maxValue, minValue, sliderStep);
   }
 
   checkClickTarget(target: EventTarget): boolean {
-    return target !== this.handlerValues;
+    const { toVal, fromVal } = this.handlerValues;
+    if (target === fromVal || target === toVal) {
+      return false;
+    }
+    return true;
   }
 
   getAndSendClickPosition(ev: MouseEvent): void {
@@ -84,6 +89,8 @@ class ViewBody extends EventEmitter {
         top: ev.clientY,
         left: ev.clientX,
         sliderData,
+        target: ev.target,
+        isBarUnit: ev.target.classList.contains('js-range-slider__bar-unit') || ev.target.classList.contains('js-range-slider__unit-value'),
       });
     }
   }

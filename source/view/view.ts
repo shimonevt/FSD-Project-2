@@ -37,8 +37,9 @@ class View extends EventEmitter {
     this.viewBody.subscribe(
       'slider-clicked',
       (data: {
-        top: number;
-        left: number;
+        top: number,
+        left: number,
+        target: HTMLElement,
         sliderData: {
           sliderParameters: ISliderParameters;
           sliderCoordinates: ISliderCoordinates;

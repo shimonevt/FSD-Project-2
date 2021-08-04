@@ -1,36 +1,36 @@
 mixin panel(containerClass)
-    .panel 
+    .panel.js-panel
         .panel__rows
             .panel__row
-                .panel__unit.max-value
-                    input.max-value(type="text")
-                    label(for="max-value").max-value maxValue
-                .panel__unit.min-value
-                    input.min-value(type="text")
-                    label(for="min-value").min-value minValue 
+                .panel__unit
+                    input.js-panel__unit_max-value(type="text")
+                    label(for="max-value").panel__unit_desciption maxValue
+                .panel__unit
+                    input.js-panel__unit_min-value(type="text")
+                    label(for="min-value").panel__unit_desciption minValue 
             .panel__row 
-                    .panel__unit.to-val
-                        input.to-val(type="text")
-                        label(for="to-val").to-val toVal 
-                    .panel__unit.from-val
-                        input.from-val(type="text")
-                        label(for="from-val").from-val fromVal
+                    .panel__unit
+                        input.js-panel__unit_to-val(type="text")
+                        label(for="to-val").panel__unit_desciption toVal 
+                    .panel__unit
+                        input.js-panel__unit_from-val(type="text")
+                        label(for="from-val").panel__unit_desciption fromVal
             .panel__row 
                     .panel__unit.slider-step
-                        input.slider-step(type="text")
-                        label(for="slider-step").slider-step slider step 
+                        input.js-panel__unit_slider-step(type="text")
+                        label(for="slider-step").panel__unit_desciption slider step 
                     .panel__unit.units
-                        input.units(type="text")
-                        label(for="units").units units
+                        input.js-panel__unit_units(type="text")
+                        label(for="units").panel__unit_desciption units
             .panel__row 
                     .panel__unit.vertical 
-                        input.is-checkbox(type="checkbox", name="vertical", id=`vertical-${containerClass}`)
-                        label(for="vertical-"+containerClass).vertical isVertical
+                        input.js-panel__unit_is-checkbox.js-panel__unit_is-vertical(type="checkbox", name="vertical", id=`vertical-${containerClass}`)
+                        label(for="vertical-"+containerClass).panel__unit_desciption isVertical
                     .panel__unit.range 
-                        input.is-checkbox(type="checkbox", name="range" id=`range-${containerClass}`)
-                        label(for="range-"+containerClass).range range 
+                        input.js-panel__unit_is-checkbox.js-panel__unit_is-range(type="checkbox", name="range" id=`range-${containerClass}`)
+                        label(for="range-"+containerClass).panel__unit_desciption range 
                     .panel__unit.show-values 
-                        input.is-checkbox(type="checkbox",name="show-values",id=`show-values-${containerClass}`)
-                        label(for="show-values-"+containerClass).show-values show values
+                        input.js-panel__unit_is-checkbox.js-panel__unit_show-values(type="checkbox",name="show-values",id=`show-values-${containerClass}`)
+                        label(for="show-values-"+containerClass).panel__unit_desciption show values
 
 

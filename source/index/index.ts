@@ -23,7 +23,7 @@ $(document).ready(() => {
   const $slider3 = $('.js-container-3').rangeSlider({
     minValue: 0,
     maxValue: 1000,
-    isVertical: true,
+    isVertical: false,
     fromVal: 50,
     toVal: 400,
     sliderStep: 1,

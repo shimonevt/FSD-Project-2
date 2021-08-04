@@ -43,12 +43,13 @@ class Presenter extends EventEmitter {
     view.subscribe(
       'slider-clicked',
       (clickParameters: {
-        top: number;
-        left: number;
+        top: number,
+        left: number,
+        target: EventTarget,
         parameters: {
-          sliderParameters: ISliderParameters;
-          sliderCoordinates: ISliderCoordinates;
-          handlerWidth: number;
+          sliderParameters: ISliderParameters,
+          sliderCoordinates: ISliderCoordinates,
+          handlerWidth: number,
         };
       }) => {
         model.clickTreatment(clickParameters);

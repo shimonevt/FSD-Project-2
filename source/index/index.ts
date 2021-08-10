@@ -1,8 +1,7 @@
 import $ from 'jquery';
-
 import './index.scss';
-import '../slider/slider.ts';
-import Panel from '../panel/panel.ts';
+import '../slider/slider';
+import Panel from '../panel/panel';
 
 $(document).ready(() => {
   const $slider1 = $('.js-container').rangeSlider({

@@ -1,12 +1,7 @@
-import EventEmitter from '../eventEmitter/eventEmitter.ts';
-import Model from '../model/model.ts';
-import {
-  ISliderCoordinates,
-  ISliderOptions,
-  ISliderParameters,
-  IRenderValues,
-} from '../options/options.ts';
-import View from '../view/view.ts';
+import EventEmitter, { SliderDataType } from '../eventEmitter/eventEmitter';
+import Model from '../model/model';
+import { IRenderValues, ISliderOptions } from '../options/options';
+import View from '../view/view';
 
 class Presenter extends EventEmitter {
   view: View;
@@ -27,69 +22,94 @@ class Presenter extends EventEmitter {
 
   subscribeOnEvents(): void {
     const { model, view } = this;
-    model.subscribe('send-state', (state: ISliderOptions) => {
+    model.subscribe('send-state', (state) => {
       this.emit('send-state', state);
     });
-    model.subscribe('values-ready', (obj: IRenderValues) => {
-      view.getChanges(obj);
+    model.subscribe('values-ready', (obj) => {
+      view.getChanges(obj as IRenderValues);
     });
-    view.subscribe('slider-init', (initParameters: {
-      sliderParameters: ISliderParameters;
-      sliderCoordinates: ISliderCoordinates;
-      handlerWidth: number;
-    }) => {
-      model.getViewParameters(initParameters);
-    });
-    view.subscribe(
-      'slider-clicked',
-      (clickParameters: {
-        top: number,
-        left: number,
-        target: EventTarget,
-        parameters: {
-          sliderParameters: ISliderParameters,
-          sliderCoordinates: ISliderCoordinates,
-          handlerWidth: number,
-        };
-      }) => {
-        model.clickTreatment(clickParameters);
-      },
-    );
-    view.subscribe(
-      'handle-dragged',
-      (dragParameters: {
-        top: number;
-        left: number;
-        info: string;
-        parameters: {
-          sliderParameters: ISliderParameters;
-          sliderCoordinates: ISliderCoordinates;
+    view.subscribe('slider-init', (initParameters) => {
+      model.getViewParameters(
+        initParameters as {
+          sliderParameters: {
+            width: number;
+            height: number;
+          };
+          sliderCoordinates: {
+            top: number;
+            left: number;
+          };
           handlerWidth: number;
+        },
+      );
+    });
+    view.subscribe('slider-clicked', (clickParameters: SliderDataType) => {
+      model.clickTreatment(
+        clickParameters as {
+          top: number;
+          left: number;
+          target: HTMLElement;
+          isBarUnit: boolean;
+          sliderData: {
+            sliderParameters: {
+              width: number;
+              height: number;
+            };
+            sliderCoordinates: {
+              top: number;
+              left: number;
+            };
+            handlerWidth: number;
+          };
+        },
+      );
+    });
+    view.subscribe('handle-dragged', (dragParameters) => {
+      model.dragNDropTreatment(
+        dragParameters as {
+          top: number;
+          left: number;
+          info: string;
+          sliderData: {
+            sliderParameters: {
+              width: number;
+              height: number;
+            };
+            sliderCoordinates: {
+              top: number;
+              left: number;
+            };
+            handlerWidth: number;
+          };
+        },
+      );
+    });
+    view.subscribe('window-resize', (resizeParameters) => {
+      model.getViewParameters(resizeParameters as {
+        sliderParameters: {
+            width: number;
+            height: number;
         };
-      }) => {
-        model.dragNDropTreatment(dragParameters);
-      },
-    );
-    view.subscribe(
-      'window-resize',
-      (resizeParameters: {
-        sliderParameters: ISliderParameters;
-        sliderCoordinates: ISliderCoordinates;
+        sliderCoordinates: {
+            top: number;
+            left: number;
+        };
         handlerWidth: number;
-      }) => {
-        model.getViewParameters(resizeParameters);
-      },
-    );
-    view.subscribe(
-      'scroll',
-      (scrollParameters: {
-        sliderParameters: ISliderParameters;
-        sliderCoordinates: ISliderCoordinates;
+      });
+    });
+    view.subscribe('scroll', (scrollParameters) => {
+      model.getViewParameters(scrollParameters as {
+        sliderParameters: {
+          width: number;
+          height: number;
+        };
+        sliderCoordinates: {
+            top: number;
+            left: number;
+        };
         handlerWidth: number;
-      }) => {
-        model.getViewParameters(scrollParameters);
-      },
-    );
+      });
+    });
   }
 
   getDataFromPanel(options: ISliderOptions) {

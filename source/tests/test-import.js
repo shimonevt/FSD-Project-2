@@ -78,8 +78,6 @@ const renderData2 = {
 }
 const view = new View(testOptions1.containerClass);
 const presenter = new Presenter(testOptions1);
-const panel = new Panel(testOptions1);
-presenter.panel = panel;
 const {viewBody} = view;
 const { sliderBody, viewBar, viewHandlers, handlerValues, viewScale } = viewBody;
 export { view, viewBody, sliderBody, viewBar, viewHandlers, viewScale, handlerValues, renderData1, renderData2, presenter };

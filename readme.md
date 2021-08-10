@@ -1,10 +1,22 @@
 # Plugin (Range slider) mvp Typescript
 
-[Демонстрация](https://shimonevt.github.io/FSD-Project-2/build/index.html) 
+[Демонстрация](https://shimonevt.github.io/FSD-Project-2/index.html) 
 
 [Репозиторий](https://github.com/shimonevt/FSD-Project-2/)
 
 Тестовое задание для Fullstack Development
+
+## Развертывание
+
+`git clone https://github.com/shimonevt/FSD-Project-2` - клонирование репозитория  
+
+`npm i` - установление зависимостей  
+
+`npm run start` - запуск webpack dev server  
+
+`npm run dev` - сборка в режиме development  
+
+`npm run build` - сборка в режиме production  
 
 ## Описание
 

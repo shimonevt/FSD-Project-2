@@ -19,7 +19,18 @@
 		"fsd/no-function-declaration-in-event-listener" : "off",
 		"fsd/jq-cache-dom-elements": "error",
 		"fsd/jq-use-js-prefix-in-selector": "error",
-		"linebreak-style": ["error", "windows"]
+		"linebreak-style": ["error", "windows"],
+		"no-param-reassign": [{"value": false}],
+		"import/extensions": [
+			"error",
+			"ignorePackages",
+			{
+			  "js": "never",
+			  "jsx": "never",
+			  "ts": "never",
+			  "tsx": "never"
+			}
+		]
 	},
 	"settings": {
 		"import/resolver": {

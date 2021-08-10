@@ -1,4 +1,4 @@
-import { calcScaleStep, createElementSlider } from '../../functions/functions.ts';
+import { calcScaleStep, createElementSlider } from '../../functions/functions';
 
 class ViewScale {
   viewScale: HTMLElement;
@@ -20,16 +20,16 @@ class ViewScale {
         const firstUnit = createElementSlider(['js-range-slider__bar-unit', 'range-slider__bar-unit']);
         const initUnitValue = createElementSlider(['js-range-slider__unit-value', 'range-slider__unit-value']);
         firstUnit.setAttribute('style', `${coordinates[1]} -0.5%`);
-        firstUnit.dataset.location = 0;
+        firstUnit.dataset.location = '0';
         initUnitValue.textContent = (minValue).toString();
-        initUnitValue.dataset.location = 0;
+        initUnitValue.dataset.location = '0';
         firstUnit.append(initUnitValue);
         this.viewScale.append(firstUnit);
       }
       scaleUnit.setAttribute('style', `${coordinates[1]} ${100 * (i / (maxValue - minValue))}%`);
-      scaleUnit.dataset.location = minValue + i;
+      scaleUnit.dataset.location = `${100 * (i / (maxValue - minValue))}`;
       unitValue.textContent = (minValue + i).toString();
-      unitValue.dataset.location = 100 * (i / (maxValue - minValue));
+      unitValue.dataset.location = `${100 * (i / (maxValue - minValue))}`;
       scaleUnit.append(unitValue);
       this.viewScale.append(scaleUnit);
     }

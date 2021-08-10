@@ -1,6 +1,7 @@
-import EventEmitter from '../eventEmitter/eventEmitter.ts';
-import { ISliderOptions } from '../options/options.ts';
-import Presenter from '../presenter/presenter.ts';
+import EventEmitter from '../eventEmitter/eventEmitter';
+import { getContainer } from '../functions/functions';
+import { ISliderOptions } from '../options/options';
+import Presenter from '../presenter/presenter';
 
 class Panel extends EventEmitter {
   slider: Presenter;
@@ -9,13 +10,14 @@ class Panel extends EventEmitter {
 
   panel: Element;
 
-  listeners: HTMLElement[];
+  listeners: (HTMLElement | HTMLInputElement)[];
 
   constructor(slider: Presenter) {
     super();
     this.listeners = [];
     this.slider = slider;
     this.state = this.slider.model.state;
+    this.panel = getContainer(`${this.state.containerClass} .js-panel`);
     this.init();
   }
 
@@ -25,11 +27,10 @@ class Panel extends EventEmitter {
   }
 
   init(): void {
-    this.panel = document.querySelector(`${this.state.containerClass} .js-panel`);
     this.setValues();
     this.addPanelListeners();
-    this.slider.subscribe('send-state', (data: ISliderOptions) => {
-      this.getData(data);
+    this.slider.subscribe('send-state', (data) => {
+      this.getData(data as ISliderOptions);
     });
   }
 
@@ -52,13 +53,13 @@ class Panel extends EventEmitter {
     this.createPanelElement('.js-panel__unit_slider-step', sliderStep);
     this.createPanelElement('.js-panel__unit_units', units);
     const checkBoxIsVertical = this.panel.querySelector('.js-panel__unit_is-vertical');
-    this.checkInputs(checkBoxIsVertical, isVertical);
+    this.checkInputs(checkBoxIsVertical as HTMLInputElement, isVertical);
     const checkBoxIsRange = this.panel.querySelector('.js-panel__unit_is-range');
-    this.checkInputs(checkBoxIsRange, isRange);
+    this.checkInputs(checkBoxIsRange as HTMLInputElement, isRange);
     const checkBoxShowValues = this.panel.querySelector(
       '.js-panel__unit_show-values',
     );
-    this.checkInputs(checkBoxShowValues, showValues);
+    this.checkInputs(checkBoxShowValues as HTMLInputElement, showValues);
   }
 
   checkInputs(elem: HTMLInputElement, isTrue: boolean): void {
@@ -70,10 +71,9 @@ class Panel extends EventEmitter {
     }
     this.listeners = Array.from(this.listeners);
   }
-
+  
   createPanelElement(selector: string, val: number | string): void {
-    const elem = this.panel.querySelector(selector)!;
-    console.log(elem);
+    const elem = this.panel.querySelector(selector) as HTMLInputElement;
     elem.value = val.toString();
     this.listeners.push(elem);
   }
@@ -87,19 +87,20 @@ class Panel extends EventEmitter {
   }
 
   updatePanel(): void {
-    this.listeners.forEach((listener: HTMLInputElement | HTMLElement) => {
+    this.listeners.forEach((listener: HTMLElement | HTMLInputElement) => {
+      const textInput = listener as HTMLInputElement;
       if (listener.classList.contains('js-panel__unit_max-value')) {
-        listener.value = this.state.maxValue;
+        textInput.value = `${this.state.maxValue}`;
       } else if (listener.classList.contains('js-panel__unit_min-value')) {
-        listener.value = this.state.minValue;
+        textInput.value =  `${this.state.minValue}`;
       } else if (listener.classList.contains('js-panel__unit_to-val')) {
-        listener.value = this.state.toVal;
+        textInput.value = `${this.state.toVal}`;
       } else if (listener.classList.contains('js-panel__unit_from-val')) {
-        listener.value = this.state.fromVal;
+        textInput.value = `${this.state.fromVal}`;
       } else if (listener.classList.contains('js-panel__unit_slider-step')) {
-        listener.value = this.state.sliderStep;
+        textInput.value = `${this.state.sliderStep}`;
       } else if (listener.classList.contains('js-panel__unit_units')) {
-        listener.value = this.state.units;
+        textInput.value = this.state.units;
       }
     });
   }
@@ -107,7 +108,7 @@ class Panel extends EventEmitter {
   handleChanges(ev: Event): void {
     const {
       classList, checked, name, value,
-    } = ev.target;
+    } = ev.target as HTMLInputElement;
     if (classList.contains('js-panel__unit_is-checkbox')) {
       if (name === 'vertical') {
         this.state.isVertical = checked === true;

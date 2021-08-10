@@ -1,4 +1,4 @@
-import { createElementSlider } from '../../functions/functions.ts';
+import { createElementSlider } from '../../functions/functions';
 
 class ViewBar {
   viewBar: HTMLElement;

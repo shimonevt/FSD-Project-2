@@ -1,11 +1,9 @@
 import {
-  ISliderCoordinates,
-  ISliderParameters,
   IRenderValues,
-} from '../options/options.ts';
-import EventEmitter from '../eventEmitter/eventEmitter.ts';
-import { createElementSlider, getContainer } from '../functions/functions.ts';
-import ViewBody from './viewBody/viewBody.ts';
+} from '../options/options';
+import EventEmitter from '../eventEmitter/eventEmitter';
+import { createElementSlider, getContainer } from '../functions/functions';
+import ViewBody from './viewBody/viewBody';
 
 class View extends EventEmitter {
   container: Element;
@@ -36,31 +34,13 @@ class View extends EventEmitter {
     });
     this.viewBody.subscribe(
       'slider-clicked',
-      (data: {
-        top: number,
-        left: number,
-        target: HTMLElement,
-        sliderData: {
-          sliderParameters: ISliderParameters;
-          sliderCoordinates: ISliderCoordinates;
-          handlerWidth: number;
-        };
-      }) => {
+      (data) => {
         this.emit('slider-clicked', data);
       },
     );
     this.viewBody.subscribe(
       'handle-dragged',
-      (data: {
-        top: number;
-        left: number;
-        info: string;
-        sliderData: {
-          sliderParameters: ISliderParameters;
-          sliderCoordinates: ISliderCoordinates;
-          handlerWidth: number;
-        };
-      }) => {
+      (data) => {
         this.emit('handle-dragged', data);
       },
     );
@@ -68,8 +48,14 @@ class View extends EventEmitter {
   }
 
   updateParameters(): {
-    sliderParameters: ISliderParameters;
-    sliderCoordinates: ISliderCoordinates;
+    sliderParameters: {
+        width: number;
+        height: number;
+    };
+    sliderCoordinates: {
+        top: number;
+        left: number;
+    };
     handlerWidth: number;
     } {
     return this.viewBody.getParameters();

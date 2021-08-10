@@ -1,10 +1,6 @@
-import EventEmitter from '../eventEmitter/eventEmitter.ts';
-import {
-  ISliderCoordinates,
-  ISliderOptions,
-  ISliderParameters,
-} from '../options/options.ts';
-import { handler } from '../view/viewHandlers/viewHandlers.ts';
+import EventEmitter from '../eventEmitter/eventEmitter';
+import { IRenderValues, ISliderOptions } from '../options/options';
+import { handler } from '../view/viewHandlers/viewHandlers';
 
 class Model extends EventEmitter {
   state: ISliderOptions;
@@ -14,30 +10,36 @@ class Model extends EventEmitter {
     this.state = options;
   }
 
-  getInitViewParameters(data: {
-    sliderParameters: ISliderParameters;
-    sliderCoordinates: ISliderCoordinates;
+  getInitViewParameters(sliderData: {
+    sliderParameters: { width: number; height: number };
+    sliderCoordinates: { top: number; left: number };
     handlerWidth: number;
   }) {
     this.state = {
       ...this.state,
-      sliderParameters: data.sliderParameters,
-      sliderCoordinates: data.sliderCoordinates,
-      handlerWidth: data.handlerWidth,
+      sliderParameters: sliderData.sliderParameters,
+      sliderCoordinates: sliderData.sliderCoordinates,
+      handlerWidth: sliderData.handlerWidth,
     };
     this.sendStylesForFirstRender(this.state);
   }
 
-  getViewParameters(data: {
-    sliderParameters: ISliderParameters;
-    sliderCoordinates: ISliderCoordinates;
+  getViewParameters(sliderData: {
+    sliderParameters: { width: number; height: number };
+    sliderCoordinates: { top: number; left: number };
     handlerWidth: number;
   }): void {
     this.state = {
       ...this.state,
-      sliderParameters: data.sliderParameters,
-      sliderCoordinates: data.sliderCoordinates,
-      handlerWidth: data.handlerWidth,
+      sliderParameters: {
+        width: sliderData.sliderParameters.width,
+        height: sliderData.sliderParameters.height,
+      },
+      sliderCoordinates: {
+        top: sliderData.sliderCoordinates.top,
+        left: sliderData.sliderCoordinates.left,
+      },
+      handlerWidth: sliderData.handlerWidth,
     };
     this.sendStylesForRender(this.state);
   }
@@ -48,20 +50,28 @@ class Model extends EventEmitter {
   }
 
   clickTreatment(data: {
-    top: number,
-    left: number,
-    target: EventTarget,
-    isBarUnit: boolean,
+    top: number;
+    left: number;
+    target: HTMLElement;
+    isBarUnit: boolean;
     sliderData: {
-      sliderParameters: ISliderParameters;
-      sliderCoordinates: ISliderCoordinates;
+      sliderParameters: { width: number; height: number };
+      sliderCoordinates: { top: number; left: number };
       handlerWidth: number;
     };
   }): void {
-    this.getViewParameters(data.sliderData);
-    this.sendStylesForRender(this.calcDataClick({
-      top: data.top, left: data.left, target: data.target, isBarUnit: data.isBarUnit,
-    }));
+    const {
+      top, left, isBarUnit, target, sliderData,
+    } = data;
+    this.getViewParameters(sliderData);
+    this.sendStylesForRender(
+      this.calcDataClick({
+        top,
+        left,
+        target,
+        isBarUnit,
+      }),
+    );
   }
 
   dragNDropTreatment(data: {
@@ -69,8 +79,14 @@ class Model extends EventEmitter {
     left: number;
     info: string;
     sliderData: {
-      sliderParameters: ISliderParameters;
-      sliderCoordinates: ISliderCoordinates;
+      sliderParameters: {
+        width: number;
+        height: number;
+      };
+      sliderCoordinates: {
+        top: number;
+        left: number;
+      };
       handlerWidth: number;
     };
   }): void {
@@ -116,12 +132,15 @@ class Model extends EventEmitter {
   }
 
   calcDataClick(data: {
-    top: number, left: number,
-    target: HTMLElement, isBarUnit: boolean }): ISliderOptions {
+    top: number;
+    left: number;
+    target: HTMLElement;
+    isBarUnit: boolean;
+  }): ISliderOptions {
     const { target, isBarUnit } = data;
     const { isRange } = this.state;
     let currentPosition;
-    if (isBarUnit) {
+    if (isBarUnit && target.dataset.location) {
       currentPosition = parseInt(target.dataset.location, 10);
     } else {
       currentPosition = this.calcCurrentPosition(data);
@@ -175,7 +194,7 @@ class Model extends EventEmitter {
         this.state.fromVal = minValue;
       }
     }
-    const firstRenderData = {
+    const firstRenderData: IRenderValues = {
       coordinates: isVertical
         ? ['vertical', 'bottom: ', 'height: ']
         : ['horizontal', 'left: ', 'width: '],
@@ -191,7 +210,10 @@ class Model extends EventEmitter {
         ? this.calcBarSize(sliderParameters?.height)
         : this.calcBarSize(sliderParameters?.width),
       showValues,
-      values: [this.setVal(fromVal, units), this.setVal(toVal, units)],
+      values: {
+        fromValNum: this.setVal(fromVal, units),
+        toValNum: this.setVal(toVal, units),
+      },
       valuesPosition: [
         this.setValPosition(fromVal, maxValue, minValue),
         this.setValPosition(toVal, maxValue, minValue),
@@ -226,7 +248,7 @@ class Model extends EventEmitter {
         this.state.fromVal = minValue;
       }
     }
-    const renderData = {
+    const renderData: IRenderValues = {
       coordinates: isVertical
         ? ['vertical', 'bottom: ', 'height: ']
         : ['horizontal', 'left: ', 'width: '],
@@ -335,7 +357,7 @@ class Model extends EventEmitter {
     );
   }
 
-  calcCurrentPosition(coords: { left: number; top: number }): number {
+  calcCurrentPosition(coords: { top: number; left: number }): number {
     const { isVertical, sliderCoordinates, sliderParameters } = this.state;
     const cursorPosition = isVertical
       ? sliderCoordinates?.top + sliderParameters?.height - coords.top

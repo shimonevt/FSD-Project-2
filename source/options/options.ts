@@ -7,19 +7,25 @@ export interface ISliderCoordinates {
   top: number;
 }
 export interface ISliderOptions {
-  containerClass?: string;
-  minValue?: number;
-  maxValue?: number;
-  isRange?: boolean;
-  isVertical?: boolean;
-  fromVal?: number;
-  toVal?: number;
-  sliderStep?: number;
-  units?: string;
-  showValues?: boolean;
-  handlerWidth?: number;
-  sliderParameters?: ISliderParameters;
-  sliderCoordinates?: ISliderCoordinates;
+  containerClass: string;
+  minValue: number;
+  maxValue: number;
+  isRange: boolean;
+  isVertical: boolean;
+  fromVal: number;
+  toVal: number;
+  sliderStep: number;
+  units: string;
+  showValues: boolean;
+  handlerWidth: number;
+  sliderParameters: {
+    width: number;
+    height: number;
+  };
+  sliderCoordinates: {
+    top: number;
+    left: number;
+  };
 }
 
 export interface IRenderValues {
@@ -30,14 +36,31 @@ export interface IRenderValues {
   rangeTo: number;
   rangeFrom: number;
   showValues: boolean;
-  values: string[];
+  values: { fromValNum: string; toValNum: string };
   valuesPosition: number[];
   maxValue: number;
   minValue: number;
+  sliderStep: number;
 }
-
+export type ClickableData = {
+  top: number;
+  left: number;
+  target: EventTarget;
+  isBarUnit: boolean;
+  sliderData: {
+    sliderParameters: {
+      width: number;
+      height: number;
+    };
+    sliderCoordinates: {
+      top: number;
+      left: number;
+    };
+    handlerWidth: number;
+  };
+};
 export const sliderOptionsDefault: ISliderOptions = {
-  containerClass: '.container',
+  containerClass: '.js-container',
   minValue: 0,
   maxValue: 500,
   isRange: true,
@@ -47,4 +70,7 @@ export const sliderOptionsDefault: ISliderOptions = {
   sliderStep: 1,
   units: '$',
   showValues: false,
+  handlerWidth: 18,
+  sliderParameters: { width: 0, height: 0 },
+  sliderCoordinates: { top: 0, left: 0 },
 };

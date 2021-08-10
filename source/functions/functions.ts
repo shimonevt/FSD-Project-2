@@ -5,8 +5,8 @@ export function createElementSlider(selectors: string[]): HTMLDivElement {
   }
   return elem;
 }
-export function getContainer(selector: string): HTMLElement {
-  return document.querySelector(selector);
+export function getContainer(selector: string):HTMLElement {
+    return document.querySelector(selector)!;
 }
 export function calcScaleStep(range: number, sliderStep: number):number {
   for (let i = sliderStep; i <= range; i += sliderStep) {
@@ -15,4 +15,10 @@ export function calcScaleStep(range: number, sliderStep: number):number {
     }
   }
   return sliderStep;
+}
+export function checkUndefined(value: number|string|boolean) {
+  if (value !== undefined) {
+    return value;
+  }
+  throw new Error('value is undefined!');
 }

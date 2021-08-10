@@ -1,14 +1,10 @@
-import { createElementSlider } from '../../functions/functions.ts';
-import {
-  ISliderCoordinates,
-  ISliderParameters,
-  IRenderValues,
-} from '../../options/options.ts';
-import EventEmitter from '../../eventEmitter/eventEmitter.ts';
-import ViewBar from '../viewBar/viewBar.ts';
-import ViewHandlers from '../viewHandlers/viewHandlers.ts';
-import ViewValues from '../viewValues/viewValues.ts';
-import ViewScale from '../viewScale/viewScale.ts';
+import { createElementSlider } from '../../functions/functions';
+import { ISliderCoordinates, IRenderValues } from '../../options/options';
+import EventEmitter, { SliderDataType } from '../../eventEmitter/eventEmitter';
+import ViewBar from '../viewBar/viewBar';
+import ViewHandlers from '../viewHandlers/viewHandlers';
+import ViewValues from '../viewValues/viewValues';
+import ViewScale from '../viewScale/viewScale';
 
 class ViewBody extends EventEmitter {
   sliderBody: HTMLElement;
@@ -34,7 +30,11 @@ class ViewBody extends EventEmitter {
     this.viewScale = new ViewScale(this.sliderBody);
   }
 
-  getParameters() {
+  getParameters(): {
+    sliderParameters: { width: number; height: number };
+    sliderCoordinates: { top: number; left: number };
+    handlerWidth: number;
+    } {
     return {
       sliderParameters: this.getSliderParameters(),
       sliderCoordinates: this.getSliderCoords(),
@@ -42,7 +42,7 @@ class ViewBody extends EventEmitter {
     };
   }
 
-  getSliderParameters(): ISliderParameters {
+  getSliderParameters(): { height: number; width: number } {
     return {
       height: parseInt(window.getComputedStyle(this.sliderBody).height, 10),
       width: parseInt(window.getComputedStyle(this.sliderBody).width, 10),
@@ -84,13 +84,16 @@ class ViewBody extends EventEmitter {
 
   getAndSendClickPosition(ev: MouseEvent): void {
     const sliderData = this.getParameters();
-    if (this.checkClickTarget(ev.target)) {
+    const target = ev.target as HTMLElement;
+    if (this.checkClickTarget(target)) {
       this.emit('slider-clicked', {
         top: ev.clientY,
         left: ev.clientX,
         sliderData,
-        target: ev.target,
-        isBarUnit: ev.target.classList.contains('js-range-slider__bar-unit') || ev.target.classList.contains('js-range-slider__unit-value'),
+        target,
+        isBarUnit:
+          target.classList.contains('js-range-slider__bar-unit')
+          || target.classList.contains('js-range-slider__unit-value'),
       });
     }
   }
@@ -106,8 +109,8 @@ class ViewBody extends EventEmitter {
     });
     this.viewHandlers.subscribe(
       'handle-dragged',
-      (data: { top: number; left: number; info: string }) => {
-        this.sendHandleDragData(data);
+      (data: SliderDataType) => {
+        this.sendHandleDragData(data as { top: number; left: number; info: string });
       },
     );
     this.viewHandlers.addDragNDrop();

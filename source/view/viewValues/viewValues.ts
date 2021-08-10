@@ -1,5 +1,5 @@
-import { createElementSlider } from '../../functions/functions.ts';
-import { IRenderValues } from '../../options/options.ts';
+import { createElementSlider } from '../../functions/functions';
+import { IRenderValues } from '../../options/options';
 
 class ViewValues {
   toVal: HTMLElement;

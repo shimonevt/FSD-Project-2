@@ -4,6 +4,7 @@ import { ISliderOptions } from '../options/options';
 import Presenter from '../presenter/presenter';
 
 class Panel extends EventEmitter {
+  
   slider: Presenter;
 
   state: ISliderOptions;
@@ -12,10 +13,10 @@ class Panel extends EventEmitter {
 
   listeners: (HTMLElement | HTMLInputElement)[];
 
-  constructor(slider: Presenter) {
+  constructor($slider: any) {
     super();
     this.listeners = [];
-    this.slider = slider;
+    this.slider = $($slider).get(0);
     this.state = this.slider.model.state;
     this.panel = getContainer(`${this.state.containerClass} .js-panel`);
     this.init();

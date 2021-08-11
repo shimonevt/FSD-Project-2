@@ -42,23 +42,7 @@ export interface IRenderValues {
   minValue: number;
   sliderStep: number;
 }
-export type ClickableData = {
-  top: number;
-  left: number;
-  target: EventTarget;
-  isBarUnit: boolean;
-  sliderData: {
-    sliderParameters: {
-      width: number;
-      height: number;
-    };
-    sliderCoordinates: {
-      top: number;
-      left: number;
-    };
-    handlerWidth: number;
-  };
-};
+
 export const sliderOptionsDefault: ISliderOptions = {
   containerClass: '.js-container',
   minValue: 0,

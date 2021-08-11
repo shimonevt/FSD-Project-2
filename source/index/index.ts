@@ -16,7 +16,7 @@ $(document).ready(() => {
     toVal: 400,
     sliderStep: 1,
     units: 'F',
-    showValues: false,
+    showValues: true,
   });
 
   const $slider3 = $('.js-container-3').rangeSlider({
@@ -29,7 +29,7 @@ $(document).ready(() => {
     units: '$',
     showValues: false,
   });
+  const panel1 = new Panel($slider1);
   const panel2 = new Panel($slider2);
   const panel3 = new Panel($slider3);
-  const panel1 = new Panel($slider1);
 });
